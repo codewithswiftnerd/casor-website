@@ -170,6 +170,8 @@
             cursor: pointer;
             text-transform: uppercase;
             transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
         .btn-outline:hover {
             background: var(--navy);
@@ -228,24 +230,23 @@
             z-index: 9999;
         }
 
-        /* small tweaks */
-        .file-input-wrapper {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .file-input-wrapper input[type="file"] {
-            flex: 1;
-            min-width: 160px;
-            padding: 10px;
-            border: 1px dashed #ccc;
+        .guide-box {
+            background: #f0f7ff;
+            border-left: 4px solid var(--gold);
+            padding: 16px 20px;
             border-radius: 4px;
-            background: #fafafa;
-            margin-bottom: 0;
+            margin-bottom: 16px;
+            font-size: 13px;
+            color: #333;
         }
-        .file-input-wrapper .btn {
-            flex-shrink: 0;
+        .guide-box strong {
+            color: var(--navy);
+        }
+        .guide-box code {
+            background: #e8ecf1;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
         }
 
         @media (max-width: 600px) {
@@ -262,12 +263,6 @@
             }
             .list-actions {
                 justify-content: flex-start;
-            }
-            .file-input-wrapper {
-                flex-direction: column;
-            }
-            .file-input-wrapper input[type="file"] {
-                width: 100%;
             }
         }
     </style>
@@ -287,20 +282,26 @@
     <main>
 
         <div class="tabs">
-            <button class="tab-btn active" data-panel="filesPanel">Files</button>
-            <button class="tab-btn" data-panel="recordsPanel">Records</button>
+            <button class="tab-btn active" data-panel="filesPanel">📁 Shared Files</button>
+            <button class="tab-btn" data-panel="recordsPanel">📝 Records</button>
         </div>
 
-        <!-- FILES PANEL -->
+        <!-- FILES PANEL (Google Drive links) -->
         <div class="panel active" id="filesPanel">
             <div class="card">
-                <h2>Upload a File</h2>
-                <input type="text" id="fileTitle" placeholder="File title (e.g. 'August Financial Report')" />
-                <div class="file-input-wrapper">
-                    <input type="file" id="fileInput" />
-                    <button class="btn" id="uploadBtn">Upload</button>
+                <h2>Add a Google Drive File Link</h2>
+                <div class="guide-box">
+                    <strong>📌 How to share a Google Drive file:</strong><br />
+                    1. Upload your file to Google Drive<br />
+                    2. Right-click the file → <strong>Share</strong><br />
+                    3. Click <strong>"Anyone with the link"</strong><br />
+                    4. Copy the link and paste it below<br />
+                    5. Click <strong>Add File</strong>
                 </div>
-                <div id="uploadFeedback" style="margin-top:8px;font-size:13px;color:#888;"></div>
+                <input type="text" id="fileTitle" placeholder="File title (e.g. 'August Financial Report')" />
+                <input type="url" id="fileUrl" placeholder="Google Drive shareable link (https://drive.google.com/...)" />
+                <button class="btn" id="addFileBtn">Add File</button>
+                <div id="fileFeedback" style="margin-top:8px;font-size:13px;color:#888;"></div>
             </div>
 
             <div class="card">
@@ -334,8 +335,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js">
     </script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js">
-    </script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js">
     </script>
     <script src="firebase-config.js">
     </script>
@@ -388,51 +387,49 @@
         });
 
         // ============================================================
-        //  FILES
+        //  FILES (Google Drive links)
         // ============================================================
-        const uploadBtn = document.getElementById('uploadBtn');
+        const addFileBtn = document.getElementById('addFileBtn');
         const fileTitle = document.getElementById('fileTitle');
-        const fileInput = document.getElementById('fileInput');
-        const uploadFeedback = document.getElementById('uploadFeedback');
+        const fileUrl = document.getElementById('fileUrl');
+        const fileFeedback = document.getElementById('fileFeedback');
 
-        uploadBtn.addEventListener('click', async () => {
+        addFileBtn.addEventListener('click', async () => {
             const title = fileTitle.value.trim();
-            const file = fileInput.files[0];
-            if (!title) { uploadFeedback.textContent = '⚠️ Please enter a file title.';
-                uploadFeedback.style.color = '#b3261e'; return; }
-            if (!file) { uploadFeedback.textContent = '⚠️ Please choose a file to upload.';
-                uploadFeedback.style.color = '#b3261e'; return; }
+            const url = fileUrl.value.trim();
+            if (!title) { fileFeedback.textContent = '⚠️ Please enter a file title.';
+                fileFeedback.style.color = '#b3261e'; return; }
+            if (!url) { fileFeedback.textContent = '⚠️ Please paste the Google Drive link.';
+                fileFeedback.style.color = '#b3261e'; return; }
+            if (!url.includes('drive.google.com')) {
+                fileFeedback.textContent = '⚠️ Please enter a valid Google Drive link.';
+                fileFeedback.style.color = '#b3261e';
+                return;
+            }
 
-            uploadBtn.disabled = true;
-            uploadBtn.textContent = 'Uploading...';
-            uploadFeedback.textContent = '';
+            addFileBtn.disabled = true;
+            addFileBtn.textContent = 'Adding...';
+            fileFeedback.textContent = '';
 
             try {
-                const path = `files/${Date.now()}_${file.name}`;
-                const ref = storage.ref(path);
-                await ref.put(file);
-                const url = await ref.getDownloadURL();
-
                 await db.collection('files').add({
-                    title,
-                    url,
-                    path,
-                    fileName: file.name,
+                    title: title,
+                    url: url,
                     uploadedBy: auth.currentUser.email,
                     uploadedAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
                 fileTitle.value = '';
-                fileInput.value = '';
-                uploadFeedback.textContent = '✅ File uploaded successfully!';
-                uploadFeedback.style.color = '#1e7a34';
+                fileUrl.value = '';
+                fileFeedback.textContent = '✅ File link added successfully!';
+                fileFeedback.style.color = '#1e7a34';
                 loadFiles();
             } catch (err) {
-                uploadFeedback.textContent = '❌ Upload failed: ' + err.message;
-                uploadFeedback.style.color = '#b3261e';
+                fileFeedback.textContent = '❌ Failed: ' + err.message;
+                fileFeedback.style.color = '#b3261e';
             } finally {
-                uploadBtn.disabled = false;
-                uploadBtn.textContent = 'Upload';
+                addFileBtn.disabled = false;
+                addFileBtn.textContent = 'Add File';
             }
         });
 
@@ -440,7 +437,7 @@
             db.collection('files').orderBy('uploadedAt', 'desc').onSnapshot(snap => {
                 const list = document.getElementById('filesList');
                 if (snap.empty) {
-                    list.innerHTML = '<p style="color:#888;font-size:13px;">No files yet.</p>';
+                    list.innerHTML = '<p style="color:#888;font-size:13px;">No files shared yet.</p>';
                     return;
                 }
                 let html = '';
@@ -453,24 +450,22 @@
                             <div class="list-item">
                                 <div class="list-item-main">
                                     <strong>${safeTitle}</strong>
-                                    <span>Uploaded by ${safeUploader} · ${date}</span>
+                                    <span>Added by ${safeUploader} · ${date}</span>
                                 </div>
                                 <div class="list-actions">
-                                    <a class="btn-outline" href="${d.url}" target="_blank" rel="noopener">View / Download</a>
-                                    <button class="btn-outline btn-danger" data-docid="${doc.id}" data-path="${escapeHtml(d.path)}">Delete</button>
+                                    <a class="btn-outline" href="${d.url}" target="_blank" rel="noopener">📂 Open in Drive</a>
+                                    <button class="btn-outline btn-danger" data-docid="${doc.id}">Delete</button>
                                 </div>
                             </div>`;
                 });
                 list.innerHTML = html;
 
-                // Attach delete handlers
+                // Delete handlers
                 list.querySelectorAll('[data-docid]').forEach(btn => {
                     btn.addEventListener('click', async () => {
                         const docId = btn.dataset.docid;
-                        const path = btn.dataset.path;
-                        if (!confirm('Delete this file for everyone?')) return;
+                        if (!confirm('Delete this file link?')) return;
                         try {
-                            await storage.ref(path).delete();
                             await db.collection('files').doc(docId).delete();
                         } catch (err) {
                             alert('Delete failed: ' + err.message);
@@ -579,7 +574,6 @@
                         recordBody.value = body;
                         recordFormTitle.textContent = 'Edit Record';
                         cancelEditBtn.style.display = 'inline-block';
-                        // Switch to records tab
                         document.querySelector('[data-panel="recordsPanel"]').click();
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     });
@@ -599,9 +593,6 @@
                 });
             });
         }
-
-        // ===== Fix: if user lands on records tab with edit state, show cancel button =====
-        // (already handled by resetRecordForm on cancel)
     </script>
 
 </body>
