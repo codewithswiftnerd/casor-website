@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EXCO Dashboard — CASOR UNIPORT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --navy: #0B1F44;
+            --navy-dark: #071531;
+            --gold: #FFC72C;
+            --gold-dark: #E6A800;
+            --cream: #F7F3E8;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cream);
+            color: #222;
+        }
+
+        header {
+            background: var(--navy);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 6%;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        header h1 span {
+            color: var(--gold);
+        }
+        #userInfo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 13px;
+            color: #cfd6e4;
+        }
+        #logoutBtn {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border: none;
+            padding: 9px 18px;
+            border-radius: 3px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        #logoutBtn:hover {
+            background: #fff;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 6% 80px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 10px 22px;
+            border: 2px solid var(--navy);
+            background: none;
+            color: var(--navy);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .tab-btn:hover {
+            background: var(--navy);
+            color: #fff;
+        }
+        .tab-btn.active {
+            background: var(--navy);
+            color: #fff;
+        }
+
+        .panel {
+            display: none;
+        }
+        .panel.active {
+            display: block;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 6px;
+            padding: 26px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+        }
+        .card h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 17px;
+            color: var(--navy);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        input:focus,
+        textarea:focus {
+            outline: 2px solid var(--gold);
+            border-color: transparent;
+        }
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border: none;
+            padding: 11px 24px;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 13px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: var(--gold-dark);
+        }
+        .btn-outline {
+            background: none;
+            border: 2px solid var(--navy);
+            color: var(--navy);
+            padding: 9px 18px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .btn-outline:hover {
+            background: var(--navy);
+            color: #fff;
+        }
+        .btn-danger {
+            color: #b3261e;
+            border-color: #b3261e;
+        }
+        .btn-danger:hover {
+            background: #b3261e;
+            color: #fff;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+        }
+        .list-item:last-child {
+            border-bottom: none;
+        }
+        .list-item-main {
+            flex: 1;
+            min-width: 200px;
+        }
+        .list-item-main strong {
+            display: block;
+            color: var(--navy);
+            font-size: 14px;
+        }
+        .list-item-main span {
+            font-size: 12px;
+            color: #888;
+        }
+        .list-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        #loadingScreen {
+            position: fixed;
+            inset: 0;
+            background: var(--navy);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            z-index: 9999;
+        }
+
+        /* small tweaks */
+        .file-input-wrapper {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .file-input-wrapper input[type="file"] {
+            flex: 1;
+            min-width: 160px;
+            padding: 10px;
+            border: 1px dashed #ccc;
+            border-radius: 4px;
+            background: #fafafa;
+            margin-bottom: 0;
+        }
+        .file-input-wrapper .btn {
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 14px;
+            }
+            #userInfo {
+                font-size: 11px;
+                flex-wrap: wrap;
+            }
+            .list-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .list-actions {
+                justify-content: flex-start;
+            }
+            .file-input-wrapper {
+                flex-direction: column;
+            }
+            .file-input-wrapper input[type="file"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loadingScreen">Loading...</div>
+
+    <header>
+        <h1>CASOR <span>EXCO Portal</span></h1>
+        <div id="userInfo">
+            <span id="userEmail"></span>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </header>
+
+    <main>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-panel="filesPanel">Files</button>
+            <button class="tab-btn" data-panel="recordsPanel">Records</button>
+        </div>
+
+        <!-- FILES PANEL -->
+        <div class="panel active" id="filesPanel">
+            <div class="card">
+                <h2>Upload a File</h2>
+                <input type="text" id="fileTitle" placeholder="File title (e.g. 'August Financial Report')" />
+                <div class="file-input-wrapper">
+                    <input type="file" id="fileInput" />
+                    <button class="btn" id="uploadBtn">Upload</button>
+                </div>
+                <div id="uploadFeedback" style="margin-top:8px;font-size:13px;color:#888;"></div>
+            </div>
+
+            <div class="card">
+                <h2>Shared Files</h2>
+                <div id="filesList"><p style="color:#888;font-size:13px;">Loading files...</p></div>
+            </div>
+        </div>
+
+        <!-- RECORDS PANEL -->
+        <div class="panel" id="recordsPanel">
+            <div class="card">
+                <h2 id="recordFormTitle">Add a Record</h2>
+                <input type="hidden" id="recordId" />
+                <input type="text" id="recordTitle" placeholder="Title (e.g. 'Exec Meeting Minutes — July 2026')" />
+                <textarea id="recordBody" placeholder="Details / notes..."></textarea>
+                <button class="btn" id="saveRecordBtn">Save Record</button>
+                <button class="btn-outline" id="cancelEditBtn" style="display:none;margin-left:10px;">Cancel</button>
+                <div id="recordFeedback" style="margin-top:8px;font-size:13px;color:#888;"></div>
+            </div>
+
+            <div class="card">
+                <h2>All Records</h2>
+                <div id="recordsList"><p style="color:#888;font-size:13px;">Loading records...</p></div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js">
+    </script>
+    <script src="firebase-config.js">
+    </script>
+    <script>
+        // ===== ESCAPE HTML =====
+        function escapeHtml(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // ===== AUTH GUARD =====
+        auth.onAuthStateChanged(async user => {
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            try {
+                const profile = await db.collection('excos').doc(user.uid).get();
+                if (!profile.exists || profile.data().status !== 'approved') {
+                    alert('Your account is not approved for access yet.');
+                    await auth.signOut();
+                    window.location.href = 'login.html';
+                    return;
+                }
+            } catch (_) {
+                await auth.signOut();
+                window.location.href = 'login.html';
+                return;
+            }
+            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('loadingScreen').style.display = 'none';
+            loadFiles();
+            loadRecords();
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            auth.signOut().then(() => window.location.href = 'login.html');
+        });
+
+        // ===== TABS =====
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.panel).classList.add('active');
+            });
+        });
+
+        // ============================================================
+        //  FILES
+        // ============================================================
+        const uploadBtn = document.getElementById('uploadBtn');
+        const fileTitle = document.getElementById('fileTitle');
+        const fileInput = document.getElementById('fileInput');
+        const uploadFeedback = document.getElementById('uploadFeedback');
+
+        uploadBtn.addEventListener('click', async () => {
+            const title = fileTitle.value.trim();
+            const file = fileInput.files[0];
+            if (!title) { uploadFeedback.textContent = '⚠️ Please enter a file title.';
+                uploadFeedback.style.color = '#b3261e'; return; }
+            if (!file) { uploadFeedback.textContent = '⚠️ Please choose a file to upload.';
+                uploadFeedback.style.color = '#b3261e'; return; }
+
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = 'Uploading...';
+            uploadFeedback.textContent = '';
+
+            try {
+                const path = `files/${Date.now()}_${file.name}`;
+                const ref = storage.ref(path);
+                await ref.put(file);
+                const url = await ref.getDownloadURL();
+
+                await db.collection('files').add({
+                    title,
+                    url,
+                    path,
+                    fileName: file.name,
+                    uploadedBy: auth.currentUser.email,
+                    uploadedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                fileTitle.value = '';
+                fileInput.value = '';
+                uploadFeedback.textContent = '✅ File uploaded successfully!';
+                uploadFeedback.style.color = '#1e7a34';
+                loadFiles();
+            } catch (err) {
+                uploadFeedback.textContent = '❌ Upload failed: ' + err.message;
+                uploadFeedback.style.color = '#b3261e';
+            } finally {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Upload';
+            }
+        });
+
+        function loadFiles() {
+            db.collection('files').orderBy('uploadedAt', 'desc').onSnapshot(snap => {
+                const list = document.getElementById('filesList');
+                if (snap.empty) {
+                    list.innerHTML = '<p style="color:#888;font-size:13px;">No files yet.</p>';
+                    return;
+                }
+                let html = '';
+                snap.forEach(doc => {
+                    const d = doc.data();
+                    const date = d.uploadedAt ? d.uploadedAt.toDate().toLocaleDateString() : '';
+                    const safeTitle = escapeHtml(d.title);
+                    const safeUploader = escapeHtml(d.uploadedBy || '');
+                    html += `
+                            <div class="list-item">
+                                <div class="list-item-main">
+                                    <strong>${safeTitle}</strong>
+                                    <span>Uploaded by ${safeUploader} · ${date}</span>
+                                </div>
+                                <div class="list-actions">
+                                    <a class="btn-outline" href="${d.url}" target="_blank" rel="noopener">View / Download</a>
+                                    <button class="btn-outline btn-danger" data-docid="${doc.id}" data-path="${escapeHtml(d.path)}">Delete</button>
+                                </div>
+                            </div>`;
+                });
+                list.innerHTML = html;
+
+                // Attach delete handlers
+                list.querySelectorAll('[data-docid]').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const docId = btn.dataset.docid;
+                        const path = btn.dataset.path;
+                        if (!confirm('Delete this file for everyone?')) return;
+                        try {
+                            await storage.ref(path).delete();
+                            await db.collection('files').doc(docId).delete();
+                        } catch (err) {
+                            alert('Delete failed: ' + err.message);
+                        }
+                    });
+                });
+            });
+        }
+
+        // ============================================================
+        //  RECORDS
+        // ============================================================
+        const recordId = document.getElementById('recordId');
+        const recordTitle = document.getElementById('recordTitle');
+        const recordBody = document.getElementById('recordBody');
+        const saveRecordBtn = document.getElementById('saveRecordBtn');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        const recordFormTitle = document.getElementById('recordFormTitle');
+        const recordFeedback = document.getElementById('recordFeedback');
+
+        saveRecordBtn.addEventListener('click', async () => {
+            const id = recordId.value;
+            const title = recordTitle.value.trim();
+            const body = recordBody.value.trim();
+            if (!title) { recordFeedback.textContent = '⚠️ Please add a title.';
+                recordFeedback.style.color = '#b3261e'; return; }
+
+            const data = {
+                title,
+                body,
+                updatedBy: auth.currentUser.email,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            saveRecordBtn.disabled = true;
+            saveRecordBtn.textContent = 'Saving...';
+            recordFeedback.textContent = '';
+
+            try {
+                if (id) {
+                    await db.collection('records').doc(id).update(data);
+                } else {
+                    data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                    await db.collection('records').add(data);
+                }
+                resetRecordForm();
+                recordFeedback.textContent = '✅ Record saved!';
+                recordFeedback.style.color = '#1e7a34';
+            } catch (err) {
+                recordFeedback.textContent = '❌ Save failed: ' + err.message;
+                recordFeedback.style.color = '#b3261e';
+            } finally {
+                saveRecordBtn.disabled = false;
+                saveRecordBtn.textContent = 'Save Record';
+            }
+        });
+
+        cancelEditBtn.addEventListener('click', resetRecordForm);
+
+        function resetRecordForm() {
+            recordId.value = '';
+            recordTitle.value = '';
+            recordBody.value = '';
+            recordFormTitle.textContent = 'Add a Record';
+            cancelEditBtn.style.display = 'none';
+            recordFeedback.textContent = '';
+        }
+
+        function loadRecords() {
+            db.collection('records').orderBy('updatedAt', 'desc').onSnapshot(snap => {
+                const list = document.getElementById('recordsList');
+                if (snap.empty) {
+                    list.innerHTML = '<p style="color:#888;font-size:13px;">No records yet.</p>';
+                    return;
+                }
+                let html = '';
+                snap.forEach(doc => {
+                    const d = doc.data();
+                    const date = d.updatedAt ? d.updatedAt.toDate().toLocaleDateString() : '';
+                    const safeTitle = escapeHtml(d.title);
+                    const safeBody = escapeHtml(d.body || '');
+                    const safeUpdater = escapeHtml(d.updatedBy || '');
+                    const preview = safeBody.slice(0, 80) + (safeBody.length > 80 ? '...' : '');
+                    html += `
+                            <div class="list-item">
+                                <div class="list-item-main">
+                                    <strong>${safeTitle}</strong>
+                                    <span>${preview} · updated ${date} by ${safeUpdater}</span>
+                                </div>
+                                <div class="list-actions">
+                                    <button class="btn-outline" data-edit-id="${doc.id}" data-edit-title="${safeTitle}" data-edit-body="${safeBody}">Edit</button>
+                                    <button class="btn-outline btn-danger" data-del-id="${doc.id}">Delete</button>
+                                </div>
+                            </div>`;
+                });
+                list.innerHTML = html;
+
+                // Edit handlers
+                list.querySelectorAll('[data-edit-id]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.dataset.editId;
+                        const title = btn.dataset.editTitle;
+                        const body = btn.dataset.editBody;
+                        recordId.value = id;
+                        recordTitle.value = title;
+                        recordBody.value = body;
+                        recordFormTitle.textContent = 'Edit Record';
+                        cancelEditBtn.style.display = 'inline-block';
+                        // Switch to records tab
+                        document.querySelector('[data-panel="recordsPanel"]').click();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                });
+
+                // Delete handlers
+                list.querySelectorAll('[data-del-id]').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const id = btn.dataset.delId;
+                        if (!confirm('Delete this record?')) return;
+                        try {
+                            await db.collection('records').doc(id).delete();
+                        } catch (err) {
+                            alert('Delete failed: ' + err.message);
+                        }
+                    });
+                });
+            });
+        }
+
+        // ===== Fix: if user lands on records tab with edit state, show cancel button =====
+        // (already handled by resetRecordForm on cancel)
+    </script>
+
+</body>
+</html>
