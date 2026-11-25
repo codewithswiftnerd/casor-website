@@ -1,34 +1,3 @@
-// ============================================================
-// CASOR UNIPORT — Cloud Functions
-//
-// Push notifications and the newsletter are NOT here: they run on the
-// free Google Apps Script backend (/apps-script/Code.gs).
-//
-// What lives here (needs the Blaze plan to deploy):
-//   notifyAdminOnSignup  – emails the admin a review link for each new
-//                          EXCO signup (no one-click approval).
-//   reviewSignup         – callable; a signed-in ADMIN approves/rejects
-//                          a signup from portal/approve.html.
-//   approveSignup        – legacy URL from old emails. It no longer
-//                          changes anything; it only redirects to the
-//                          review page.
-//   deleteExco           – callable; admin removes an EXCO's profile
-//                          AND their login.
-//
-// Security model for approvals:
-//   * The token is generated HERE (server-side), never in the browser,
-//     and only its SHA-256 hash is stored, in approval_tokens/{uid}
-//     — a collection no client can read (see firestore.rules).
-//     (Previously the token sat on the applicant's own excos doc, which
-//     the applicant can read, so anyone could approve themselves as admin.)
-//   * Tokens expire after TOKEN_TTL_HOURS and are single-use.
-//   * Opening the emailed link changes nothing. The admin must be signed
-//     in on approve.html and explicitly press Approve or Reject, so email
-//     link scanners can't approve accounts.
-//   * reviewSignup re-checks admin status server-side, refuses
-//     self-approval and anything that isn't still pending, and is
-//     rate-limited per admin.
-// ============================================================
 
 const crypto = require('crypto');
 const { onDocumentCreated } = require('firebase-functions/v2/firestore');
@@ -41,25 +10,17 @@ const nodemailer = require('nodemailer');
 
 initializeApp();
 
-// Set once with:
-//   firebase functions:secrets:set GMAIL_USER
-//   firebase functions:secrets:set GMAIL_APP_PASSWORD   (a Google App Password)
 const GMAIL_USER = defineSecret('GMAIL_USER');
 const GMAIL_APP_PASSWORD = defineSecret('GMAIL_APP_PASSWORD');
 
-// Inbox that receives signup review requests.
 const ADMIN_EMAIL = 'igrie318@gmail.com';
-// Public site URL (taken from the site's canonical links). Change this if
-// the site moves to a custom domain.
 const SITE_URL = 'https://casoruniport.netlify.app';
-// Keep identical to isBootstrapAdmin() in firestore.rules.
 const BOOTSTRAP_ADMIN_EMAILS = ['igrie318@gmail.com'];
 
 const TOKEN_TTL_HOURS = 72;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX = 30;
 
-// Must match the office ids in portal/office-docs.js.
 const OFFICE_IDS = [
     'president', 'vice-president', 'general-secretary', 'asst-general-secretary',
     'financial-secretary', 'treasurer', 'organizing-secretary', 'asst-organizing-secretary',
@@ -117,9 +78,6 @@ async function enforceRateLimit(key) {
     });
 }
 
-// ------------------------------------------------------------
-// 1. New signup -> email the admin a REVIEW link (not an approve link)
-// ------------------------------------------------------------
 exports.notifyAdminOnSignup = onDocumentCreated(
     { document: 'excos/{uid}', secrets: [GMAIL_USER, GMAIL_APP_PASSWORD] },
     async (event) => {
@@ -171,9 +129,6 @@ exports.notifyAdminOnSignup = onDocumentCreated(
     }
 );
 
-// ------------------------------------------------------------
-// 2. Admin approves / rejects (called from approve.html)
-// ------------------------------------------------------------
 exports.reviewSignup = onCall(async (request) => {
     if (!(await callerIsAdmin(request))) {
         throw new HttpsError('permission-denied', 'Only a signed-in, verified admin can review signups.');
@@ -199,9 +154,6 @@ exports.reviewSignup = onCall(async (request) => {
             throw new HttpsError('already-exists', `This signup was already ${exco.status}.`);
         }
 
-        // If the admin arrived from the email link, the token must still
-        // be valid. (Without a token, the admin's own verified sign-in is
-        // the authority — same as the dashboard's Approvals tab.)
         if (token) {
             if (!tokenSnap.exists) throw new HttpsError('permission-denied', 'This review link is not valid.');
             const t = tokenSnap.data();
@@ -222,7 +174,7 @@ exports.reviewSignup = onCall(async (request) => {
             ...update,
             reviewedBy: request.auth.token.email || request.auth.uid,
             reviewedAt: FieldValue.serverTimestamp(),
-            approveToken: FieldValue.delete() // legacy field from old signups
+            approveToken: FieldValue.delete()
         });
         if (tokenSnap.exists) tx.update(tokenRef, { used: true, usedAt: FieldValue.serverTimestamp() });
         return { email: exco.email, name: exco.name };
@@ -240,17 +192,11 @@ exports.reviewSignup = onCall(async (request) => {
     return { success: true, decision, email: result.email };
 });
 
-// ------------------------------------------------------------
-// 3. Legacy link from older emails: never changes data.
-// ------------------------------------------------------------
 exports.approveSignup = onRequest((req, res) => {
     const uid = typeof req.query.uid === 'string' ? req.query.uid : '';
     res.redirect(302, `${SITE_URL}/portal/approve.html${uid ? '?uid=' + encodeURIComponent(uid) : ''}`);
 });
 
-// ------------------------------------------------------------
-// 4. Remove an EXCO (profile + login)
-// ------------------------------------------------------------
 exports.deleteExco = onCall(async (request) => {
     if (!(await callerIsAdmin(request))) {
         throw new HttpsError('permission-denied', 'Only admins can remove EXCOs.');

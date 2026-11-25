@@ -1,15 +1,3 @@
-// ============================================================
-//  "UPLOAD FROM DEVICE" for every link box in the dashboard.
-//
-//  Next to every link field (photos, documents, reports...) this adds an
-//  Upload button. Tap it, pick a file from your phone or computer, and it
-//  is saved automatically to the CASOR Google Drive via the free Apps
-//  Script backend (apps-script/Code.gs -> handleUploadRequest). The link
-//  is then filled in for you. No Firebase Storage, no Blaze plan, and
-//  nobody has to open Google Drive by hand.
-//
-//  Needs: APPS_SCRIPT_URL (dashboard.html) and the signed-in user.
-// ============================================================
 (function () {
     const MAX_BYTES = 20 * 1024 * 1024;
     const IMG_MAX_SIDE = 1800;
@@ -33,7 +21,6 @@
         });
     }
 
-    // Shrinks big photos in the browser so uploads stay quick on mobile data.
     async function shrinkImage(file) {
         if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size < 700 * 1024) return file;
         const url = URL.createObjectURL(file);

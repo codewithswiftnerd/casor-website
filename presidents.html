@@ -13,16 +13,13 @@
     <meta property="og:url" content="https://casoruniport.netlify.app/presidents.html" />
     <meta property="og:image" content="https://casoruniport.netlify.app/images/icon-512.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <!-- ===== FONTS ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-    <!-- ===== FONT AWESOME ===== -->
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
 
-    <!-- ===== STYLES ===== -->
     <link rel="icon" type="image/png" href="images/logo.png" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -34,7 +31,6 @@
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- ================= NAVBAR ================= -->
     <header>
         <div class="logo">
             <img src="images/logo.png" alt="CASOR Logo" data-img-slot="logo" />
@@ -60,7 +56,6 @@
         </div>
     </header>
 
-    <!-- ================= PAGE HERO ================= -->
     <section id="main" class="page-hero hero-bg-presidents" data-bg-slot="hero-presidents">
         <i class="fas fa-crown page-hero-icon" aria-hidden="true"></i>
         <div class="page-hero-inner">
@@ -80,7 +75,6 @@
         </div>
     </section>
 
-    <!-- ================= FOOTER ================= -->
     <footer id="contact">
 
         <div class="newsletter-row">
@@ -164,7 +158,6 @@
     <script src="install-prompt.js"></script>
 
     <script>
-        // ===== MOBILE MENU TOGGLE =====
         const menuToggle = document.getElementById('menuToggle');
         const mainNav = document.getElementById('mainNav');
 
@@ -186,7 +179,6 @@
             });
         });
 
-        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
@@ -199,14 +191,6 @@
             });
         });
 
-        // ============================================================
-        //  PAST PRESIDENTS - public, read-only, no login needed.
-        //
-        //  Firestore shape (collection: "presidents"), matching what
-        //  the EXCO Dashboard's "Presidents" tab writes:
-        //  { session, president, presidentPhoto, vp, vpPhoto, adminNote, order, createdAt }
-        //  Sorted newest session first via "order" (higher = more recent).
-        // ============================================================
         function escapeHtml(str) {
             if (!str) return '';
             return String(str)

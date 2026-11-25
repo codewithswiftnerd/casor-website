@@ -109,3 +109,16 @@ Recommended order: deploy the site files and rules together, then assign offices
 - The audio player can't play every Google Drive link. A direct `.mp3` URL is the most reliable.
 - Client-side audit entries are honest about *who* acted (uid and time are enforced), but the action text is supplied by the client.
 - Existing `unit_reports` created before this update have no `submittedByUid`. They stay readable and editable by their office and admins.
+
+---
+
+## Update: 25 Nov 2026 (Admin House, share links, covenant symbols)
+
+| File | Change |
+|---|---|
+| `index.html` | The unit photos ("Find Your Place") are gone from the homepage. The **Admin House** now shows there instead: President, VP, Gen Sec, Asst Gen Sec. Photos use the same Site Images slots as units.html, so one upload updates both pages. Each card has a **Share** button. |
+| `share.js` (new) | Share sheet with **WhatsApp**, **Copy link** and **More** (the phone's own share menu). Loaded on index, units and gallery. |
+| `units.html` | Every unit and every Admin House office has its own link and Share button, e.g. `units.html#unit-prayer`, `units.html#president`. Opening the link scrolls to that unit, opens it and highlights it. |
+| `gallery.html` | Share an album (icon on each album cover, and "Share album" inside an album) or a single photo ("Share photo" in the viewer). Links: `gallery.html?album=ID` and `gallery.html?album=ID&photo=ID`. |
+| Fivefold Covenant (index + about) | Roman numerals replaced with symbols: Life = green tree, Royalty = gold crown, Perfect Health = heartbeat, Peace = dove, Fruitfulness = fruit. |
+| `theme.css` | Styles for all of the above, added at the end. |

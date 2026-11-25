@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CASOR UNIPORT</title>
 
-
     <meta name="description" content="CASOR UNIPORT is a Christian fellowship at the University of Port Harcourt, Choba, Rivers State. Join us Sundays at 2:00 PM for worship, evangelism and fellowship." />
     <link rel="canonical" href="https://casoruniport.netlify.app/" />
     <meta property="og:type" content="website" />
@@ -14,16 +13,13 @@
     <meta property="og:url" content="https://casoruniport.netlify.app/" />
     <meta property="og:image" content="https://casoruniport.netlify.app/images/icon-512.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <!-- ===== FONTS ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-    <!-- ===== FONT AWESOME ===== -->
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
 
-    <!-- ===== STYLES ===== -->
     <link rel="icon" type="image/png" href="images/logo.png" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -35,46 +31,32 @@
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- ================= APP SPLASH (kinetic intro) =================
-         A ~12 second kinetic-typography intro: circles, a bouncing dot,
-         rotating words, a photo collage and a toggle pill. It plays once
-         per browser session and can always be skipped. The photos use the
-         splash-photo-1..8 slots and the toggle text uses splash-tagline,
-         so admins can change them from the dashboard. -->
     <div id="appSplash" class="ks" role="presentation" aria-hidden="true">
-        <!-- 1. Hello! -->
         <section class="ks-scene ks-light" data-d="1300">
             <span class="ks-circle ks-c1"></span><span class="ks-circle ks-c2"></span>
             <h2 class="ks-word ks-type" data-text="Hello!"></h2>
         </section>
-        <!-- 2. We are -->
         <section class="ks-scene ks-navy ks-rise" data-d="1000">
             <span class="ks-dot ks-dot-bounce"></span>
             <h2 class="ks-word ks-pop">We are</h2>
         </section>
-        <!-- 3. CASOR (spins in) -->
         <section class="ks-scene ks-navy" data-d="1000">
             <span class="ks-dot ks-dot-orbit"></span>
             <h2 class="ks-word ks-spin">CASOR</h2>
         </section>
-        <!-- 4. Full name -->
         <section class="ks-scene ks-navy" data-d="1200">
             <h2 class="ks-word ks-lines"><span>Christ Ambassadors</span><span>Students&rsquo; Outreach</span></h2>
             <span class="ks-dot ks-dot-low"></span>
         </section>
-        <!-- 5. Worship (circle grows) -->
         <section class="ks-scene ks-light" data-d="900">
             <span class="ks-grow"><span>Worship</span></span>
         </section>
-        <!-- 6. The Word & Prayer -->
         <section class="ks-scene ks-dark" data-d="900">
             <h2 class="ks-word ks-lines"><span>The Word</span><span>&amp; Prayer</span></h2>
         </section>
-        <!-- 7. Evangelism (cursor dot) -->
         <section class="ks-scene ks-light" data-d="900">
             <h2 class="ks-word ks-cursor">Evangelism</h2>
         </section>
-        <!-- 8. Gold: Fellowship -> photo collage -->
         <section class="ks-scene ks-gold" data-d="1700">
             <h2 class="ks-word ks-type ks-ink" data-text="Fellowship"></h2>
             <div class="ks-collage">
@@ -88,15 +70,12 @@
                 <div class="ks-tile"><img src="images/CASOR.jpg" alt="" data-img-slot="splash-photo-8" /></div>
             </div>
         </section>
-        <!-- 9. Toggle pill -->
         <section class="ks-scene ks-light" data-d="1500">
             <div class="ks-toggle"><span class="ks-toggle-text" data-text-slot="splash-tagline">A Fellowship You Can Call Home</span><span class="ks-knob"></span></div>
         </section>
-        <!-- 10. Join us Sundays 2:00 PM -->
         <section class="ks-scene ks-navy" data-d="1500">
             <h2 class="ks-word ks-seq"><span>Join us</span><span>Sundays</span><span>2:00 PM</span></h2>
         </section>
-        <!-- 11. Logo -->
         <section class="ks-scene ks-navy ks-final" data-d="1400">
             <div class="ks-brand">
                 <img src="images/logo.png" alt="" data-img-slot="logo" />
@@ -123,7 +102,6 @@
             var bar = document.getElementById('ksBar');
             var done = false, timer = null;
 
-            // Typewriter text (Hello!, Fellowship)
             splash.querySelectorAll('.ks-type').forEach(function (el) {
                 el.innerHTML = el.dataset.text.split('').map(function (c, i) {
                     return '<i style="animation-delay:' + (0.12 + i * 0.07) + 's">' + (c === ' ' ? '&nbsp;' : c) + '</i>';
@@ -151,14 +129,6 @@
         })();
     </script>
 
-    <!-- ================= NEWS POPUP CAROUSEL =================
-         Shows once per browser session, a few seconds after the page
-         settles, with the latest few News posts. Firestore is queried
-         once (not a live listener) since this is a one-shot popup -
-         collection "news", same shape news.html and the EXCO
-         Dashboard's "News" tab use:
-         { title, body, imageUrl (optional), postedBy, postedAt }
-         If there's no news yet, the popup just never appears. -->
     <div id="newsPopupOverlay" class="news-popup-overlay" role="dialog" aria-modal="true" aria-label="Latest news">
         <div class="news-popup">
             <button class="news-popup-close" id="newsPopupClose" aria-label="Close">
@@ -174,7 +144,6 @@
         </div>
     </div>
 
-    <!-- ================= NAVBAR ================= -->
     <header>
         <div class="logo">
             <img src="images/logo.png" alt="CASOR Logo" data-img-slot="logo" />
@@ -200,7 +169,6 @@
         </div>
     </header>
 
-    <!-- ================= HERO (Bolt-style) ================= -->
     <section id="main" class="b-hero">
         <div class="b-hero-inner">
             <h1>A fellowship you can call <span class="accent">home</span></h1>
@@ -211,19 +179,11 @@
             </div>
             <p class="b-hero-meta" data-text-slot="home-hero-welcome">Join us on Sundays by 2:00 PM at Our Saviour&rsquo;s Chapel, Children Hall.</p>
         </div>
-        <!-- Hero media. If an admin sets "home-hero-video" (Site Content) to
-             a video URL it plays here, muted, with this photo as the poster;
-             if the video fails to load the photo simply stays. -->
         <div class="b-hero-media" id="heroMedia">
             <img src="images/worship.jpg" alt="CASOR worship service" data-img-slot="home-hero" fetchpriority="high" />
         </div>
     </section>
 
-    <!-- ================= ANTHEM (interactive) =================
-         Lines come from Site Content slot "home-anthem" (one line per
-         line). Tap the big text to jump to the next line; scroll down to
-         light the full anthem up word by word. Optional audio from slot
-         "home-anthem-audio". -->
     <section class="anthem" id="anthem" aria-labelledby="anthemTitle">
         <div class="anthem-top">
             <p class="anthem-label"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span id="anthemTitle">The CASOR Anthem</span></p>
@@ -238,22 +198,20 @@
         <audio id="anthemAudio" preload="none"></audio>
     </section>
 
-    <!-- ================= CASOR COVENANTS (Section D of the CASOR handbook) ================= -->
     <section class="covenants" aria-labelledby="covTitle">
         <div class="section-head">
             <span class="eyebrow">OUR COVENANTS</span>
             <h2 id="covTitle">The Fivefold Covenant of <span>CASOR House</span></h2>
         </div>
         <ol class="cov-list">
-            <li class="cov-item"><span class="cov-num">I</span><span class="cov-name"><small>Covenant of</small> Life</span></li>
-            <li class="cov-item"><span class="cov-num">II</span><span class="cov-name"><small>Covenant of</small> Royalty</span></li>
-            <li class="cov-item"><span class="cov-num">III</span><span class="cov-name"><small>Covenant of</small> Perfect Health</span></li>
-            <li class="cov-item"><span class="cov-num">IV</span><span class="cov-name"><small>Covenant of</small> Peace</span></li>
-            <li class="cov-item"><span class="cov-num">V</span><span class="cov-name"><small>Covenant of</small> Fruitfulness</span></li>
+            <li class="cov-item cov-life"><span class="cov-sym" aria-hidden="true"><i class="fas fa-tree"></i></span><span class="cov-name"><small>Covenant of</small> Life</span></li>
+            <li class="cov-item cov-royal"><span class="cov-sym" aria-hidden="true"><i class="fas fa-crown"></i></span><span class="cov-name"><small>Covenant of</small> Royalty</span></li>
+            <li class="cov-item cov-health"><span class="cov-sym" aria-hidden="true"><i class="fas fa-heart-pulse"></i></span><span class="cov-name"><small>Covenant of</small> Perfect Health</span></li>
+            <li class="cov-item cov-peace"><span class="cov-sym" aria-hidden="true"><i class="fas fa-dove"></i></span><span class="cov-name"><small>Covenant of</small> Peace</span></li>
+            <li class="cov-item cov-fruit"><span class="cov-sym" aria-hidden="true"><i class="fas fa-apple-whole"></i></span><span class="cov-name"><small>Covenant of</small> Fruitfulness</span></li>
         </ol>
     </section>
 
-    <!-- ================= QUICK TILES ================= -->
     <section class="b-tiles" aria-label="Quick links">
         <div class="b-tiles-grid">
             <a class="b-tile" href="library.html">
@@ -277,7 +235,6 @@
         </div>
     </section>
 
-    <!-- ================= REGISTER CTA ================= -->
     <section class="reg-cta" aria-labelledby="regCtaTitle">
         <div class="reg-cta-inner">
             <div>
@@ -289,60 +246,39 @@
         </div>
     </section>
 
-    <!-- ================= FIND YOUR PLACE ================= -->
-    <section class="find-place" id="units">
+    <section class="content-section admin-house" id="units">
 
         <div class="section-head">
-            <span class="eyebrow">SERVE WITH US</span>
-            <h2>Find Your Place. <span>Serve With Purpose.</span></h2>
-            <p>Every member has a place to grow, serve and make impact. Explore
-            the units and find where you fit in the CASOR family.</p>
+            <span class="eyebrow">LEADERSHIP</span>
+            <h2>The <span>Admin House</span></h2>
+            <p>The President, Vice President, General Secretary and Assistant General Secretary lead CASOR and coordinate every unit.</p>
         </div>
 
-        <div class="place-grid">
-
-            <div class="place-card">
-                <div class="torn-photo">
-                    <img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1DN-qOGsQlnJU8Bz7Qym-Y0fjVmmjogpH" alt="Publicity Unit" data-img-slot="unit-publicity" />
-                </div>
-                <h3>Publicity Unit</h3>
+        <div class="arm-grid">
+            <div class="arm-card">
+                <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="President" data-img-slot="unit-president" /></div>
+                <h3>President</h3>
+                <p>Spiritual leadership and direction for the fellowship.</p>
+                <button type="button" class="share-btn" data-share data-share-url="units.html#president" data-share-title="President - CASOR UNIPORT Admin House"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share</button>
             </div>
-
-            <div class="place-card">
-                <div class="torn-photo">
-                    <img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1pJ0FzjYmZsIbwOCuTO-9GCxd4lKRoDTm" alt="Shalom Unit" data-img-slot="unit-shalom" />
-                </div>
-                <h3>Shalom Unit</h3>
+            <div class="arm-card">
+                <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="Vice President" data-img-slot="unit-vice-president" /></div>
+                <h3>Vice President</h3>
+                <p>Supports the President and oversees affairs when needed.</p>
+                <button type="button" class="share-btn" data-share data-share-url="units.html#vice-president" data-share-title="Vice President - CASOR UNIPORT Admin House"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share</button>
             </div>
-
-            <div class="place-card">
-                <div class="torn-photo">
-                    <img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1BXe9iN5bAVvYWkxswb7X0mcLmOFxmU2t" alt="Prayer Unit" data-img-slot="unit-prayer" />
-                </div>
-                <h3>Prayer Unit</h3>
+            <div class="arm-card">
+                <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="General Secretary" data-img-slot="unit-general-secretary" /></div>
+                <h3>General Secretary</h3>
+                <p>Keeps CASOR&rsquo;s records, minutes and correspondence.</p>
+                <button type="button" class="share-btn" data-share data-share-url="units.html#general-secretary" data-share-title="General Secretary - CASOR UNIPORT Admin House"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share</button>
             </div>
-
-            <div class="place-card">
-                <div class="torn-photo">
-                    <img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/19HN-n5aO77-qUBiwfXxCnbBxcHLp-gIu" alt="Bible Study Unit" data-img-slot="unit-bible-study" />
-                </div>
-                <h3>Bible Study Unit</h3>
+            <div class="arm-card">
+                <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="Assistant General Secretary" data-img-slot="unit-asst-general-secretary" /></div>
+                <h3>Assistant General Secretary</h3>
+                <p>Assists with records and administration across the house.</p>
+                <button type="button" class="share-btn" data-share data-share-url="units.html#asst-general-secretary" data-share-title="Assistant General Secretary - CASOR UNIPORT Admin House"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share</button>
             </div>
-
-            <div class="place-card">
-                <div class="torn-photo">
-                    <img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1vubebsZ0grkjsG_fVUbC0vUUTPfyI7uU" alt="Evangelism Unit" data-img-slot="unit-evangelism" />
-                </div>
-                <h3>Evangelism Unit</h3>
-            </div>
-
-            <div class="place-card">
-                <div class="torn-photo">
-                    <img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1Ua6koyarJrG5jpiFM7HNxD2KTJPakUmf" alt="Organizing Unit" data-img-slot="unit-organizing" />
-                </div>
-                <h3>Organizing Unit</h3>
-            </div>
-
         </div>
 
         <div class="section-more">
@@ -351,7 +287,6 @@
 
     </section>
 
-    <!-- ================= WHAT'S CASOR ALL ABOUT ================= -->
     <section class="whats-happening" id="about">
 
         <div class="wh-media">
@@ -382,14 +317,13 @@
 
     </section>
 
-    <!-- ================= STATUTORY PROGRAMS ================= -->
     <section class="events-strong" id="events">
 
         <div class="scallop-top"></div>
 
         <div class="section-head light">
             <span class="eyebrow">WHAT'S HAPPENING</span>
-            <h2>CASOR Statutory Programs</h2>
+            <h2>CASOR Upcoming Programs</h2>
             <p>Mark your calendar and be sure to join us at these upcoming programs.</p>
         </div>
 
@@ -405,7 +339,6 @@
 
     </section>
 
-    <!-- ================= WE'D LOVE TO SEE YOU ================= -->
     <section class="see-you" id="gallery">
 
         <div class="overlay"></div>
@@ -420,7 +353,6 @@
 
     </section>
 
-    <!-- ================= SUPPORT CASOR ================= -->
     <section class="support-casor" id="support">
         <div class="support-inner">
             <span class="eyebrow">PARTNER WITH US</span>
@@ -453,7 +385,6 @@
         </div>
     </section>
 
-    <!-- ================= FOOTER ================= -->
     <footer id="contact">
 
         <div class="newsletter-row">
@@ -536,21 +467,19 @@
     <script src="site-images.js"></script>
     <script src="install-prompt.js"></script>
     <script src="anthem.js"></script>
+    <script src="share.js"></script>
 
     <script>
-        // ===== MOBILE MENU TOGGLE =====
         const menuToggle = document.getElementById('menuToggle');
         const mainNav = document.getElementById('mainNav');
 
         menuToggle.addEventListener('click', function() {
             const isOpen = mainNav.classList.toggle('active');
             menuToggle.classList.toggle('open', isOpen);
-            // Toggle icon
             const icon = this.querySelector('i');
             icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
         });
 
-        // Close menu when a nav link is clicked (on mobile)
         document.querySelectorAll('#mainNav a').forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth <= 1024) {
@@ -562,17 +491,6 @@
             });
         });
 
-        // Newsletter form handling now lives in newsletter-subscribe.js
-        // (loaded below, right after portal/firebase-config.js) so the
-        // real Firestore signup logic isn't duplicated across every page.
-
-        // ============================================================
-        //  STATUTORY PROGRAMS - load from Firestore, newest first,
-        //  show up to 3 on the homepage. Public, read-only, no login
-        //  needed. Doc shape (collection: "programs"), matching what
-        //  the EXCO Dashboard's "Statutory Programs" tab writes:
-        //  { title, tag, dateVal, dateBadge, imageUrl (optional), postedBy, createdAt }
-        // ============================================================
         function escapeHtmlHome(str) {
             if (!str) return '';
             return String(str)
@@ -619,13 +537,6 @@
             console.error('Programs load failed:', err);
         }
 
-        // ============================================================
-        //  NEWS POPUP CAROUSEL - shows once per browser session, a few
-        //  seconds after load, with the most recent News posts. Reuses
-        //  the "news" collection that feeds news.html. A one-time get()
-        //  (not a live listener), since this is a single popup, not a
-        //  page that has to stay in sync.
-        // ============================================================
         (function () {
             const SEEN_KEY = 'casorNewsPopupSeen';
             const overlay = document.getElementById('newsPopupOverlay');
@@ -735,7 +646,6 @@
                 .catch(err => console.warn('News popup did not load:', err.message));
         })();
 
-        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
@@ -748,14 +658,10 @@
             });
         });
 
-        // ===== OPTIONAL HERO VIDEO =====
-        // Site Content slot "home-hero-video" can hold a direct video URL
-        // (.mp4/.webm). It only replaces the photo once it can actually
-        // play, so a missing/broken video never leaves an empty hero.
         (function () {
             const box = document.getElementById('heroMedia');
             if (!box || typeof db === 'undefined') return;
-            if (navigator.connection && navigator.connection.saveData) return; // respect data saver
+            if (navigator.connection && navigator.connection.saveData) return;
             db.collection('site_content').doc('home-hero-video').get().then(doc => {
                 const url = doc.exists && doc.data().text ? String(doc.data().text).trim() : '';
                 if (!/^https:\/\//i.test(url)) return;
@@ -771,7 +677,6 @@
             }).catch(() => {});
         })();
 
-        // ===== SUPPORT CASOR - COPY BUTTONS =====
         document.querySelectorAll('.support-copy').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const targetEl = document.getElementById(btn.dataset.copyTarget);
@@ -780,8 +685,6 @@
                 try {
                     await navigator.clipboard.writeText(text);
                 } catch (err) {
-                    // Clipboard API unavailable (very old browser / no HTTPS) -
-                    // fall back to a manual select so the user can still copy.
                     const range = document.createRange();
                     range.selectNodeContents(targetEl);
                     const sel = window.getSelection();

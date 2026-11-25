@@ -1,14 +1,3 @@
-// ============================================================
-//  MEETING BOARD (meeting.html)
-//  Shows the documents offices have "presented" to the currently
-//  LIVE general meeting. Admins open/close meetings in the dashboard
-//  (Unit Reports tab). When a meeting is closed its documents vanish
-//  from here but stay in the records.
-//
-//  Firestore (public read):
-//    meetings      where status == 'live'
-//    meeting_docs  where visible == true   (rules only allow this filter)
-// ============================================================
 (function () {
     const statusEl = document.getElementById('mbStatus');
     const listEl = document.getElementById('mbList');
@@ -32,8 +21,6 @@
         const m = String(url || '').match(/\/(?:file|document|spreadsheets|presentation)\/d\/([a-zA-Z0-9_-]+)/) || String(url || '').match(/[?&]id=([a-zA-Z0-9_-]+)/);
         return m ? m[1] : null;
     }
-    // A preview URL that embeds nicely. Google Docs/Sheets/Slides use
-    // their own /preview; Drive files use /file/d/ID/preview.
     function previewUrl(url) {
         const u = String(url || '');
         const kind = (u.match(/docs\.google\.com\/(document|spreadsheets|presentation)\//) || [])[1];
@@ -73,7 +60,6 @@
             return;
         }
 
-        // Group by office, in constitution order.
         const groups = {};
         shown.forEach(d => { (groups[d.office] = groups[d.office] || []).push(d); });
         const officeIds = Object.keys(groups).sort((a, b) => {
@@ -100,7 +86,6 @@
         listEl.querySelectorAll('[data-doc-id]').forEach(btn => btn.addEventListener('click', () => openDoc(btn.dataset.docId)));
     }
 
-    // ---------- Reader ----------
     let lastFocus = null;
     function openDoc(id) {
         const d = docs.find(x => x.id === id);
@@ -127,10 +112,8 @@
     }
     document.getElementById('mbReaderClose').addEventListener('click', () => closeDoc(false));
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDoc(false); });
-    // Android back button closes the reader instead of leaving the page.
     window.addEventListener('popstate', () => closeDoc(true));
 
-    // ---------- Filters ----------
     document.querySelectorAll('.mb-filters .filter-pill').forEach(btn => btn.addEventListener('click', () => {
         document.querySelectorAll('.mb-filters .filter-pill').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
         btn.classList.add('active');
@@ -140,7 +123,6 @@
     }));
     search.addEventListener('input', render);
 
-    // ---------- Data ----------
     if (typeof db === 'undefined') {
         statusEl.innerHTML = '';
         listEl.innerHTML = '<div class="state">The board could not load. Check your connection and refresh.</div>';

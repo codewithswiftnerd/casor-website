@@ -1,30 +1,8 @@
-// CASOR UNIPORT — Firestore Security Rules
-// ============================================================
-// Deploy from the project root:
-//   firebase deploy --only firestore:rules
-// or paste this whole file into Firebase Console → Firestore
-// Database → Rules → Publish.
-//
-// Model:
-//   * Public visitors  – read-only access to content meant for the
-//                        public site (library, news, programs, gallery,
-//                        site text/images, the LIVE meeting board).
-//   * Approved EXCO    – verified email + excos/{uid}.status == 'approved'.
-//                        Can manage ONLY the office assigned to them by an
-//                        admin (excos/{uid}.office).
-//   * Admin            – approved EXCO with role 'admin', or a verified
-//                        bootstrap admin email. Full management access.
-//
-// Anything not matched below is denied by default (including the old
-// office_passwords / office_passwords_plain collections, which are no
-// longer used — delete them from the console after deploying).
-// ============================================================
 
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // ---------- helpers ----------
     function isSignedIn() {
       return request.auth != null;
     }
@@ -40,8 +18,6 @@ service cloud.firestore {
     function myProfile() {
       return get(profilePath()).data;
     }
-    // Permanent admin(s). Must also have a VERIFIED email, otherwise
-    // anyone who managed to register this address first would be admin.
     function isBootstrapAdmin() {
       return isVerified() && request.auth.token.email in ['igrie318@gmail.com'];
     }
@@ -53,16 +29,12 @@ service cloud.firestore {
       return isBootstrapAdmin()
         || (isApprovedExco() && myProfile().get('role', 'exco') == 'admin');
     }
-    // True only if an admin has assigned this approved EXCO to officeId.
     function hasOffice(officeId) {
       return isApprovedExco() && myProfile().get('office', null) == officeId;
     }
     function canManageOffice(officeId) {
       return isAdmin() || hasOffice(officeId);
     }
-    // The Administrative Arm (President, VP, Gen Sec, Asst Gen Sec) is not
-    // a unit: no unit reports or vision statements. Its documents are the
-    // General Secretary's: minutes, agendas, proposed semester calendars.
     function isAdminArm(officeId) {
       return officeId in ['president', 'vice-president', 'general-secretary', 'asst-general-secretary'];
     }
@@ -81,12 +53,9 @@ service cloud.firestore {
       return !(key in data) || data[key] == null || (data[key] is string && data[key].size() <= max);
     }
 
-    // ---------- EXCO accounts ----------
     match /excos/{uid} {
       allow read: if isAdmin() || (isSignedIn() && request.auth.uid == uid);
 
-      // Self-registration. Always starts pending/exco. No token, no office,
-      // no role choice — those can only ever be set by an admin.
       allow create: if isSignedIn() && request.auth.uid == uid
                      && request.resource.data.keys().hasOnly(
                           ['name', 'email', 'status', 'role', 'uid', 'createdAt',
@@ -99,9 +68,6 @@ service cloud.firestore {
                      && optionalText(request.resource.data, 'requestedOffice', 80)
                      && optionalText(request.resource.data, 'phone', 40);
 
-      // Only admins change anything afterwards (status, role, office).
-      // Status/role values are constrained so a typo can't create a
-      // half-privileged state.
       allow update: if isAdmin()
                      && request.resource.data.get('uid', null) == resource.data.get('uid', null)
                      && request.resource.data.get('status', 'pending') in ['pending', 'approved', 'rejected']
@@ -110,8 +76,6 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
-    // Approval tokens are created and consumed only by Cloud Functions
-    // (Admin SDK). No client — not even an admin's browser — may read them.
     match /approval_tokens/{uid} {
       allow read, write: if false;
     }
@@ -119,13 +83,11 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    // ---------- Settings (current administration/session) ----------
     match /settings/{key} {
       allow read: if true;
       allow write: if isAdmin();
     }
 
-    // ---------- Office photos (dashboard office cards) ----------
     match /office_photos/{officeId} {
       allow read: if isApprovedExco();
       allow write: if canManageOffice(officeId)
@@ -133,8 +95,6 @@ service cloud.firestore {
       allow delete: if canManageOffice(officeId);
     }
 
-    // ---------- Unit reports, minutes, vision statements ----------
-    // Internal. Readable by admins and by the office that owns them.
     match /unit_reports/{reportId} {
       allow read: if isAdmin() || hasOffice(resource.data.unit);
 
@@ -159,10 +119,6 @@ service cloud.firestore {
       allow delete: if canManageOffice(resource.data.unit);
     }
 
-    // ---------- General meetings (public meeting board) ----------
-    // A meeting is opened by an admin; while status == 'live' its
-    // documents show on meeting.html for the whole house. Closing it
-    // hides them again but keeps the record (organisational history).
     match /meetings/{meetingId} {
       allow read: if true;
       allow create, update: if isAdmin()
@@ -172,8 +128,6 @@ service cloud.firestore {
     }
 
     match /meeting_docs/{docId} {
-      // Public only while visible (i.e. while its meeting is live).
-      // Queries from the public page MUST filter on visible == true.
       allow read: if resource.data.visible == true || isApprovedExco();
 
       allow create: if canManageOffice(request.resource.data.office)
@@ -187,17 +141,12 @@ service cloud.firestore {
                      && isHttpsUrl(request.resource.data.fileUrl)
                      && get(/databases/$(database)/documents/meetings/$(request.resource.data.meetingId)).data.status == 'live';
 
-      // Admin closes meetings (visible -> false) in bulk.
       allow update: if isAdmin()
                      && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['visible']);
 
       allow delete: if isAdmin() || hasOffice(resource.data.office);
     }
 
-    // ---------- Audit log ----------
-    // Append-only. Any approved EXCO may record THEIR OWN action (actorUid
-    // pinned to their uid, timestamp pinned to server time). Nobody can
-    // edit or delete entries from the client. Admins can read them.
     match /audit_logs/{logId} {
       allow read: if isAdmin();
       allow create: if isApprovedExco()
@@ -210,14 +159,9 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
-    // ---------- Admin-only internal data ----------
     match /files/{fileId} {
       allow read, write: if isAdmin();
     }
-    // Members database. Admin-only, EXCEPT that anyone may submit their
-    // OWN registration from register.html: create-only, fixed fields,
-    // sizes checked, always marked source 'self' / status 'new'. Public
-    // visitors can never read, edit or delete any member record.
     match /members/{memberId} {
       allow read, update, delete: if isAdmin();
       allow create: if isAdmin() || (
@@ -244,13 +188,10 @@ service cloud.firestore {
       allow read, write: if isAdmin();
     }
 
-    // ---------- Public content, admin-managed ----------
     match /library/{resourceId} {
       allow read: if true;
       allow write: if isAdmin();
     }
-    // Library + gallery folders. These were missing from the old rules,
-    // so the public Gallery/Library folder views were silently denied.
     match /folders/{folderId} {
       allow read: if true;
       allow create, update: if isAdmin()
@@ -292,9 +233,6 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
-    // ---------- Push subscribers ----------
-    // Doc id = FCM token (acts as a bearer secret). Public can create its
-    // own, fixed-shape record and delete it; only admins can list tokens.
     match /push_subscribers/{token} {
       allow read: if isAdmin();
       allow create: if request.resource.data.keys().hasOnly(['createdAt', 'page'])
@@ -305,7 +243,6 @@ service cloud.firestore {
       allow update: if false;
     }
 
-    // ---------- Newsletter subscribers ----------
     match /subscribers/{email} {
       allow read: if isAdmin();
       allow create: if request.resource.data.status == 'active'
@@ -316,11 +253,6 @@ service cloud.firestore {
                            ['email', 'subscribedAt', 'status', 'unsubscribeToken'])
                       && request.resource.data.unsubscribeToken is string
                       && request.resource.data.unsubscribeToken.size() >= 16;
-      // Self-unsubscribe with the private token from the email link.
-      // The old check compared unsubscribeToken to itself when the
-      // client simply left it out of the write, so ANYONE could
-      // unsubscribe ANY address. The token now has to be supplied in a
-      // separate field (unsubscribeProof) that must match the stored one.
       allow update: if isAdmin() || (
                       request.resource.data.diff(resource.data).affectedKeys()
                         .hasOnly(['status', 'unsubscribedAt', 'unsubscribeProof']) &&

@@ -138,7 +138,6 @@
             margin-right: 6px;
         }
 
-        /* ===== Search + filter toolbar (Files & Library browsing) ===== */
         .admin-toolbar {
             display: flex;
             align-items: center;
@@ -186,7 +185,6 @@
             color: #fff;
         }
 
-        /* ===== Card grid (Files browsing) ===== */
         .file-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -225,7 +223,6 @@
             grid-column: 1 / -1;
         }
 
-        /* ===== Site Images panel ===== */
         .image-group-title {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
@@ -294,7 +291,6 @@
             .image-slot-input { flex-basis: 100%; }
         }
 
-        /* ===== Site Content panel ===== */
         .content-slot-row {
             display: flex;
             align-items: flex-start;
@@ -350,7 +346,6 @@
             display: block;
         }
 
-        /* ===== Unit Reports panel - office cards ===== */
         .office-search {
             width: 100%;
             max-width: 360px;
@@ -489,7 +484,6 @@
             font-size: 11px;
         }
 
-        /* ===== Office modal ===== */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -849,11 +843,6 @@
             }
         }
 
-        /* ============================================================
-           Refresh (Bolt-inspired): calmer surfaces, rounder controls,
-           horizontally scrollable tabs on phones, plus styles for the
-           Overview, Meetings and Activity Log additions.
-           ============================================================ */
         body { background: #F4F6F5; font-family: 'Inter', 'Poppins', sans-serif; color: #14181F; }
         .card { border-radius: 20px; box-shadow: 0 1px 2px rgba(11,31,68,.04), 0 8px 24px rgba(11,31,68,.05); border: 1px solid #E8ECEA; }
         .card h2 { font-family: 'Inter Tight', 'Montserrat', sans-serif; text-transform: none; font-size: 20px; letter-spacing: -.02em; font-weight: 800; }
@@ -953,8 +942,6 @@
             <button class="tab-btn" data-panel="approvalsPanel">Approvals</button>
         </div>
 
-        <!-- FILES PANEL (Google Drive links) -->
-        <!-- OVERVIEW (admin) -->
         <div class="panel active" id="overviewPanel">
             <div class="stat-grid" id="overviewStats">
                 <div class="stat-card"><span class="stat-num" id="statMembers">–</span><span class="stat-label">Registered members <span id="statNewMembers"></span></span></div>
@@ -1019,7 +1006,6 @@
             </div>
         </div>
 
-        <!-- MEMBERS PANEL (CASORites membership database) -->
         <div class="panel" id="membersPanel">
             <div class="card">
                 <h2 id="memberFormTitle">Add a Member</h2>
@@ -1095,7 +1081,6 @@
             </div>
         </div>
 
-        <!-- LIBRARY PANEL (public - feeds library.html on the main site) -->
         <div class="panel" id="libraryPanel">
             <div class="card">
                 <h2 id="libraryFormTitle">Add a Resource</h2>
@@ -1158,7 +1143,6 @@
             </div>
         </div>
 
-        <!-- GALLERY PANEL (public - feeds gallery.html on the main site) -->
         <div class="panel" id="galleryPanel">
             <div class="card">
                 <h2 id="galFolderFormTitle">Gallery Albums</h2>
@@ -1205,7 +1189,6 @@
             </div>
         </div>
 
-        <!-- PRESIDENTS PANEL (public - feeds presidents.html on the main site) -->
         <div class="panel" id="presidentsPanel">
             <div class="card">
                 <h2 id="presFormTitle">Add an Admin House (past administration)</h2>
@@ -1265,7 +1248,6 @@
             </div>
         </div>
 
-        <!-- ABC OFFICIALS PANEL (public - feeds abc-officials.html on the main site) -->
         <div class="panel" id="abcOfficialsPanel">
             <div class="card">
                 <h2 id="abcFormTitle">Add a Session</h2>
@@ -1315,7 +1297,6 @@
             </div>
         </div>
 
-        <!-- HALL PASTORS PANEL (public - feeds units.html on the main site) -->
         <div class="panel" id="hallPastorsPanel">
             <div class="card">
                 <h2 id="hallPastorFormTitle">Add A Hall Pastor</h2>
@@ -1348,7 +1329,6 @@
             </div>
         </div>
 
-        <!-- NEWS PANEL (public - feeds news.html on the main site) -->
         <div class="panel" id="newsPanel">
             <div class="card">
                 <h2 id="newsFormTitle">Post News</h2>
@@ -1375,8 +1355,6 @@
             </div>
         </div>
 
-        <!-- STATUTORY PROGRAMS PANEL (public - feeds the "CASOR Statutory
-             Programs" section on index.html and the full list on events.html) -->
         <div class="panel" id="programsPanel">
             <div class="card">
                 <h2 id="programFormTitle">Add a Statutory Program</h2>
@@ -1419,9 +1397,7 @@
             </div>
         </div>
 
-        <!-- UNIT REPORTS / VISION STATEMENTS PANEL (EXCO-only, not public) -->
         <div class="panel" id="unitsPanel">
-            <!-- Admin: administration session + general meetings -->
             <div class="card" id="meetingsAdminCard" style="display:none;">
                 <h2>General Meetings &amp; Meeting Board</h2>
                 <div class="guide-box">
@@ -1470,7 +1446,6 @@
             </div>
         </div>
 
-        <!-- Office documents modal, shared by all office cards -->
         <div class="modal-overlay" id="officeModalOverlay" hidden>
             <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="officeModalTitle">
                 <button type="button" class="modal-close" id="officeModalClose" aria-label="Close">&times;</button>
@@ -1512,7 +1487,6 @@
             </div>
         </div>
 
-        <!-- SITE IMAGES PANEL (public - controls images shown across the main site) -->
         <div class="panel" id="imagesPanel">
             <div class="card">
                 <h2>Site Images</h2>
@@ -1528,7 +1502,6 @@
             </div>
         </div>
 
-        <!-- SITE CONTENT PANEL (public - controls text shown across the main site) -->
         <div class="panel" id="contentPanel">
             <div class="card">
                 <h2>Site Content</h2>
@@ -1546,8 +1519,6 @@
             </div>
         </div>
 
-        <!-- SUBSCRIBERS PANEL (private - the newsletter mailing list; never
-             readable by public visitors, see Firestore rules) -->
         <div class="panel" id="subscribersPanel">
             <div class="card">
                 <h2>Subscribers</h2>
@@ -1576,9 +1547,6 @@
             </div>
         </div>
 
-        <!-- COMPOSE NEWSLETTER PANEL (private - writing here does nothing
-             until "Send Newsletter" is clicked; sending itself happens
-             server-side, see /apps-script/Code.gs) -->
         <div class="panel" id="composePanel">
             <div class="card">
                 <h2>Compose Newsletter</h2>
@@ -1617,7 +1585,6 @@
             </div>
         </div>
 
-        <!-- APPROVALS PANEL - review new signups and approve them -->
         <div class="panel" id="approvalsPanel">
             <div class="card">
                 <h2>Pending EXCO Signups</h2>
@@ -1674,30 +1641,12 @@
     <script src="firebase-config.js">
     </script>
     <script>
-        // Only dashboard.html needs Cloud Functions (for the admin-only
-        // "Remove" button on the EXCO list below) - login.html and
-        // signup.html also load firebase-config.js but not this script,
-        // so functions() is defined here rather than in firebase-config.js
-        // itself to avoid breaking those pages.
         const functions = firebase.functions();
     </script>
     <script src="office-docs.js">
     </script>
     <script src="uploader.js"></script>
     <script>
-        // ===== ESCAPE HTML =====
-        // The old version did:
-        //   const div = document.createElement('div');
-        //   div.textContent = str;
-        //   return div.innerHTML;
-        // That round-trip only escapes &, <, > - it does NOT escape quote
-        // characters, because quotes are only special inside an HTML
-        // *attribute*, not inside a text node. But several places below
-        // use escapeHtml() output as the content of a double-quoted
-        // attribute (data-edit-title="${safeTitle}" etc). A title or name
-        // containing a " could close that attribute early and inject
-        // arbitrary markup/JS. Escaping quotes explicitly fixes it for
-        // both text and attribute contexts.
         function escapeHtml(str) {
             if (!str) return '';
             return String(str)
@@ -1708,34 +1657,7 @@
                 .replace(/'/g, '&#39;');
         }
 
-        // ===== ROLE =====
-        // 'admin' can see/use every tab. 'exco' (the default) can only
-        // view & upload Unit Reports / Vision Statements, and can VIEW
-        // (not post/edit/delete) News. This is enforced twice: here in
-        // the UI (so an exco never even sees the other tabs/buttons) and
-        // - the part that actually matters for security - in the
-        // Firestore rules (see SETUP-GUIDE.md), since anyone can read
-        // this JS file and a rule is the only thing that can't be
-        // bypassed from devtools.
-        // Used by the Compose Newsletter tab's "Send" button - calls the
-        // free Google Apps Script Web App (see /apps-script/Code.gs)
-        // instead of a Firebase Cloud Function, since Cloud Functions
-        // need the paid Blaze plan just to deploy. Paste the URL you
-        // get after deploying that script here - it ends in /exec.
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FLCccF64DmNwYHRcemyEgrtJ5JbPs_lZVgLfCcrXHUJLsspY5fI9zI/exec';      // ============================================================
-        //  WEB PUSH - fires the instant a NEW News post or Statutory
-        //  Program is saved (see the two call sites in the News and
-        //  Programs sections below - never called on edits). Reuses the
-        //  same free Apps Script Web App above (action: 'push' tells
-        //  Code.gs which job this call is) instead of a Cloud Function,
-        //  since Cloud Functions need the paid Blaze plan just to
-        //  deploy. See "WEB PUSH NOTIFICATIONS" in apps-script/Code.gs
-        //  for the sending half and its setup steps.
-        //
-        //  Never throws into its caller - a failed/misconfigured push
-        //  send should never stop the post itself from saving, so every
-        //  failure is just logged to the console instead.
-        // ============================================================
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FLCccF64DmNwYHRcemyEgrtJ5JbPs_lZVgLfCcrXHUJLsspY5fI9zI/exec';
         async function sendPushForNewPost(title, body, link) {
             try {
                 if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.indexOf('PASTE_') === 0) return;
@@ -1762,33 +1684,15 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     );
                 }
             } catch (err) {
-                // Post itself already saved fine at this point - a push
-                // failure here is never worth surfacing to the admin as
-                // an error on the Post/Add button.
                 console.error('Push send failed:', err);
             }
         }
 
-        // Same permanent-admin email list as the Firestore rules'
-        // isBootstrapAdmin(). Keep these two lists identical - this one
-        // decides what the UI SHOWS this person, the rules' copy decides
-        // what they can actually READ/WRITE. Before this list existed,
-        // the bootstrap admin's rules access was always correct but the
-        // dashboard UI only trusted the 'role' field on their excos doc -
-        // so if that field was ever missing, they'd have full permission
-        // behind the scenes but see the plain EXCO view, no admin tabs,
-        // no Office Passwords card. Checking this list here closes that
-        // gap for good.
         const BOOTSTRAP_ADMIN_EMAILS = ['igrie318@gmail.com'];
 
         let currentUserRole = 'exco';
         let currentUserProfile = null;
 
-        // ===== AUDIT LOG =====
-        // Append-only record of important admin/EXCO actions. The rules
-        // pin actorUid to the signed-in user and "at" to server time, and
-        // forbid edits/deletes, so entries can't be forged or erased from
-        // the client. Never blocks the action it records.
         function logAudit(action, collection, targetId, details) {
             try {
                 if (!auth.currentUser) return;
@@ -1801,7 +1705,7 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     details: String(details || '').slice(0, 500),
                     at: firebase.firestore.FieldValue.serverTimestamp()
                 }).catch(err => console.warn('Audit log not written:', err.message));
-            } catch (e) { /* never break the UI over logging */ }
+            } catch (e) {  }
         }
         const ADMIN_ONLY_PANELS = ['overviewPanel', 'filesPanel', 'membersPanel', 'libraryPanel',
             'galleryPanel', 'presidentsPanel', 'abcOfficialsPanel', 'hallPastorsPanel', 'programsPanel', 'imagesPanel', 'contentPanel', 'approvalsPanel',
@@ -1814,32 +1718,19 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 return;
             }
 
-            // Remove every tab an exco shouldn't see, leaving Unit
-            // Reports and News.
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 if (ADMIN_ONLY_PANELS.includes(btn.dataset.panel)) btn.remove();
             });
 
-            // "Shared Files" (filesPanel) is active by default in the
-            // HTML, but excos don't have that tab any more - switch the
-            // default view to Unit Reports instead.
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             document.querySelector('[data-panel="unitsPanel"]').classList.add('active');
             document.getElementById('unitsPanel').classList.add('active');
 
-            // News: view-only for excos - hide the posting form, the
-            // list itself is fine to read (renderNewsAdmin also hides
-            // the Edit/Delete buttons per-post, see below).
             const newsFormCard = document.getElementById('newsFormTitle').closest('.card');
             if (newsFormCard) newsFormCard.style.display = 'none';
         }
 
-        // ===== AUTH GUARD =====
-        // Guards against a hung Firestore read (blocked/unreliable network,
-        // etc.) leaving the user stuck on the loading screen forever with
-        // no error and no way out. If the profile check doesn't come back
-        // within 15s, bail out to an error state instead of waiting forever.
         function withTimeout(promise, ms) {
             return Promise.race([
                 promise,
@@ -1885,8 +1776,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             document.getElementById('loadingScreen').style.display = 'none';
             applyRoleToUI();
 
-            // Unit Reports (own office), meetings and News load for everyone.
-            // Everything else is admin-only data the rules would deny anyway.
             loadUnitReports();
             loadNewsAdmin();
             loadOverview();
@@ -1914,16 +1803,13 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             auth.signOut().then(() => window.location.href = 'login.html');
         });
 
-        // ============================================================
-        //  OVERVIEW - only figures we can read reliably from Firestore.
-        // ============================================================
         async function countOf(query) {
             try {
                 if (typeof query.count === 'function') {
                     const agg = await query.count().get();
                     return agg.data().count;
                 }
-            } catch (e) { /* fall back below */ }
+            } catch (e) {  }
             const snap = await query.get();
             return snap.size;
         }
@@ -1996,7 +1882,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ===== TABS =====
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -2006,9 +1891,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         });
 
-        // ============================================================
-        //  FILES (Google Drive links)
-        // ============================================================
         const fileId = document.getElementById('fileId');
         const addFileBtn = document.getElementById('addFileBtn');
         const fileTitle = document.getElementById('fileTitle');
@@ -2161,9 +2043,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  MEMBERS (CASORites membership database)
-        // ============================================================
         const memberId = document.getElementById('memberId');
         const memberName = document.getElementById('memberName');
         const memberGender = document.getElementById('memberGender');
@@ -2274,7 +2153,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 return;
             }
 
-            // Possible duplicates: same phone digits on more than one record.
             const phoneCount = {};
             allMembers.forEach(x => { const k = (x.phone || '').replace(/\D/g, '').slice(-10); if (k) phoneCount[k] = (phoneCount[k] || 0) + 1; });
             const rows = filtered.map(m => {
@@ -2392,11 +2270,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         });
 
-        // Opens a clean, header/nav-free window with just the table
-        // currently on screen (respects the active search/filter) and
-        // triggers the browser's print dialog on it - simpler and more
-        // reliable across browsers than @media print rules on the
-        // full dashboard, which has tabs, forms and buttons to hide.
         function printTable(title, headers, rows) {
             const win = window.open('', '_blank');
             const generated = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -2432,7 +2305,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
 
         function csvCell(v) {
             const t = String(v == null ? '' : v);
-            // Neutralise spreadsheet formulas and quote everything.
             return '"' + (/^[=+\-@]/.test(t) ? "'" + t : t).replace(/"/g, '""') + '"';
         }
         document.getElementById('exportMembersBtn').addEventListener('click', () => {
@@ -2464,10 +2336,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  LIBRARY (public - read on library.html doesn't need login;
-        //  writes here require an approved EXCO, same as Files/Members)
-        // ============================================================
         const libraryId = document.getElementById('libraryId');
         const libraryTitle = document.getElementById('libraryTitle');
         const libraryCategory = document.getElementById('libraryCategory');
@@ -2617,12 +2485,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  LIBRARY FOLDERS - lightweight folders (collection "folders",
-        //  section:"library") used to group resources such as the
-        //  Constitution, CAC Documents or Training Handbook. Also
-        //  populates the folder <select> on the resource form above.
-        // ============================================================
         let allLibFolders = [];
         const libFolderId = document.getElementById('libFolderId');
         const libFolderName = document.getElementById('libFolderName');
@@ -2713,11 +2575,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }, err => console.error('Library folders load failed:', err));
         }
 
-        // ============================================================
-        //  GALLERY - public albums feeding gallery.html. Albums live in
-        //  collection "folders" (section:"gallery"); photos live in
-        //  collection "galleryPhotos" and reference a folder by id.
-        // ============================================================
         const galFolderId = document.getElementById('galFolderId');
         const galFolderName = document.getElementById('galFolderName');
         const galFolderCover = document.getElementById('galFolderCover');
@@ -2964,12 +2821,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }, err => console.error('Gallery photos load failed:', err));
         }
 
-        // ============================================================
-        //  PRESIDENTS - past Presidents/VPs/GS/AGS by session, feeding
-        //  the public presidents.html page. Collection: "presidents".
-        //  { session, president, presidentPhoto, vp, vpPhoto,
-        //    gs, gsPhoto, ags, agsPhoto, adminNote, order, createdAt }
-        // ============================================================
         const presId = document.getElementById('presId');
         const presSession = document.getElementById('presSession');
         const presPresidentName = document.getElementById('presPresidentName');
@@ -3018,9 +2869,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 session, president, presidentPhoto, vp, vpPhoto,
                 gs, gsPhoto, ags, agsPhoto, adminNote, order,
                 presidentPhone, vpPhone, gsPhone, agsPhone,
-                // Always explicitly false here (even on a normal update) so
-                // that editing and saving one of the seeded sample sessions
-                // below correctly clears its "sample" flag.
                 sample: false,
                 addedBy: auth.currentUser.email,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -3052,7 +2900,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
 
         cancelPresEditBtn.addEventListener('click', resetPresForm);
 
-        // ----- Seed 3 sample sessions (one-time helper) -----
         const seedPresSamplesBtn = document.getElementById('seedPresSamplesBtn');
         const seedPresFeedback = document.getElementById('seedPresFeedback');
         if (seedPresSamplesBtn) {
@@ -3235,14 +3082,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }, err => console.error('Presidents load failed:', err));
         }
 
-        // ============================================================
-        //  ABC OFFICIALS - past ABC Coordinators/Assistant/Secretary by
-        //  session, feeding the public abc-officials.html page.
-        //  Collection: "abc_officials".
-        //  { session, coordinator, coordinatorPhoto, viceCoordinator,
-        //    viceCoordinatorPhoto, secretary, secretaryPhoto, adminNote,
-        //    order, createdAt }
-        // ============================================================
         const abcId = document.getElementById('abcId');
         const abcSession = document.getElementById('abcSession');
         const abcCoordinatorName = document.getElementById('abcCoordinatorName');
@@ -3278,9 +3117,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             const data = {
                 session, coordinator, coordinatorPhoto, viceCoordinator, viceCoordinatorPhoto,
                 secretary, secretaryPhoto, adminNote, order,
-                // Always explicitly false here (even on a normal update) so
-                // that editing and saving one of the seeded sample sessions
-                // below correctly clears its "sample" flag.
                 sample: false,
                 addedBy: auth.currentUser.email,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -3312,7 +3148,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
 
         cancelAbcEditBtn.addEventListener('click', resetAbcForm);
 
-        // ----- Seed 3 sample sessions (one-time helper) -----
         const seedAbcSamplesBtn = document.getElementById('seedAbcSamplesBtn');
         const seedAbcFeedback = document.getElementById('seedAbcFeedback');
         if (seedAbcSamplesBtn) {
@@ -3472,12 +3307,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }, err => console.error('ABC officials load failed:', err));
         }
 
-        // ============================================================
-        //  HALL PASTORS - a plain list (not paired sessions like
-        //  Presidents/ABC), since the count varies every administration.
-        //  Feeds the public units.html page. Collection: "hall_pastors".
-        //  { name, photo, park ('Male'|'Female'), order, createdAt }
-        // ============================================================
         const hallPastorId = document.getElementById('hallPastorId');
         const hallPastorName = document.getElementById('hallPastorName');
         const hallPastorPark = document.getElementById('hallPastorPark');
@@ -3600,14 +3429,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }, err => console.error('Hall pastors load failed:', err));
         }
 
-        // ============================================================
-        //  NEWS - public posts feeding news.html, newest first. Same
-        //  add/edit/delete shape as Library. The photo is optional and
-        //  reuses driveLinkToImageUrl() (defined below, in Site Images)
-        //  to turn a Drive share link into a hotlinkable URL - function
-        //  declarations are hoisted, so it's fine that it's defined
-        //  later in this same script.
-        // ============================================================
         const newsId = document.getElementById('newsId');
         const newsTitle = document.getElementById('newsTitle');
         const newsBody = document.getElementById('newsBody');
@@ -3760,12 +3581,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  STATUTORY PROGRAMS (public - feeds the homepage "What's
-        //  Happening" section and events.html). Same add/edit/delete
-        //  shape as News, so new programs can be added at any time -
-        //  even right after hosting one - no code changes needed.
-        // ============================================================
         const programId = document.getElementById('programId');
         const programTitle = document.getElementById('programTitle');
         const programTag = document.getElementById('programTag');
@@ -3929,13 +3744,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  APPROVALS - shows anyone who signed up on signup.html and
-        //  hasn't been approved yet. Approving writes status:'approved'
-        //  and role directly onto their OWN excos/{uid} document - the
-        //  only document involved. There's no separate "preapproved"
-        //  list to keep in sync anymore.
-        // ============================================================
         function officeOptionsHtml(selectedId) {
             return (typeof OFFICE_DOCS !== 'undefined' ? OFFICE_DOCS : []).map(o =>
                 `<option value="${o.id}"${selectedId === o.id ? ' selected' : ''}>${escapeHtml(o.name)}</option>`
@@ -4074,13 +3882,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     </table>
                 </div>`;
 
-            // Which office (if any) this person's own password-change
-            // button in the Unit Reports tab is allowed to touch - see
-            // the office_passwords / office_passwords_plain / office_photos
-            // Firestore rules, which now check this field instead of
-            // trusting every approved EXCO with every office. Admin-only
-            // to set, same as role - a self-service field here would let
-            // anyone claim any office and overwrite its password.
             list.querySelectorAll('[data-office-for]').forEach(sel => {
                 sel.addEventListener('change', async () => {
                     const uid = sel.dataset.officeFor;
@@ -4109,7 +3910,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     btn.disabled = true;
                     btn.textContent = 'Updating...';
                     try {
-                        // One write, one document - that's the whole change.
                         await db.collection('excos').doc(uid).update({ role: nextRole });
                         logAudit('exco.role', 'excos', uid, nextRole);
                     } catch (err) {
@@ -4120,16 +3920,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 });
             });
 
-            // Removing a past EXCO fully offboards them: their excos
-            // profile doc AND their actual Firebase login are both
-            // deleted, so they can't sign back in even if they still
-            // know their password. That needs the Admin SDK (a normal
-            // signed-in admin can delete Firestore docs but never
-            // someone else's login), so this calls the deleteExco Cloud
-            // Function rather than writing to Firestore directly - see
-            // functions/index.js and SETUP-GUIDE.md.
-            // Credential reset without ever seeing anyone's password:
-            // Firebase emails them a one-time link to choose a new one.
             list.querySelectorAll('[data-reset-email]').forEach(btn => {
                 btn.addEventListener('click', async () => {
                     const email = btn.dataset.resetEmail;
@@ -4156,9 +3946,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     btn.textContent = 'Removing...';
                     try {
                         await functions.httpsCallable('deleteExco')({ uid });
-                        // No manual re-render needed - the excos
-                        // onSnapshot listener below fires on its own the
-                        // moment the doc is gone.
                     } catch (err) {
                         alert('Remove failed: ' + err.message);
                         btn.disabled = false;
@@ -4204,7 +3991,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 try {
                     await functions.httpsCallable('deleteExco')({ uid: btn.dataset.removeRejectedUid });
                 } catch (err) {
-                    // Cloud Functions not deployed: at least remove the profile.
                     try {
                         await db.collection('excos').doc(btn.dataset.removeRejectedUid).delete();
                         logAudit('exco.remove_profile', 'excos', btn.dataset.removeRejectedUid, 'rejected; login not deleted');
@@ -4227,9 +4013,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        //  Used to populate the Unit Reports dropdown/filter AND to
-        //  label the unit-photo rows in the Site Images panel below.
-        // ============================================================
         const UNIT_LIST = [
             { slot: 'unit-president', label: 'President', photoMode: 'single' },
             { slot: 'unit-vice-president', label: 'Vice President', photoMode: 'single' },
@@ -4267,8 +4050,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             { slot: 'alumni-president', label: 'Alumni President' }
         ];
 
-        // Members panel's Unit dropdown reuses the same list so it
-        // stays consistent with Unit Reports / Site Images.
         (function populateMemberUnitOptions() {
             const select = document.getElementById('memberUnit');
             UNIT_LIST.forEach(u => {
@@ -4279,17 +4060,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         })();
 
-        // ============================================================
-        //  OFFICE REPORTS / VISION STATEMENTS (internal only - never
-        //  read from the public site, unlike Library and Site Images).
-        //  Each EXCO office gets its own card, gated by its own
-        //  password (see office-docs.js / OFFICE_DOCS) - this is a
-        //  second, office-specific lock on top of the portal login,
-        //  so one exco's account can't post as another office.
-        //  Once unlocked, that office's entries live in the same
-        //  "unit_reports" Firestore collection as before, filtered
-        //  by unit === office.id.
-        // ============================================================
         const officeGrid = document.getElementById('officeGrid');
         const officeSearch = document.getElementById('officeSearch');
         const officeModalOverlay = document.getElementById('officeModalOverlay');
@@ -4316,18 +4086,13 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
         let activeOffice = null;
         let activeOfficeReports = [];
         let officeReportsUnsub = null;
-        let liveMeetings = [];          // meetings with status 'live'
-        let myMeetingDocs = [];         // meeting_docs added from the open office
+        let liveMeetings = [];
+        let myMeetingDocs = [];
 
-        // Which office this account may manage (set by an admin in the
-        // Approvals tab). Admins may manage every office. The Firestore
-        // rules enforce exactly the same thing server-side.
         function canManageOffice(officeId) {
             return currentUserRole === 'admin' || (currentUserProfile && currentUserProfile.office === officeId);
         }
 
-        // Office photos default to office-docs.js, but can be overridden
-        // per office (Google Drive photo URL) - collection office_photos.
         let officePhotoOverrides = {};
         function getOfficePhoto(office) {
             return officePhotoOverrides[office.id]?.url || office.photo;
@@ -4359,7 +4124,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     : (mine ? `Your office: ${mine.name}` : 'No office is assigned to your account yet. Ask an admin to assign one.');
             }
 
-            // EXCOs see their own office first.
             const filtered = OFFICE_DOCS.filter(o =>
                 !term || o.name.toLowerCase().includes(term) || (o.category || '').toLowerCase().includes(term));
             if (filtered.length === 0) {
@@ -4425,9 +4189,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             officePhotoInput.value = '';
             officePhotoFeedback.textContent = '';
 
-            // The Administrative Arm (President, VP, Gen Sec, Asst Gen Sec)
-            // isn't a unit: its documents are minutes, agendas and proposed
-            // semester calendars - never unit reports or vision statements.
             const armOnly = !!office.adminArm;
             const LABELS = { 'Report': 'Unit Report' };
             officeReportType.innerHTML = officeDocTypes(office)
@@ -4475,7 +4236,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 }, err => {
                     officeDocList.innerHTML = `<li class="office-doc-empty">Could not load documents: ${escapeHtml(err.message)}</li>`;
                 });
-            // Which of this office's documents are on the board right now.
             officeMeetingDocsUnsub = db.collection('meeting_docs')
                 .where('office', '==', activeOffice.id)
                 .where('visible', '==', true)
@@ -4688,9 +4448,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }
         });
 
-        // ============================================================
-        //  SESSION + GENERAL MEETINGS (admin manages, everyone reads)
-        // ============================================================
         let currentSession = '';
         let allMeetings = [];
         const meetingDocCounts = {};
@@ -4765,7 +4522,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             btn.textContent = 'Closing...';
             try {
                 const docs = await db.collection('meeting_docs').where('meetingId', '==', id).where('visible', '==', true).get();
-                // Firestore batches hold up to 500 writes.
                 let batch = db.batch(), n = 0;
                 for (const d of docs.docs) {
                     batch.update(d.ref, { visible: false });
@@ -4830,14 +4586,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             loadSettingsAndMeetings();
         }
 
-        // ============================================================
-        //  SITE IMAGES - no Firebase Storage (needs the paid Blaze
-        //  plan). Instead: paste a Google Drive "Anyone with the
-        //  link" URL per slot, we convert it to a hotlinkable image
-        //  URL, and store just that URL in Firestore. site-images.js
-        //  on the public pages watches this collection and swaps in
-        //  the image wherever that slot is used.
-        // ============================================================
         const IMAGE_SLOT_GROUPS = [
             { group: 'Branding', items: [
                 { slot: 'logo', label: 'Site Logo' }
@@ -4891,9 +4639,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             ]}
         ];
 
-        // Turns a normal Google Drive share link into a URL that works
-        // directly inside an <img src>. Accepts the common share-link
-        // shapes; falls back to treating the input as a raw file ID.
         function driveLinkToImageUrl(input) {
             const raw = input.trim();
             let id = null;
@@ -5000,20 +4745,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  SITE CONTENT - text on the public pages (homepage headline
-        //  copy, event date/tag/title, footer service times & contact
-        //  info). Same shape as Site Images: each field is a doc in
-        //  Firestore collection "site_content", doc id = slot name,
-        //  { text }. site-content.js on the public pages watches this
-        //  collection and swaps the text in wherever that slot is used
-        //  (untouched fields just keep showing the page's default copy).
-        //
-        //  More slots can be added to a page any time by adding a
-        //  data-text-slot="..." attribute in the HTML and a matching
-        //  entry to CONTENT_SLOT_GROUPS below - no other code changes
-        //  needed.
-        // ============================================================
         const CONTENT_SLOT_GROUPS = [
             { group: 'App Splash (intro animation)', items: [
                 { slot: 'splash-tagline', label: 'Splash toggle-pill text (e.g. "A Fellowship You Can Call Home")', multiline: false }
@@ -5141,12 +4872,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  SUBSCRIBERS (newsletter mailing list). Never public - see
-        //  Firestore rules. Doc ID is the subscriber's own lowercased
-        //  email (set by newsletter-subscribe.js), which is also what
-        //  makes duplicate signups impossible at the rules level.
-        // ============================================================
         let allSubscribers = [];
         let activeSubscriberFilter = 'all';
         const subscriberSearch = document.getElementById('subscriberSearch');
@@ -5271,13 +4996,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             URL.revokeObjectURL(url);
         });
 
-        // ============================================================
-        //  COMPOSE NEWSLETTER. Writing/previewing here does nothing to
-        //  real subscribers - only clicking Send calls the free Apps
-        //  Script Web App (see /apps-script/Code.gs), which does the
-        //  actual sending server-side via Brevo. This tab never talks
-        //  to an email provider directly, and never sees a Brevo key.
-        // ============================================================
         function buildNewsletterPreviewHtml() {
             const title = document.getElementById('newsletterTitle').value.trim() || '(Untitled)';
             const content = document.getElementById('newsletterContent').value.trim();
@@ -5317,8 +5035,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             document.getElementById('newsletterPreviewWrap').style.display = 'block';
         });
 
-        // Regenerate the preview live if it's already open, so edits
-        // after clicking Preview once don't look stale.
         ['newsletterTitle', 'newsletterContent', 'newsletterImageLink', 'newsletterCtaText', 'newsletterCtaLink']
             .forEach(id => {
                 document.getElementById(id).addEventListener('input', () => {
@@ -5354,12 +5070,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 return;
             }
 
-            // One random ID per click, kept only for the newsletter
-            // history record - not used for de-duplication here (this
-            // simpler backend doesn't check it), so the real guard
-            // against double-sending is the button being disabled
-            // immediately below and re-enabled only once the request
-            // finishes.
             const clientRequestId = 'req_' + Date.now() + '_' + Math.random().toString(36).slice(2);
 
             sendNewsletterBtn.disabled = true;
@@ -5370,9 +5080,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             try {
                 const idToken = await auth.currentUser.getIdToken();
 
-                // text/plain avoids a CORS "preflight" request that
-                // Apps Script Web Apps don't handle - it still parses
-                // the body as JSON on the other end (see Code.gs).
                 const response = await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -5400,10 +5107,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     : `Sent to ${recipientCount} subscriber(s).`;
                 newsletterFeedback.style.color = '#0B1F44';
 
-                // Sending itself is done server-side (Apps Script never
-                // touches Firestore) - the history record is written
-                // here instead, by the client, same as every other
-                // admin-only collection in this dashboard.
                 await db.collection('newsletters').add({
                     subject, title, content,
                     imageUrl: imageUrl || null,

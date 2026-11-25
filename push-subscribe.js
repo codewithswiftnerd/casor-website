@@ -1,27 +1,6 @@
-// ============================================================
-// PUSH NOTIFICATIONS - visitor opt-in.
-// Loaded on every public page (after portal/firebase-config.js, which
-// already calls firebase.initializeApp()). Shows a small bottom banner
-// asking for permission; on "Allow" it registers the service worker,
-// gets an FCM token for this device, and saves it to Firestore in
-// push_subscribers/{token}. That's ALL this file does - it does not
-// and cannot send notifications itself (see the Cloud Function in
-// /functions, which is the piece that actually sends).
-//
-// SETUP REQUIRED before this does anything:
-// 1. Firebase Console -> Project Settings -> Cloud Messaging -> Web
-//    Push certificates -> Generate key pair. Copy the "Key pair"
-//    value and paste it below as VAPID_KEY.
-// 2. Deploy the Cloud Function in /functions (see SETUP-GUIDE.md) -
-//    that's the part that actually sends a push when News/Programs
-//    are posted. Until that's deployed, visitors can subscribe but
-//    will never receive anything.
-// ============================================================
 const VAPID_KEY = 'BIpu4YwUwmw17exjgs1p1_MQmjFNsPulwDIEXrcVOlNkSgJXR-Pfb4CTRSEMtDsaRsC7V0X3uMBY4UIlDIclocU';
 
 (function () {
-    // Silently do nothing on unsupported browsers (older Safari, etc.)
-    // or if the VAPID key hasn't been set up yet - never break the page.
     if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
     if (!VAPID_KEY || VAPID_KEY.indexOf('PASTE_') === 0) return;
     if (typeof firebase === 'undefined' || !firebase.messaging) return;
@@ -77,9 +56,6 @@ const VAPID_KEY = 'BIpu4YwUwmw17exjgs1p1_MQmjFNsPulwDIEXrcVOlNkSgJXR-Pfb4CTRSEMt
             });
             if (!token) return;
 
-            // Doc ID = the token itself, so re-subscribing on the same
-            // device just overwrites the same doc instead of piling up
-            // duplicates.
             await db.collection('push_subscribers').doc(token).set({
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 page: location.pathname
@@ -90,8 +66,5 @@ const VAPID_KEY = 'BIpu4YwUwmw17exjgs1p1_MQmjFNsPulwDIEXrcVOlNkSgJXR-Pfb4CTRSEMt
         }
     }
 
-    // Wait a few seconds after load rather than demanding a decision
-    // the instant the page opens.
-    // Wait for the homepage intro animation (if it's playing) to finish first.
     window.addEventListener('load', () => setTimeout(showBanner, document.getElementById('appSplash') ? 14000 : 4000));
 })();

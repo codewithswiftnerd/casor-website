@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>News | CASOR UNIPORT</title>
 
-
     <meta name="description" content="Read the latest news and announcements from CASOR UNIPORT, the Christian fellowship at the University of Port Harcourt." />
     <link rel="canonical" href="https://casoruniport.netlify.app/news.html" />
     <meta property="og:type" content="website" />
@@ -14,16 +13,13 @@
     <meta property="og:url" content="https://casoruniport.netlify.app/news.html" />
     <meta property="og:image" content="https://casoruniport.netlify.app/images/icon-512.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <!-- ===== FONTS ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-    <!-- ===== FONT AWESOME ===== -->
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
 
-    <!-- ===== STYLES ===== -->
     <link rel="icon" type="image/png" href="images/logo.png" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -35,7 +31,6 @@
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- ================= NAVBAR ================= -->
     <header>
         <div class="logo">
             <img src="images/logo.png" alt="CASOR Logo" data-img-slot="logo" />
@@ -61,7 +56,6 @@
         </div>
     </header>
 
-    <!-- ================= PAGE HERO ================= -->
     <section id="main" class="page-hero hero-bg-news" data-bg-slot="hero-news">
         <div class="page-hero-inner">
             <p class="breadcrumb"><a href="index.html">Home</a> / News</p>
@@ -89,7 +83,6 @@
 
     </section>
 
-    <!-- ================= FOOTER ================= -->
     <footer id="contact">
 
         <div class="newsletter-row">
@@ -160,7 +153,6 @@
 
     </footer>
 
-    <!-- ===== FIREBASE (read-only here - no login needed to browse news) ===== -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
@@ -174,7 +166,6 @@
     <script src="install-prompt.js"></script>
 
     <script>
-        // ===== MOBILE MENU TOGGLE =====
         const menuToggle = document.getElementById('menuToggle');
         const mainNav = document.getElementById('mainNav');
 
@@ -196,18 +187,6 @@
             });
         });
 
-        // Newsletter form handling now lives in newsletter-subscribe.js
-        // (loaded below, right after portal/firebase-config.js) so the
-        // real Firestore signup logic isn't duplicated across every page.
-
-        // ============================================================
-        //  NEWS - load posts from Firestore, newest first. Public,
-        //  read-only, no login needed.
-        //
-        //  Firestore doc shape (collection: "news"), matching what the
-        //  EXCO Dashboard's "News" tab writes:
-        //  { title, body, imageUrl (optional), postedBy, postedAt, updatedAt }
-        // ============================================================
         const newsListEl = document.getElementById('newsList');
         const newsSearch = document.getElementById('newsSearch');
 
@@ -238,8 +217,6 @@
                 return;
             }
 
-            // Keep cards short on small screens: show a preview and let
-            // the reader tap "Read more" to expand the full post in place.
             const PREVIEW_LEN = 180;
 
             newsListEl.innerHTML = filtered.map((n, i) => {
@@ -262,7 +239,6 @@
             }).join('');
         }
 
-        // Expand/collapse a card's text in place when "Read more" is tapped.
         newsListEl.addEventListener('click', function(e) {
             const btn = e.target.closest('.news-read-more');
             if (!btn) return;
@@ -299,7 +275,6 @@
         newsSearch.addEventListener('input', renderNews);
         loadNews();
 
-        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');

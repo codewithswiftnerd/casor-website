@@ -1,18 +1,3 @@
-// ============================================================
-//  ANTHEM - the interactive homepage section (index.html #anthem)
-//
-//  Inspired by Chowdeck's kinetic "You don chow?" hero, but driven by
-//  the fellowship anthem:
-//   * The big headline pops in one anthem line at a time, letter by
-//     letter. Tap / click / Enter jumps to the next line.
-//   * Further down, the whole anthem is laid out and each word lights up
-//     from grey to ink as you scroll through it.
-//   * If an audio link is set, a Play button appears and the lines
-//     follow the music.
-//
-//  The CASOR Anthem is built in below. It can be overridden from the
-//  dashboard: Site Content -> "Fellowship Anthem" -> one line per line.
-// ============================================================
 (function () {
     const section = document.getElementById('anthem');
     if (!section) return;
@@ -26,8 +11,6 @@
     const titleEl = document.getElementById('anthemTitle');
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // The CASOR Anthem (from the CASOR handbook, Section E). An admin can
-    // still override it from Site Content -> "Fellowship Anthem".
     const FALLBACK_TITLE = 'The CASOR Anthem';
     const FALLBACK_LINES = [
         'Ambassadors for Christ, we are called to declare',
@@ -41,21 +24,17 @@
         'Always be,',
         'Ambassadors for Christ we stand.'
     ];
-    // Words that get the brand colour when lit in the scroll view.
     const HIGHLIGHT = /^(christ|him|his|god|ambassadors?|casorite|divine)[.,!?;:]*$/i;
 
     let lines = FALLBACK_LINES.slice();
     let phrases = [];
     let index = 0;
 
-    // The big headline shows short phrases (lines split at commas) so long
-    // anthem lines stay readable on a phone.
     function buildPhrases() {
         phrases = [];
         lines.forEach(line => {
             line.split(/,\s*/).map(p => p.replace(/[.,;:]+$/, '').trim()).filter(Boolean).forEach(p => {
                 const last = phrases[phrases.length - 1];
-                // Merge tiny fragments ("Always be") into a readable chunk.
                 if (last && p.split(' ').length <= 2 && last.split(' ').length <= 3) phrases[phrases.length - 1] = last + ', ' + p;
                 else phrases.push(p);
             });
@@ -69,7 +48,6 @@
         return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     }
 
-    // ---------- Big kinetic line ----------
     function renderFlash(text) {
         let delay = 0;
         flash.innerHTML = text.split(/\s+/).filter(Boolean).map(word => {
@@ -118,7 +96,6 @@
     nextBtn.addEventListener('click', next);
     readBtn.addEventListener('click', () => scrollBox.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }));
 
-    // ---------- Scroll-lit full anthem ----------
     let words = [];
     let lineEls = [];
     function renderScroll() {
@@ -138,14 +115,11 @@
         if (reduced) { words.forEach(w => w.classList.add('lit')); return; }
         const rect = scrollBox.getBoundingClientRect();
         const vh = window.innerHeight || document.documentElement.clientHeight;
-        // Starts lighting when the block's top reaches 80% of the screen,
-        // finishes when its bottom reaches 55%.
         const start = vh * 0.8;
         const end = vh * 0.4;
         const progress = (start - rect.top) / Math.max(1, (rect.height + start - end));
         const lit = Math.max(0, Math.min(words.length, Math.round(progress * words.length)));
         for (let i = 0; i < words.length; i++) words[i].classList.toggle('lit', i < lit);
-        // The line currently being "sung" gets the accent colour.
         let activeLine = -1;
         if (lit > 0 && lit < words.length) {
             const w = words[lit - 1];
@@ -158,7 +132,6 @@
     }, { passive: true });
     window.addEventListener('resize', updateScroll);
 
-    // ---------- Only animate while visible ----------
     if ('IntersectionObserver' in window) {
         new IntersectionObserver(entries => {
             inView = entries[0].isIntersecting;
@@ -168,7 +141,6 @@
         inView = true;
     }
 
-    // ---------- Audio ----------
     function driveDirect(url) {
         const m = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
         return m ? `https://drive.google.com/uc?export=download&id=${m[1]}` : url;
@@ -186,7 +158,7 @@
                 audio.pause();
             }
         } catch (err) {
-            playBtn.hidden = true; // link not playable - just hide the button
+            playBtn.hidden = true;
             console.warn('Anthem audio could not play:', err.message);
         }
     });
@@ -203,7 +175,6 @@
     });
     audio.addEventListener('error', () => { playBtn.hidden = true; });
 
-    // ---------- Data ----------
     function applyLines(text, title) {
         const parsed = String(text || '').split(/\r?\n/).map(s => s.trim()).filter(Boolean);
         if (parsed.length) {
@@ -220,7 +191,6 @@
         startCycle();
     }
 
-    // Show the fallback immediately so the section is never empty.
     applyLines('', '');
 
     if (typeof db === 'undefined') return;
