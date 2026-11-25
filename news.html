@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News | CASOR UNIPORT</title>
+
+
+    <meta name="description" content="Read the latest news and announcements from CASOR UNIPORT, the Christian fellowship at the University of Port Harcourt." />
+    <link rel="canonical" href="https://casoruniport.netlify.app/news.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="News | CASOR UNIPORT" />
+    <meta property="og:description" content="Read the latest news and announcements from CASOR UNIPORT, the Christian fellowship at the University of Port Harcourt." />
+    <meta property="og:url" content="https://casoruniport.netlify.app/news.html" />
+    <meta property="og:image" content="https://casoruniport.netlify.app/images/icon-512.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- ===== FONTS ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <!-- ===== FONT AWESOME ===== -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+
+    <!-- ===== STYLES ===== -->
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="theme.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0B1F44" />
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ================= NAVBAR ================= -->
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="CASOR Logo" data-img-slot="logo" />
+        </div>
+
+        <nav id="mainNav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="units.html">Units</a>
+            <a href="events.html">Programs</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="library.html">Library</a>
+            <a href="news.html" aria-current="page">News</a>
+            <a href="meeting.html">Meetings</a>
+            <a href="contact.html">Contact</a>
+            <a href="portal/login.html" class="nav-mobile-login">Login</a>
+        </nav>
+
+        <a href="portal/login.html" class="nav-btn">Login</a>
+
+        <div class="menu" id="menuToggle" role="button" tabindex="0" aria-label="Open menu" aria-controls="mainNav" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- ================= PAGE HERO ================= -->
+    <section id="main" class="page-hero hero-bg-news" data-bg-slot="hero-news">
+        <div class="page-hero-inner">
+            <p class="breadcrumb"><a href="index.html">Home</a> / News</p>
+            <h1>News &amp; Announcements</h1>
+            <p>Updates, announcements and stories from the fellowship,
+            posted straight from the EXCO portal.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+
+        <div class="library-toolbar" style="max-width:760px;margin:0 auto 40px;">
+            <div class="library-search" style="max-width:none;">
+                <i class="fas fa-search"></i>
+                <input type="text" id="newsSearch" placeholder="Search news by title..." />
+            </div>
+        </div>
+
+        <div class="news-list" id="newsList">
+            <div class="news-state" id="newsState">
+                <i class="fas fa-spinner fa-spin"></i>
+                Loading news...
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer id="contact">
+
+        <div class="newsletter-row">
+            <h3>Stay Connected</h3>
+            <p>Receive updates about events, sermons and fellowship activities.</p>
+            <form id="newsletterForm">
+                <input
+                type="email"
+                id="newsletterEmail"
+                placeholder="Enter your email"
+                required
+                />
+                <button type="submit">Subscribe</button>
+            </form>
+            <p id="newsletterFeedback" style="margin-top:12px;font-size:14px;color:var(--gold);display:none;"></p>
+        </div>
+
+        <div class="footer-grid">
+
+            <div>
+                <h3>CASOR UNIPORT</h3>
+                <p data-text-slot="footer-tagline">Raising Kingdom Ambassadors for Global Impact.</p>
+            </div>
+
+            <div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="units.html">Units</a></li>
+                    <li><a href="events.html">Programs</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="library.html">Library</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="meeting.html">Meeting Board</a></li>
+                    <li><a href="register.html">Register as a member</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Service Times</h4>
+                <p data-text-slot="footer-service-1">Sunday · 2:00 PM<br />Our Saviour's Chapel, Children Hall</p>
+                <p data-text-slot="footer-service-2">Wednesday · 5:30 PM<br />Assemblies of God Church,<br />Choba 1, Alikor Estate</p>
+                <p data-text-slot="footer-service-3">Thursday · 6:00 PM<br />Prayers, Botanical Garden</p>
+                <p data-text-slot="footer-service-4">Tuesday · 5:00 PM<br />Bible Study, CASOR Secretariat</p>
+            </div>
+
+            <div>
+                <h4>Contact</h4>
+                <p data-text-slot="footer-address">University of Port Harcourt</p>
+                <p><a href="mailto:casoruniportarchive@gmail.com">casoruniportarchive@gmail.com</a></p>
+                <p data-text-slot="footer-phone">0813 162 2282</p>
+            </div>
+
+        </div>
+
+        <hr />
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 CASOR UNIPORT. All Rights Reserved.</p>
+            <div class="socials">
+                <a href="https://www.facebook.com/profile.php?id=100073965431930" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@casor_uniport?_r=1&amp;_t=ZS-98hoQ5qWfQ5" aria-label="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
+                <a href="https://youtube.com/@casoruniport?si=IqWac8OB43dLpl9D" aria-label="YouTube" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+
+    </footer>
+
+    <!-- ===== FIREBASE (read-only here - no login needed to browse news) ===== -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+    <script src="portal/firebase-config.js"></script>
+    <script src="push-subscribe.js"></script>
+    <script src="newsletter-subscribe.js"></script>
+
+    <script src="animations.js"></script>
+    <script src="site-content.js"></script>
+    <script src="site-images.js"></script>
+    <script src="install-prompt.js"></script>
+
+    <script>
+        // ===== MOBILE MENU TOGGLE =====
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        menuToggle.addEventListener('click', function() {
+            const isOpen = mainNav.classList.toggle('active');
+            menuToggle.classList.toggle('open', isOpen);
+            const icon = this.querySelector('i');
+            icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        document.querySelectorAll('#mainNav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    mainNav.classList.remove('active');
+                    menuToggle.classList.remove('open');
+                    const icon = menuToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-bars';
+                }
+            });
+        });
+
+        // Newsletter form handling now lives in newsletter-subscribe.js
+        // (loaded below, right after portal/firebase-config.js) so the
+        // real Firestore signup logic isn't duplicated across every page.
+
+        // ============================================================
+        //  NEWS - load posts from Firestore, newest first. Public,
+        //  read-only, no login needed.
+        //
+        //  Firestore doc shape (collection: "news"), matching what the
+        //  EXCO Dashboard's "News" tab writes:
+        //  { title, body, imageUrl (optional), postedBy, postedAt, updatedAt }
+        // ============================================================
+        const newsListEl = document.getElementById('newsList');
+        const newsSearch = document.getElementById('newsSearch');
+
+        let allNews = [];
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function renderNews() {
+            const term = newsSearch.value.trim().toLowerCase();
+            const filtered = allNews.filter(n => !term || (n.title || '').toLowerCase().includes(term));
+
+            if (filtered.length === 0) {
+                newsListEl.innerHTML = `
+                    <div class="news-state">
+                        <i class="fas fa-box-open"></i>
+                        ${allNews.length === 0
+                            ? 'No news posted yet. Check back soon!'
+                            : 'Nothing matches that search.'}
+                    </div>`;
+                return;
+            }
+
+            // Keep cards short on small screens: show a preview and let
+            // the reader tap "Read more" to expand the full post in place.
+            const PREVIEW_LEN = 180;
+
+            newsListEl.innerHTML = filtered.map((n, i) => {
+                const date = n.postedAt ? n.postedAt.toDate().toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+                const photo = n.imageUrl ? `<img loading="lazy" decoding="async" class="news-card-photo" src="${escapeHtml(n.imageUrl)}" alt="${escapeHtml(n.title)}" onerror="this.remove();" />` : '';
+                const fullText = escapeHtml(n.body || '');
+                const isLong = fullText.length > PREVIEW_LEN;
+                const previewText = isLong ? fullText.slice(0, PREVIEW_LEN).trim() + '&hellip;' : fullText;
+
+                return `
+                    <article class="news-card" style="animation-delay:${(i % 6) * 0.05}s">
+                        ${photo}
+                        <div class="news-card-body">
+                            <span class="news-card-date">${escapeHtml(date)}</span>
+                            <h3>${escapeHtml(n.title)}</h3>
+                            <p class="news-card-text" data-full="${fullText.replace(/"/g, '&quot;')}" data-preview="${previewText.replace(/"/g, '&quot;')}">${previewText}</p>
+                            ${isLong ? `<button type="button" class="news-read-more">Read more</button>` : ''}
+                        </div>
+                    </article>`;
+            }).join('');
+        }
+
+        // Expand/collapse a card's text in place when "Read more" is tapped.
+        newsListEl.addEventListener('click', function(e) {
+            const btn = e.target.closest('.news-read-more');
+            if (!btn) return;
+            const textEl = btn.previousElementSibling;
+            const expanded = btn.dataset.expanded === 'true';
+            if (expanded) {
+                textEl.innerHTML = textEl.dataset.preview;
+                btn.textContent = 'Read more';
+                btn.dataset.expanded = 'false';
+            } else {
+                textEl.innerHTML = textEl.dataset.full;
+                btn.textContent = 'Show less';
+                btn.dataset.expanded = 'true';
+            }
+        });
+
+        function loadNews() {
+            db.collection('news').orderBy('postedAt', 'desc').onSnapshot(
+                snap => {
+                    allNews = snap.docs.map(doc => doc.data());
+                    renderNews();
+                },
+                err => {
+                    console.error('News load failed:', err);
+                    newsListEl.innerHTML = `
+                        <div class="news-state">
+                            <i class="fas fa-triangle-exclamation"></i>
+                            Couldn't load news right now. Please try again shortly.
+                        </div>`;
+                }
+            );
+        }
+
+        newsSearch.addEventListener('input', renderNews);
+        loadNews();
+
+        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

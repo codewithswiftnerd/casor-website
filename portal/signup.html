@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create EXCO Account — CASOR UNIPORT</title>
+    <title>Create EXCO Account | CASOR UNIPORT</title>
+    <link rel="icon" type="image/png" href="../images/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root{ --navy:#0B1F44; --navy-dark:#071531; --gold:#FFC72C; --gold-dark:#E6A800; --cream:#F7F3E8; }
@@ -43,11 +44,12 @@
             text-align:center;
         }
         label{ display:block; font-size:13px; font-weight:600; color:#444; margin-bottom:6px; }
-        input{
+        input, select{
             width:100%; padding:13px 14px; border:1px solid #ddd; border-radius:4px;
             margin-bottom:18px; font-family:'Poppins',sans-serif; font-size:14px;
         }
-        input:focus{ outline:none; border-color:var(--gold-dark); }
+        input:focus, select:focus{ outline:none; border-color:var(--gold-dark); }
+        select{ background:#fff; color:#222; }
         button{
             width:100%; padding:14px; background:var(--gold); color:var(--navy-dark);
             border:none; border-radius:4px; font-family:'Montserrat',sans-serif;
@@ -60,24 +62,115 @@
             font-size:13px; padding:10px 12px; border-radius:4px; margin-bottom:16px; display:none;
         }
         .error-msg{ background:#fdeaea; color:#b3261e; }
-        .success-msg{ background:#e9f7ec; color:#1e7a34; }
+        .success-msg{ background:#e9f7ec; color:#0B1F44; }
         .back-link{
             display:block; text-align:center; margin-top:22px; font-size:13px; color:#888;
         }
         .back-link a{ color:var(--navy); font-weight:600; text-decoration:none; }
         .hint{ font-size:11px; color:#999; margin:-12px 0 18px; }
-        .loading-indicator { text-align:center; padding:20px; display:none; }
-        .spinner { 
-            display:inline-block; width:30px; height:30px; 
-            border:4px solid #ddd; border-top:4px solid var(--gold); 
-            border-radius:50%; animation:spin 1s linear infinite; 
+
+        /* ===== Interactive "waiting for verification" screen ===== */
+        .loading-indicator { display:none; }
+        .verify-stage{
+            width:100%; max-width:460px;
+            background:var(--navy-dark);
+            border-radius:8px;
+            overflow:hidden;
+            box-shadow:0 20px 50px rgba(0,0,0,.35);
+        }
+        .verify-hero{
+            position:relative;
+            height:220px;
+            overflow:hidden;
+        }
+        .verify-hero img{
+            position:absolute; top:0; left:0;
+            width:100%; height:100%; object-fit:cover;
+            opacity:0;
+            animation:heroFade 16s infinite;
+        }
+        .verify-hero img:nth-child(1){ animation-delay:0s; }
+        .verify-hero img:nth-child(2){ animation-delay:4s; }
+        .verify-hero img:nth-child(3){ animation-delay:8s; }
+        .verify-hero img:nth-child(4){ animation-delay:12s; }
+        @keyframes heroFade{
+            0%{ opacity:0; transform:scale(1.05); }
+            5%{ opacity:1; transform:scale(1); }
+            22%{ opacity:1; }
+            28%{ opacity:0; }
+            100%{ opacity:0; }
+        }
+        .verify-hero::after{
+            content:'';
+            position:absolute; inset:0;
+            background:linear-gradient(180deg, rgba(11,31,68,.15) 0%, rgba(11,31,68,.92) 100%);
+        }
+        .verify-hero .logo-wrap{
+            position:absolute; left:0; right:0; bottom:14px;
+            display:flex; flex-direction:column; align-items:center;
+            z-index:2;
+        }
+        .verify-hero img.logo-badge{
+            position:static;
+            width:56px; height:56px; object-fit:contain;
+            border-radius:50%;
+            background:#fff;
+            padding:6px;
+            animation:logoPulse 2.4s ease-in-out infinite;
+            box-shadow:0 0 0 0 rgba(255,199,44,.6);
+        }
+        @keyframes logoPulse{
+            0%,100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(255,199,44,.5); }
+            50%{ transform:scale(1.08); box-shadow:0 0 0 10px rgba(255,199,44,0); }
+        }
+        .verify-motto{
+            margin-top:8px;
+            font-family:'Montserrat',sans-serif;
+            font-weight:700;
+            font-size:12px;
+            letter-spacing:.5px;
+            color:var(--gold);
+            text-transform:uppercase;
+            text-align:center;
+            padding:0 20px;
+        }
+        .verify-body{
+            background:#fff;
+            padding:26px 30px 30px;
+            text-align:center;
+        }
+        .verify-body h2{
+            font-family:'Montserrat',sans-serif;
+            font-weight:800;
+            font-size:16px;
+            color:var(--navy);
+            margin-bottom:6px;
+        }
+        .verify-steps{
+            display:flex; justify-content:center; gap:22px;
+            margin:18px 0 20px;
+        }
+        .verify-step{ text-align:center; opacity:.35; transition:opacity .4s; }
+        .verify-step.active{ opacity:1; }
+        .verify-step .dot{
+            width:30px; height:30px; margin:0 auto 6px;
+            border-radius:50%; background:var(--navy);
+            color:#fff; display:flex; align-items:center; justify-content:center;
+            font-family:'Montserrat',sans-serif; font-weight:800; font-size:13px;
+        }
+        .verify-step.active .dot{ background:var(--gold); color:var(--navy-dark); }
+        .verify-step span{ font-size:10px; color:#777; font-weight:600; }
+        .spinner {
+            display:inline-block; width:26px; height:26px;
+            border:3px solid #eee; border-top:3px solid var(--gold);
+            border-radius:50%; animation:spin 1s linear infinite;
         }
         @keyframes spin { 0%{ transform:rotate(0deg); } 100%{ transform:rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<div class="login-box">
+<div class="login-box" id="signupBox">
     <span class="eyebrow">CASOR UNIPORT</span>
     <h1>Create EXCO Account</h1>
 
@@ -91,30 +184,80 @@
         <label for="email">Email</label>
         <input type="email" id="email" required placeholder="you@casoruniport.com">
 
+        <label for="requestedOffice">Position you hold (or are applying for)</label>
+        <select id="requestedOffice" required>
+            <option value="" disabled selected>Choose your office...</option>
+        </select>
+
+        <label for="phone">Phone (optional)</label>
+        <input type="tel" id="phone" placeholder="080..." maxlength="20">
+
         <label for="password">Password</label>
         <input type="password" id="password" required placeholder="At least 6 characters" minlength="6">
-        <p class="hint">✅ After signup, verify your email and you'll be auto-approved!</p>
+        <p class="hint">After signup, verify your email. Your request is then sent to the admin for approval - you'll get access once approved.</p>
 
         <button type="submit" id="signupBtn">Create Account</button>
     </form>
 
-    <div class="loading-indicator" id="loadingIndicator">
+    <span class="back-link" id="signupBackLink">Already have an account? <a href="login.html">Sign in</a></span>
+</div>
+
+<div class="verify-stage" id="loadingIndicator" style="display:none;">
+    <div class="verify-hero">
+        <img src="../images/worship.jpg" alt="">
+        <img src="../images/prayer.jpg" alt="">
+        <img src="../images/Evangelism.jpg" alt="">
+        <img src="../images/CASOR.jpg" alt="">
+        <div class="logo-wrap">
+            <img class="logo-badge" src="../images/logo.png" alt="CASOR logo">
+        </div>
+    </div>
+    <div class="verify-body">
+        <div class="verify-motto">Raising Kingdom Ambassadors for Global Impact</div>
+        <h2 style="margin-top:14px;">Almost there!</h2>
         <div class="spinner"></div>
         <p style="margin-top:12px;font-size:14px;color:#666;">Waiting for email verification...</p>
-        <p style="font-size:12px;color:#999;">Check your email and click the verification link</p>
-        <button onclick="resendVerification()" style="margin-top:16px;padding:10px 24px;background:var(--gold);border:none;border-radius:4px;font-weight:700;cursor:pointer;">Resend Verification Email</button>
-    </div>
+        <p style="font-size:12px;color:#999;margin-bottom:0;">Check your inbox and click the verification link</p>
 
-    <span class="back-link">Already have an account? <a href="login.html">Sign in</a></span>
+        <div class="verify-steps">
+            <div class="verify-step active"><div class="dot">1</div><span>SIGNED UP</span></div>
+            <div class="verify-step" id="stepVerify"><div class="dot">2</div><span>VERIFY EMAIL</span></div>
+            <div class="verify-step" id="stepApprove"><div class="dot">3</div><span>ADMIN APPROVES</span></div>
+        </div>
+
+        <button onclick="resendVerification()" style="margin-top:6px;padding:10px 24px;background:var(--gold);border:none;border-radius:4px;font-weight:700;cursor:pointer;">Resend Verification Email</button>
+    </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 <script src="firebase-config.js"></script>
+<script src="office-docs.js"></script>
 <script>
 const form = document.getElementById('signupForm');
+
+// Fill the "position" dropdown from the official office list.
+(function fillOffices() {
+    const sel = document.getElementById('requestedOffice');
+    if (typeof OFFICE_DOCS === 'undefined') return;
+    let group = null, groupLabel = null;
+    OFFICE_DOCS.forEach(o => {
+        if (o.category !== groupLabel) {
+            group = document.createElement('optgroup');
+            group.label = groupLabel = o.category;
+            sel.appendChild(group);
+        }
+        const opt = document.createElement('option');
+        opt.value = o.id;
+        opt.textContent = o.name;
+        group.appendChild(opt);
+    });
+    const other = document.createElement('option');
+    other.value = 'other';
+    other.textContent = 'Other / not listed';
+    sel.appendChild(other);
+})();
 const errorMsg = document.getElementById('errorMsg');
 const successMsg = document.getElementById('successMsg');
 const signupBtn = document.getElementById('signupBtn');
@@ -122,10 +265,11 @@ const loadingIndicator = document.getElementById('loadingIndicator');
 
 let verificationInterval = null;
 let currentUser = null;
+const ADMIN_EMAIL = 'igrie318@gmail.com';
 
 function friendlyError(code){
     const map = {
-        'auth/email-already-in-use': 'An account already exists for that email — try signing in instead.',
+        'auth/email-already-in-use': 'An account already exists for that email. Try signing in instead.',
         'auth/invalid-email': 'That email address looks invalid.',
         'auth/weak-password': 'Password should be at least 6 characters.',
         'auth/network-request-failed': 'Network error. Check your connection.',
@@ -136,9 +280,9 @@ function friendlyError(code){
 async function resendVerification() {
     try {
         await currentUser.sendEmailVerification();
-        alert('✅ Verification email resent! Check your inbox (and spam folder).');
+        alert('Verification email resent. Check your inbox (and spam folder).');
     } catch (err) {
-        alert('❌ Could not resend: ' + err.message);
+        alert('Could not resend: ' + err.message);
     }
 }
 
@@ -151,6 +295,20 @@ form.addEventListener('submit', async (e) => {
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
+    const officeSel = document.getElementById('requestedOffice');
+    const requestedOffice = officeSel.value ? officeSel.options[officeSel.selectedIndex].text : '';
+    const phone = document.getElementById('phone').value.trim().slice(0, 20);
+
+    if (!name || name.length > 120) {
+        errorMsg.textContent = 'Please enter your full name.';
+        errorMsg.style.display = 'block';
+        return;
+    }
+    if (!requestedOffice) {
+        errorMsg.textContent = 'Please choose the position you hold.';
+        errorMsg.style.display = 'block';
+        return;
+    }
 
     signupBtn.disabled = true;
     signupBtn.textContent = 'Creating account...';
@@ -163,48 +321,120 @@ form.addEventListener('submit', async (e) => {
         // Send verification email
         await cred.user.sendEmailVerification();
 
-        // Create EXCO document with "unverified" status
+        // The EXCO record. Always starts pending/exco - the security rules
+        // reject anything else, and only an admin can change it later.
+        // There is NO approval token here any more: the review token is
+        // generated server-side by the notifyAdminOnSignup Cloud Function
+        // and stored where no browser can read it.
         await db.collection('excos').doc(cred.user.uid).set({
             name: name,
-            email: email,
-            status: 'unverified',
+            email: cred.user.email,
+            status: 'pending',
+            role: 'exco',
             uid: cred.user.uid,
+            requestedOffice: requestedOffice,
+            phone: phone,
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
 
-        // Show loading/verification screen
-        form.style.display = 'none';
+        // Two things now happen on signup, independent of each other:
+        // 1) This still opens the signee's own email app pre-addressed
+        //    to the admin, as a fallback / heads-up.
+        // 2) A Cloud Function (see functions/index.js:
+        //    notifyAdminOnSignup) is watching for this new document and
+        //    automatically emails the ADMIN_EMAIL below a real message
+        //    with one-click "Approve as EXCO" / "Approve as Admin"
+        //    links - no dashboard visit needed. That part requires the
+        //    function to actually be deployed (see SETUP-GUIDE.md);
+        //    until then this mailto: fallback is what carries the
+        //    request.
+        try {
+            const adminSubject = encodeURIComponent('CASOR EXCO Portal - New Signup Needs Approval');
+            const adminBody = encodeURIComponent(
+                `A new EXCO account was just created and needs your approval.\n\n` +
+                `Name: ${name}\nEmail: ${email}\n\n` +
+                `You should also receive a separate automated email with one-click Approve links. ` +
+                `If that hasn't arrived: sign in to the dashboard and open the "Approvals" tab to approve them there.`
+            );
+            window.open(`mailto:${ADMIN_EMAIL}?subject=${adminSubject}&body=${adminBody}`, '_blank');
+        } catch (_) {
+            // Non-fatal - the pending signup still shows up in the
+            // dashboard's Approvals tab either way.
+        }
+
+        // Show the animated verification screen in place of the signup form
+        document.getElementById('signupBox').style.display = 'none';
         loadingIndicator.style.display = 'block';
 
-        // Start checking for email verification
+        const verifyBody = loadingIndicator.querySelector('.verify-body');
+
+        // Two independent things now have to happen before this person
+        // gets in: they verify their email (proves the address is
+        // theirs), and an admin approves them (proves a human vetted
+        // them). Neither one grants access on its own, and neither
+        // depends on the other - this loop just watches both and
+        // updates the moment each one flips, with no writes from this
+        // page at all except the initial "pending" doc above.
         let attempts = 0;
+        let everVerified = false;
         verificationInterval = setInterval(async () => {
             attempts++;
-            await cred.user.reload();
-            
-            if (cred.user.emailVerified) {
+
+            let verified = everVerified;
+            if (!verified) {
+                await cred.user.reload();
+                verified = cred.user.emailVerified;
+            }
+            if (verified && !everVerified) {
+                everVerified = true;
+                document.getElementById('stepVerify').classList.add('active');
+            }
+
+            let approved = false;
+            try {
+                const profile = await db.collection('excos').doc(cred.user.uid).get();
+                approved = profile.exists && profile.data().status === 'approved';
+            } catch (_) { /* keep polling */ }
+
+            if (approved) {
+                document.getElementById('stepApprove').classList.add('active');
+            }
+
+            if (approved && everVerified) {
                 clearInterval(verificationInterval);
-                // AUTO-APPROVE!
-                await db.collection('excos').doc(cred.user.uid).update({
-                    status: 'approved',
-                    verifiedAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                
-                loadingIndicator.innerHTML = `
-                    <div style="text-align:center;padding:20px;">
-                        <div style="font-size:48px;margin-bottom:16px;">✅</div>
-                        <h3 style="color:var(--navy);margin-bottom:8px;">Account Approved!</h3>
-                        <p style="color:#666;margin-bottom:16px;">Your email was verified and you've been approved!</p>
-                        <a href="login.html" style="display:inline-block;padding:12px 32px;background:var(--gold);color:var(--navy-dark);font-weight:800;text-transform:uppercase;border-radius:4px;text-decoration:none;">Go to Login →</a>
+                verifyBody.innerHTML = `
+                    <div class="verify-motto">Raising Kingdom Ambassadors for Global Impact</div>
+                    <div style="text-align:center;padding:14px 0 4px;">
+                        <div style="font-size:40px;">✅</div>
+                        <h3 style="color:var(--navy);margin:8px 0;">Account Approved</h3>
+                        <p style="color:#666;margin-bottom:16px;">Your email was verified and you've been approved.</p>
+                        <a href="login.html" style="display:inline-block;padding:12px 32px;background:var(--gold);color:var(--navy-dark);font-weight:800;text-transform:uppercase;border-radius:4px;text-decoration:none;">Go to Login</a>
                     </div>
                 `;
-            } else if (attempts > 60) {
-                // Timeout after 3 minutes (60 * 3 seconds)
+            } else if (approved && !everVerified) {
+                verifyBody.innerHTML = `
+                    <div class="verify-motto">Raising Kingdom Ambassadors for Global Impact</div>
+                    <div style="text-align:center;padding:14px 0 4px;">
+                        <h3 style="color:var(--navy);margin:8px 0;">Approved - just verify your email</h3>
+                        <p style="color:#666;margin-bottom:16px;">An admin has approved you. Check your inbox and click the verification link to finish - then just sign in.</p>
+                        <button onclick="resendVerification()" style="padding:10px 24px;background:var(--gold);border:none;border-radius:4px;font-weight:700;cursor:pointer;margin-right:10px;">Resend Email</button>
+                        <a href="login.html" style="display:inline-block;padding:10px 24px;background:var(--navy);color:#fff;border-radius:4px;text-decoration:none;">Go to Login</a>
+                    </div>
+                `;
                 clearInterval(verificationInterval);
-                loadingIndicator.innerHTML = `
-                    <div style="text-align:center;padding:20px;">
-                        <div style="font-size:48px;margin-bottom:16px;">⏰</div>
-                        <h3 style="color:var(--navy);margin-bottom:8px;">Waiting for Verification</h3>
+            } else if (everVerified && attempts > 3 && attempts % 10 === 0) {
+                // Verified and just waiting on the admin now - keep the
+                // spinner up but reassure them nothing further is needed.
+                verifyBody.querySelector('p').textContent =
+                    'Your email is verified. Waiting on admin approval - no further action needed from you.';
+            } else if (!everVerified && attempts > 60) {
+                // Timeout after 3 minutes (60 * 3 seconds) of no verification
+                clearInterval(verificationInterval);
+                verifyBody.innerHTML = `
+                    <div class="verify-motto">Raising Kingdom Ambassadors for Global Impact</div>
+                    <div style="text-align:center;padding:14px 0 4px;">
+                        <div style="font-size:40px;">⏰</div>
+                        <h3 style="color:var(--navy);margin:8px 0;">Waiting for Verification</h3>
                         <p style="color:#666;margin-bottom:16px;">We haven't seen your verification yet.</p>
                         <button onclick="resendVerification()" style="padding:10px 24px;background:var(--gold);border:none;border-radius:4px;font-weight:700;cursor:pointer;margin-right:10px;">Resend Email</button>
                         <a href="login.html" style="display:inline-block;padding:10px 24px;background:var(--navy);color:#fff;border-radius:4px;text-decoration:none;">Go to Login</a>

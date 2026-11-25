@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EXCO Login — CASOR UNIPORT</title>
+    <title>EXCO Login | CASOR UNIPORT</title>
+    <link rel="icon" type="image/png" href="../images/logo.png" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
     <style>
         :root {
@@ -32,7 +33,18 @@
             width: 100%;
             max-width: 400px;
             padding: 44px 36px;
-            border-radius: 6px;
+            border-radius: 10px;
+            box-shadow: 0 24px 60px rgba(0,0,0,.25);
+        }
+        .login-box .logo-badge {
+            display: block;
+            width: 54px;
+            height: 54px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: var(--cream);
+            padding: 6px;
+            margin: 0 auto 14px;
         }
         .login-box .eyebrow {
             font-family: 'Montserrat', sans-serif;
@@ -134,6 +146,7 @@
 <body>
 
     <div class="login-box">
+        <img class="logo-badge" src="../images/logo.png" alt="CASOR Logo" />
         <span class="eyebrow">CASOR UNIPORT</span>
         <h1>EXCO Portal</h1>
 
@@ -160,8 +173,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js">
     </script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js">
-    </script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js">
     </script>
     <script src="firebase-config.js">
     </script>
@@ -197,9 +208,9 @@
                         const cred = await auth.signInWithEmailAndPassword(email, password);
                         await cred.user.sendEmailVerification();
                         await auth.signOut();
-                        alert('✅ Verification email resent to ' + email);
+                        alert('Verification email resent to ' + email);
                     } catch (err) {
-                        alert('❌ Could not resend: ' + friendlyError(err.code));
+                        alert('Could not resend: ' + friendlyError(err.code));
                     }
                 });
             });
@@ -233,12 +244,11 @@
             try {
                 const cred = await auth.signInWithEmailAndPassword(email, password);
                 await cred.user.reload();
-                await cred.user.getIdToken(true); // force-refresh token
 
                 if (!cred.user.emailVerified) {
                     await auth.signOut();
                     errorMsg.innerHTML =
-                        'Please verify your email first — check your inbox for the link. <a href="#" id="resendLink">Resend it</a>.';
+                        'Please verify your email first. Check your inbox for the link. <a href="#" id="resendLink">Resend it</a>.';
                     errorMsg.style.display = 'block';
                     loginBtn.disabled = false;
                     loginBtn.textContent = 'Sign In';
@@ -246,18 +256,15 @@
                     return;
                 }
 
-                // Try to auto-approve. Security rules enforce the email is on the pre-approved list.
-                try {
-                    await db.collection('excos').doc(cred.user.uid).set({
-                        status: 'approved',
-                        email: cred.user.email,
-                        name: cred.user.displayName || '',
-                        approvedAt: firebase.firestore.FieldValue.serverTimestamp()
-                    }, { merge: true });
-                } catch (approveErr) {
+                // No write happens here anymore - approval is something
+                // ONLY an admin can grant (via the dashboard or the
+                // one-click email link), never the person logging in.
+                // This just reads that decision.
+                const profile = await db.collection('excos').doc(cred.user.uid).get();
+                if (!profile.exists || profile.data().status !== 'approved') {
                     await auth.signOut();
                     errorMsg.textContent =
-                        "Your email isn't on the approved EXCO list. Contact an admin to be added.";
+                        "Your email is verified, but you're still waiting on admin approval. You'll be able to sign in once approved - no further action needed.";
                     errorMsg.style.display = 'block';
                     loginBtn.disabled = false;
                     loginBtn.textContent = 'Sign In';
@@ -283,9 +290,9 @@
             }
             try {
                 await auth.sendPasswordResetEmail(email);
-                alert('✅ Password reset link sent to ' + email);
+                alert('Password reset link sent to ' + email);
             } catch (err) {
-                alert('❌ ' + friendlyError(err.code));
+                alert(friendlyError(err.code));
             }
         });
     </script>

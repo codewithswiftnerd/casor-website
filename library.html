@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library | CASOR UNIPORT</title>
+
+
+    <meta name="description" content="Explore resources from the CASOR UNIPORT library, including sermons, teachings and study materials." />
+    <link rel="canonical" href="https://casoruniport.netlify.app/library.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Library | CASOR UNIPORT" />
+    <meta property="og:description" content="Explore resources from the CASOR UNIPORT library, including sermons, teachings and study materials." />
+    <meta property="og:url" content="https://casoruniport.netlify.app/library.html" />
+    <meta property="og:image" content="https://casoruniport.netlify.app/images/icon-512.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- ===== FONTS ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <!-- ===== FONT AWESOME ===== -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+
+    <!-- ===== STYLES ===== -->
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="theme.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0B1F44" />
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ================= NAVBAR ================= -->
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="CASOR Logo" data-img-slot="logo" />
+        </div>
+
+        <nav id="mainNav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="units.html">Units</a>
+            <a href="events.html">Programs</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="library.html" aria-current="page">Library</a>
+            <a href="news.html">News</a>
+            <a href="meeting.html">Meetings</a>
+            <a href="contact.html">Contact</a>
+            <a href="portal/login.html" class="nav-mobile-login">Login</a>
+        </nav>
+
+        <a href="portal/login.html" class="nav-btn">Login</a>
+
+        <div class="menu" id="menuToggle" role="button" tabindex="0" aria-label="Open menu" aria-controls="mainNav" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- ================= PAGE HERO ================= -->
+    <section id="main" class="page-hero hero-bg-library" data-bg-slot="hero-library">
+        <div class="page-hero-inner">
+            <p class="breadcrumb"><a href="index.html">Home</a> / Library</p>
+            <h1>The Library</h1>
+            <p>Past questions, textbooks, e-books and study guides,
+            shared by CASORites, for CASORites. Search, filter, download.
+            No login required.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="planner-feature" id="plannerFeature" hidden></div>
+
+        <div class="library-toolbar">
+            <div class="library-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="librarySearch" placeholder="Search by title or course code (e.g. MTH 101)..." />
+            </div>
+            <div class="library-filters" id="libraryFilters">
+                <button class="filter-pill active" data-filter="all">All</button>
+                <button class="filter-pill" data-filter="Past Questions">Past Questions</button>
+                <button class="filter-pill" data-filter="Textbook">Textbooks</button>
+                <button class="filter-pill" data-filter="Study Guide">Study Guides</button>
+                <button class="filter-pill" data-filter="Study Planner">Study Planner</button>
+                <button class="filter-pill" data-filter="Other">Other</button>
+            </div>
+            <select class="library-folder-select" id="libraryFolderSelect">
+                <option value="all">All Folders</option>
+            </select>
+        </div>
+
+        <div class="resource-grid" id="resourceGrid">
+            <div class="library-state" id="libraryState">
+                <i class="fas fa-spinner fa-spin"></i>
+                Loading resources...
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer id="contact">
+
+        <div class="newsletter-row">
+            <h3>Stay Connected</h3>
+            <p>Receive updates about events, sermons and fellowship activities.</p>
+            <form id="newsletterForm">
+                <input
+                type="email"
+                id="newsletterEmail"
+                placeholder="Enter your email"
+                required
+                />
+                <button type="submit">Subscribe</button>
+            </form>
+            <p id="newsletterFeedback" style="margin-top:12px;font-size:14px;color:var(--gold);display:none;"></p>
+        </div>
+
+        <div class="footer-grid">
+
+            <div>
+                <h3>CASOR UNIPORT</h3>
+                <p data-text-slot="footer-tagline">Raising Kingdom Ambassadors for Global Impact.</p>
+            </div>
+
+            <div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="units.html">Units</a></li>
+                    <li><a href="events.html">Programs</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="library.html">Library</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="meeting.html">Meeting Board</a></li>
+                    <li><a href="register.html">Register as a member</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Service Times</h4>
+                <p data-text-slot="footer-service-1">Sunday · 2:00 PM<br />Our Saviour's Chapel, Children Hall</p>
+                <p data-text-slot="footer-service-2">Wednesday · 5:30 PM<br />Assemblies of God Church,<br />Choba 1, Alikor Estate</p>
+                <p data-text-slot="footer-service-3">Thursday · 6:00 PM<br />Prayers, Botanical Garden</p>
+                <p data-text-slot="footer-service-4">Tuesday · 5:00 PM<br />Bible Study, CASOR Secretariat</p>
+            </div>
+
+            <div>
+                <h4>Contact</h4>
+                <p data-text-slot="footer-address">University of Port Harcourt</p>
+                <p><a href="mailto:casoruniportarchive@gmail.com">casoruniportarchive@gmail.com</a></p>
+                <p data-text-slot="footer-phone">0813 162 2282</p>
+            </div>
+
+        </div>
+
+        <hr />
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 CASOR UNIPORT. All Rights Reserved.</p>
+            <div class="socials">
+                <a href="https://www.facebook.com/profile.php?id=100073965431930" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@casor_uniport?_r=1&amp;_t=ZS-98hoQ5qWfQ5" aria-label="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
+                <a href="https://youtube.com/@casoruniport?si=IqWac8OB43dLpl9D" aria-label="YouTube" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+
+    </footer>
+
+    <!-- ===== FIREBASE (read-only here - no login needed to browse/download) ===== -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+    <script src="portal/firebase-config.js"></script>
+    <script src="push-subscribe.js"></script>
+    <script src="newsletter-subscribe.js"></script>
+
+    <script src="animations.js"></script>
+    <script src="site-content.js"></script>
+    <script src="site-images.js"></script>
+    <script src="install-prompt.js"></script>
+
+    <script>
+        // ===== MOBILE MENU TOGGLE =====
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        menuToggle.addEventListener('click', function() {
+            const isOpen = mainNav.classList.toggle('active');
+            menuToggle.classList.toggle('open', isOpen);
+            const icon = this.querySelector('i');
+            icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        document.querySelectorAll('#mainNav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    mainNav.classList.remove('active');
+                    menuToggle.classList.remove('open');
+                    const icon = menuToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-bars';
+                }
+            });
+        });
+
+        // Newsletter form handling now lives in newsletter-subscribe.js
+        // (loaded below, right after portal/firebase-config.js) so the
+        // real Firestore signup logic isn't duplicated across every page.
+
+        // ============================================================
+        //  LIBRARY - load resources from Firestore, then search/filter
+        //  client-side. Public, read-only, no login needed.
+        //
+        //  Firestore doc shape (collection: "library"), matching what
+        //  the EXCO Dashboard's "Library" tab writes:
+        //  { title, category, courseCode, level, url, addedBy, addedAt }
+        // ============================================================
+        // Pulls a Google Drive file ID out of common share-link formats
+        // so a real preview can be shown instead of a generic icon.
+        function driveThumb(url) {
+            if (!url) return null;
+            const patterns = [/\/file\/d\/([a-zA-Z0-9_-]+)/, /[?&]id=([a-zA-Z0-9_-]+)/, /\/d\/([a-zA-Z0-9_-]+)/];
+            for (const re of patterns) {
+                const m = url.match(re);
+                if (m) return `https://lh3.googleusercontent.com/d/${m[1]}=w400`;
+            }
+            return null;
+        }
+
+        const grid = document.getElementById('resourceGrid');
+        const searchInput = document.getElementById('librarySearch');
+        const filterButtons = document.querySelectorAll('.filter-pill');
+        const folderSelect = document.getElementById('libraryFolderSelect');
+
+        let allResources = [];
+        let allLibraryFolders = [];
+        let activeFilter = 'all';
+        let activeFolder = 'all';
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        // ===== EDITABLE DOWNLOADS (Study Planner etc.) =====
+        // Google Docs / Sheets / Slides links get:
+        //   "Make my copy" - Google's /copy page: an editable copy in the
+        //                    member's own Drive (the original is untouched)
+        //   Word / Excel / PDF downloads via Google's /export endpoint, so
+        //                    people without Google can edit offline too.
+        // Plain Drive files (an uploaded .docx/.xlsx) get a direct download.
+        function editableLinks(url) {
+            const u = String(url || '');
+            const m = u.match(/docs\.google\.com\/(document|spreadsheets|presentation)\/d\/([a-zA-Z0-9_-]+)/);
+            if (m) {
+                const base = `https://docs.google.com/${m[1]}/d/${m[2]}`;
+                const office = { document: ['docx', 'Word'], spreadsheets: ['xlsx', 'Excel'], presentation: ['pptx', 'PowerPoint'] }[m[1]];
+                return {
+                    copy: `${base}/copy`,
+                    downloads: [
+                        { href: `${base}/export?format=${office[0]}`, label: office[1] },
+                        { href: `${base}/export?format=pdf`, label: 'PDF' }
+                    ]
+                };
+            }
+            const f = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([a-zA-Z0-9_-]+)/);
+            if (f) return { copy: null, downloads: [{ href: `https://drive.google.com/uc?export=download&id=${f[1]}`, label: 'Download' }] };
+            return null;
+        }
+
+        function resourceActions(r) {
+            const links = editableLinks(r.url);
+            if (links && links.copy) {
+                return `<div class="resource-actions">
+                    <a href="${escapeHtml(links.copy)}" target="_blank" rel="noopener" class="btn-pill"><i class="fas fa-pen-to-square"></i> Make my copy</a>
+                    ${links.downloads.map(d => `<a href="${escapeHtml(d.href)}" class="btn-pill ghost" rel="noopener"><i class="fas fa-download"></i> ${escapeHtml(d.label)}</a>`).join('')}
+                </div>`;
+            }
+            return `<a href="${escapeHtml(r.url)}" target="_blank" rel="noopener" class="btn-pill">
+                            <i class="fas fa-download"></i> Download
+                        </a>`;
+        }
+
+        function renderPlannerFeature() {
+            const box = document.getElementById('plannerFeature');
+            if (!box) return;
+            const planners = allResources.filter(r => r.category === 'Study Planner');
+            if (!planners.length) { box.hidden = true; return; }
+            const p = planners[0];
+            const links = editableLinks(p.url);
+            box.hidden = false;
+            box.innerHTML = `
+                <div class="planner-text">
+                    <span class="planner-kicker"><i class="fas fa-calendar-check"></i> Study Planner</span>
+                    <h2>${escapeHtml(p.title)}</h2>
+                    <p>Plan your semester your way. Tap <strong>Make my copy</strong> to get your own editable version in Google Drive (free with any Gmail), or download it and edit in Word or Excel.</p>
+                </div>
+                <div class="planner-actions">
+                    ${links && links.copy
+                        ? `<a class="btn-primary" href="${escapeHtml(links.copy)}" target="_blank" rel="noopener"><i class="fas fa-pen-to-square"></i> Make my copy</a>
+                           ${links.downloads.map(d => `<a class="btn-soft" href="${escapeHtml(d.href)}" rel="noopener"><i class="fas fa-download"></i> Download ${escapeHtml(d.label)}</a>`).join('')}`
+                        : `<a class="btn-primary" href="${escapeHtml(p.url)}" target="_blank" rel="noopener"><i class="fas fa-download"></i> Download planner</a>`}
+                </div>
+                <details class="planner-help">
+                    <summary>How do I edit it on my phone?</summary>
+                    <ol>
+                        <li><strong>Make my copy</strong> opens Google. Sign in with any Gmail and tap <em>Make a copy</em>.</li>
+                        <li>The copy is yours: it saves in your Google Drive and nobody else can see it.</li>
+                        <li>Edit in the free Google Docs / Sheets app, or download the Word/Excel version and use WPS or Microsoft Office.</li>
+                    </ol>
+                </details>`;
+        }
+
+        function renderResources() {
+            renderPlannerFeature();
+            const term = searchInput.value.trim().toLowerCase();
+
+            const filtered = allResources.filter(r => {
+                const matchesFilter = activeFilter === 'all' || r.category === activeFilter;
+                const matchesFolder = activeFolder === 'all' || r.folderId === activeFolder;
+                const matchesSearch = !term ||
+                    (r.title || '').toLowerCase().includes(term) ||
+                    (r.courseCode || '').toLowerCase().includes(term);
+                return matchesFilter && matchesFolder && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="library-state">
+                        <i class="fas fa-box-open"></i>
+                        ${allResources.length === 0
+                            ? 'No resources have been added yet. Check back soon!'
+                            : 'Nothing matches that search. Try a different title or course code.'}
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map((r, i) => {
+                const metaTags = [];
+                if (r.courseCode) metaTags.push(`<span class="resource-tag">${escapeHtml(r.courseCode)}</span>`);
+                if (r.level) metaTags.push(`<span class="resource-tag">${escapeHtml(r.level)}</span>`);
+                const folderName = r.folderId ? (allLibraryFolders.find(f => f.id === r.folderId) || {}).name : null;
+                if (folderName) metaTags.push(`<span class="resource-tag"><i class="fas fa-folder"></i> ${escapeHtml(folderName)}</span>`);
+
+                const thumb = driveThumb(r.url);
+                const initial = escapeHtml((r.title || '?').trim().charAt(0).toUpperCase());
+                const previewHtml = thumb
+                    ? `<img loading="lazy" decoding="async" src="${thumb}" alt="${escapeHtml(r.title)}" onerror="this.parentElement.innerHTML='<div class=&quot;resource-preview-fallback&quot;>${initial}</div>';" />`
+                    : `<div class="resource-preview-fallback">${initial}</div>`;
+
+                return `
+                    <div class="resource-card" style="animation-delay:${(i % 6) * 0.05}s">
+                        <div class="resource-preview">${previewHtml}</div>
+                        <div class="resource-category-row"><span class="resource-tag category">${escapeHtml(r.category || 'Other')}</span></div>
+                        <h3>${escapeHtml(r.title)}</h3>
+                        <div class="resource-meta">${metaTags.join('')}</div>
+                        ${resourceActions(r)}
+                    </div>`;
+            }).join('');
+        }
+
+        function loadLibrary() {
+            db.collection('library').orderBy('addedAt', 'desc').onSnapshot(
+                snap => {
+                    allResources = snap.docs.map(doc => doc.data());
+                    renderResources();
+                },
+                err => {
+                    console.error('Library load failed:', err);
+                    grid.innerHTML = `
+                        <div class="library-state">
+                            <i class="fas fa-triangle-exclamation"></i>
+                            Couldn't load the library right now. Please try again shortly.
+                        </div>`;
+                }
+            );
+        }
+
+        searchInput.addEventListener('input', renderResources);
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeFilter = btn.dataset.filter;
+                renderResources();
+            });
+        });
+
+        folderSelect.addEventListener('change', () => {
+            activeFolder = folderSelect.value;
+            renderResources();
+        });
+
+        // Folders (collection "folders", section:"library") - created
+        // from the EXCO Dashboard's Library tab so resources like the
+        // Constitution, CAC docs or Training Handbook can be grouped.
+        function loadLibraryFolders() {
+            db.collection('folders').where('section', '==', 'library').onSnapshot(snap => {
+                allLibraryFolders = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                const current = folderSelect.value;
+                folderSelect.innerHTML = '<option value="all">All Folders</option>' +
+                    allLibraryFolders.map(f => `<option value="${f.id}">${escapeHtml(f.name)}</option>`).join('');
+                folderSelect.value = allLibraryFolders.some(f => f.id === current) ? current : 'all';
+                renderResources();
+            }, err => console.error('Library folders load failed:', err));
+        }
+
+        loadLibrary();
+        loadLibraryFolders();
+
+        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

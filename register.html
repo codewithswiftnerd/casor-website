@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register as a CASORite | CASOR UNIPORT</title>
+
+
+    <meta name="description" content="Register as a member of CASOR UNIPORT so the fellowship can stay in touch with you." />
+    <link rel="canonical" href="https://casoruniport.netlify.app/register.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Register | CASOR UNIPORT" />
+    <meta property="og:description" content="Register as a member of CASOR UNIPORT so the fellowship can stay in touch with you." />
+    <meta property="og:url" content="https://casoruniport.netlify.app/register.html" />
+    <meta property="og:image" content="https://casoruniport.netlify.app/images/icon-512.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- ===== FONTS ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <!-- ===== FONT AWESOME ===== -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+
+    <!-- ===== STYLES ===== -->
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="theme.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0B1F44" />
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ================= NAVBAR ================= -->
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="CASOR Logo" data-img-slot="logo" />
+        </div>
+
+        <nav id="mainNav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="units.html">Units</a>
+            <a href="events.html">Programs</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="library.html">Library</a>
+            <a href="news.html">News</a>
+            <a href="meeting.html">Meetings</a>
+            <a href="contact.html">Contact</a>
+            <a href="portal/login.html" class="nav-mobile-login">Login</a>
+        </nav>
+
+        <a href="portal/login.html" class="nav-btn">Login</a>
+
+        <div class="menu" id="menuToggle" role="button" tabindex="0" aria-label="Open menu" aria-controls="mainNav" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <section id="main" class="reg-hero">
+        <p class="breadcrumb"><a href="index.html">Home</a> / Register</p>
+        <h1>Join the CASOR family</h1>
+        <p class="reg-sub">Register as a CASORite so we can stay in touch, follow up and celebrate with you. It takes about a minute.</p>
+    </section>
+
+    <section class="reg-wrap">
+        <form class="reg-card" id="regForm" novalidate>
+            <div class="reg-grid">
+                <label class="reg-field reg-full">Full name <span>*</span>
+                    <input type="text" id="regName" autocomplete="name" maxlength="100" required />
+                </label>
+                <label class="reg-field">Phone number <span>*</span>
+                    <input type="tel" id="regPhone" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="080..." required />
+                </label>
+                <label class="reg-field">Email
+                    <input type="email" id="regEmail" autocomplete="email" maxlength="120" />
+                </label>
+                <label class="reg-field">Gender
+                    <select id="regGender"><option value="">Choose...</option><option>Male</option><option>Female</option></select>
+                </label>
+                <label class="reg-field">Level
+                    <select id="regLevel"><option value="">Choose...</option><option>100L</option><option>200L</option><option>300L</option><option>400L</option><option>500L</option><option>600L</option><option>Postgraduate</option><option>Alumnus</option></select>
+                </label>
+                <label class="reg-field reg-full">Department
+                    <input type="text" id="regDept" maxlength="100" placeholder="e.g. Computer Science" />
+                </label>
+                <label class="reg-field">Unit
+                    <select id="regUnit"><option value="">Choose...</option><option value="Not in a unit yet">Not in a unit yet</option><option value="Finance Unit">Finance Unit</option><option value="Prayer Unit">Prayer Unit</option><option value="Evangelism Unit">Evangelism Unit</option><option value="Follow-up Unit">Follow-up Unit</option><option value="Outreach Unit">Outreach Unit</option><option value="Brothers' &amp; Sisters' Leaders">Brothers' &amp; Sisters' Leaders</option><option value="Brothers' &amp; Sisters' Welfare">Brothers' &amp; Sisters' Welfare</option><option value="Bible Study Unit">Bible Study Unit</option><option value="Publicity Unit">Publicity Unit</option><option value="Public Relations">Public Relations</option><option value="Park Coordinators">Park Coordinators</option><option value="Shalom Unit (Choir)">Shalom Unit (Choir)</option><option value="Organizing Unit">Organizing Unit</option><option value="Drama Unit">Drama Unit</option><option value="Press &amp; Academic Unit">Press &amp; Academic Unit</option><option value="Ambassadors Bible College (ABC)">Ambassadors Bible College (ABC)</option><option value="Final Year Brethren Fellowship (FYBF)">Final Year Brethren Fellowship (FYBF)</option></select>
+                </label>
+                <label class="reg-field">Birthday
+                    <input type="date" id="regDob" />
+                </label>
+                <label class="reg-field reg-full">Hostel / address
+                    <input type="text" id="regAddress" maxlength="200" placeholder="e.g. Choba, Alakahia, Male Park..." />
+                </label>
+                <!-- Honeypot: real people never see or fill this -->
+                <label class="reg-hp" aria-hidden="true">Website<input type="text" id="regWebsite" tabindex="-1" autocomplete="off" /></label>
+                <label class="reg-consent reg-full">
+                    <input type="checkbox" id="regConsent" required />
+                    <span>I agree that CASOR UNIPORT can keep these details to contact me about fellowship activities. They are only visible to CASOR admins and are never shown on the website.</span>
+                </label>
+            </div>
+            <p class="reg-error" id="regError" role="alert" hidden></p>
+            <button type="submit" class="btn-primary reg-submit" id="regSubmit">Register</button>
+        </form>
+
+        <div class="reg-card reg-done" id="regDone" hidden>
+            <i class="fas fa-circle-check" aria-hidden="true"></i>
+            <h2>You&rsquo;re registered!</h2>
+            <p>Welcome to the CASOR family. The fellowship now has your details and will keep in touch.</p>
+            <a href="index.html" class="btn-soft">Back to home</a>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer id="contact">
+
+        <div class="newsletter-row">
+            <h3>Stay Connected</h3>
+            <p>Receive updates about events, sermons and fellowship activities.</p>
+            <form id="newsletterForm">
+                <input
+                type="email"
+                id="newsletterEmail"
+                placeholder="Enter your email"
+                required
+                />
+                <button type="submit">Subscribe</button>
+            </form>
+            <p id="newsletterFeedback" style="margin-top:12px;font-size:14px;color:var(--gold);display:none;"></p>
+        </div>
+
+        <div class="footer-grid">
+
+            <div>
+                <h3>CASOR UNIPORT</h3>
+                <p data-text-slot="footer-tagline">Raising Kingdom Ambassadors for Global Impact.</p>
+            </div>
+
+            <div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="units.html">Units</a></li>
+                    <li><a href="events.html">Programs</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="library.html">Library</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="meeting.html">Meeting Board</a></li>
+                    <li><a href="register.html">Register as a member</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Service Times</h4>
+                <p data-text-slot="footer-service-1">Sunday · 2:00 PM<br />Our Saviour's Chapel, Children Hall</p>
+                <p data-text-slot="footer-service-2">Wednesday · 5:30 PM<br />Assemblies of God Church,<br />Choba 1, Alikor Estate</p>
+                <p data-text-slot="footer-service-3">Thursday · 6:00 PM<br />Prayers, Botanical Garden</p>
+                <p data-text-slot="footer-service-4">Tuesday · 5:00 PM<br />Bible Study, CASOR Secretariat</p>
+            </div>
+
+            <div>
+                <h4>Contact</h4>
+                <p data-text-slot="footer-address">University of Port Harcourt</p>
+                <p><a href="mailto:casoruniportarchive@gmail.com">casoruniportarchive@gmail.com</a></p>
+                <p data-text-slot="footer-phone">0813 162 2282</p>
+            </div>
+
+        </div>
+
+        <hr />
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 CASOR UNIPORT. All Rights Reserved.</p>
+            <div class="socials">
+                <a href="https://www.facebook.com/profile.php?id=100073965431930" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@casor_uniport?_r=1&amp;_t=ZS-98hoQ5qWfQ5" aria-label="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
+                <a href="https://youtube.com/@casoruniport?si=IqWac8OB43dLpl9D" aria-label="YouTube" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+    <script src="portal/firebase-config.js"></script>
+    <script src="push-subscribe.js"></script>
+    <script src="newsletter-subscribe.js"></script>
+
+    <script src="animations.js"></script>
+    <script src="site-content.js"></script>
+    <script src="site-images.js"></script>
+    <script src="install-prompt.js"></script>
+    <script src="register.js"></script>
+
+    <script>
+        // ===== MOBILE MENU TOGGLE =====
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        menuToggle.addEventListener('click', function() {
+            const isOpen = mainNav.classList.toggle('active');
+            menuToggle.classList.toggle('open', isOpen);
+            // Toggle icon
+            const icon = this.querySelector('i');
+            icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        // Close menu when a nav link is clicked (on mobile)
+        document.querySelectorAll('#mainNav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    mainNav.classList.remove('active');
+                    menuToggle.classList.remove('open');
+                    const icon = menuToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-bars';
+                }
+            });
+        });
+
+        // Newsletter form handling now lives in newsletter-subscribe.js
+        // (loaded below, right after portal/firebase-config.js) so the
+        // real Firestore signup logic isn't duplicated across every page.
+
+        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

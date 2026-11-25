@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Review EXCO Signup | CASOR UNIPORT</title>
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        :root{ --navy:#0B1F44; --gold:#FFC72C; --ink:#14181F; --muted:#5F6B7A; --bg:#F4F6F5; --line:#E3E8E6; }
+        *{ box-sizing:border-box; margin:0; padding:0; }
+        body{ font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px 16px; }
+        .card{ background:#fff; width:100%; max-width:460px; border-radius:24px; padding:32px 26px; box-shadow:0 10px 40px rgba(11,31,68,.08); }
+        .brand{ display:flex; align-items:center; gap:10px; margin-bottom:22px; }
+        .brand img{ width:36px; height:36px; }
+        .brand span{ font-family:'Inter Tight',sans-serif; font-weight:800; letter-spacing:-.02em; }
+        h1{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:28px; letter-spacing:-.03em; line-height:1.1; margin-bottom:8px; }
+        p.sub{ color:var(--muted); font-size:14.5px; line-height:1.6; margin-bottom:22px; }
+        .details{ background:var(--bg); border-radius:16px; padding:16px; margin-bottom:20px; font-size:14px; }
+        .details div{ display:flex; justify-content:space-between; gap:12px; padding:6px 0; border-bottom:1px solid var(--line); }
+        .details div:last-child{ border-bottom:none; }
+        .details span:first-child{ color:var(--muted); }
+        .details span:last-child{ font-weight:600; text-align:right; word-break:break-word; }
+        label{ display:block; font-size:13px; font-weight:600; margin:0 0 6px; }
+        input, select{ width:100%; padding:14px; border:1px solid var(--line); border-radius:14px; font:inherit; font-size:15px; margin-bottom:14px; background:#fff; }
+        input:focus, select:focus{ outline:2px solid var(--navy); outline-offset:1px; }
+        .btn{ display:block; width:100%; padding:16px; border:none; border-radius:16px; font:inherit; font-weight:700; font-size:16px; cursor:pointer; text-align:center; text-decoration:none; }
+        .btn-primary{ background:var(--navy); color:#fff; }
+        .btn-secondary{ background:#E9EDEB; color:var(--ink); margin-top:10px; }
+        .btn-danger{ background:#fff; color:#B3261E; border:1px solid #F0C9C6; margin-top:10px; }
+        .btn:disabled{ opacity:.55; cursor:not-allowed; }
+        .msg{ display:none; padding:12px 14px; border-radius:12px; font-size:14px; margin-bottom:16px; line-height:1.5; }
+        .msg.show{ display:block; }
+        .msg.err{ background:#FDECEA; color:#8C1D18; }
+        .msg.ok{ background:#EEF2FA; color:#0B1F44; }
+        .msg.info{ background:#EEF2FA; color:var(--navy); }
+        .hidden{ display:none !important; }
+    </style>
+</head>
+<body>
+    <main class="card" aria-live="polite">
+        <div class="brand"><img src="../images/logo.png" alt="" /><span>CASOR EXCO Portal</span></div>
+
+        <div id="msg" class="msg" role="status"></div>
+
+        <!-- Step 1: sign in as admin -->
+        <section id="signinView" class="hidden">
+            <h1>Review a signup</h1>
+            <p class="sub">Sign in with your admin account to review this request. Opening this link alone never approves anyone.</p>
+            <form id="signinForm">
+                <label for="email">Admin email</label>
+                <input type="email" id="email" required autocomplete="username" />
+                <label for="password">Password</label>
+                <input type="password" id="password" required autocomplete="current-password" />
+                <button class="btn btn-primary" type="submit" id="signinBtn">Sign in</button>
+            </form>
+        </section>
+
+        <!-- Step 2: review -->
+        <section id="reviewView" class="hidden">
+            <h1>Approve this EXCO?</h1>
+            <p class="sub">Check the details below, then confirm. This can be changed later from the dashboard.</p>
+            <div class="details" id="details"></div>
+            <label for="role">Access level</label>
+            <select id="role">
+                <option value="exco" selected>EXCO: their own office's documents, view News</option>
+                <option value="admin">Admin: full access to everything</option>
+            </select>
+            <label for="office">Office</label>
+            <select id="office"><option value="">(assign later)</option></select>
+            <button class="btn btn-primary" id="approveBtn">Approve</button>
+            <button class="btn btn-danger" id="rejectBtn">Reject</button>
+        </section>
+
+        <section id="doneView" class="hidden">
+            <a class="btn btn-primary" href="dashboard.html">Open dashboard</a>
+        </section>
+
+        <a class="btn btn-secondary hidden" id="toDashboard" href="dashboard.html">Go to dashboard instead</a>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-functions-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="office-docs.js"></script>
+    <script>
+    (function () {
+        const params = new URLSearchParams(location.search);
+        const uid = (params.get('uid') || '').trim();
+        const token = (params.get('token') || '').trim();
+        // Strip the token from the address bar so it isn't left in history.
+        if (token) history.replaceState(null, '', location.pathname + '?uid=' + encodeURIComponent(uid));
+
+        const $ = (id) => document.getElementById(id);
+        const msg = $('msg');
+        function show(text, kind) { msg.textContent = text; msg.className = 'msg show ' + (kind || 'info'); }
+        function view(id) {
+            ['signinView', 'reviewView', 'doneView'].forEach(v => $(v).classList.toggle('hidden', v !== id));
+        }
+        function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+        const BOOTSTRAP = ['igrie318@gmail.com'];
+        const functions = firebase.functions();
+
+        if (!uid) { show('This link is missing the applicant id. Open the Approvals tab in the dashboard instead.', 'err'); $('toDashboard').classList.remove('hidden'); return; }
+
+        // Office dropdown
+        (OFFICE_DOCS || []).forEach(o => {
+            const opt = document.createElement('option');
+            opt.value = o.id; opt.textContent = o.name + ' (' + o.category + ')';
+            $('office').appendChild(opt);
+        });
+
+        let applicant = null;
+
+        async function isAdmin(user) {
+            if (!user.emailVerified) return false;
+            if (BOOTSTRAP.includes(user.email)) return true;
+            const p = await db.collection('excos').doc(user.uid).get();
+            return p.exists && p.data().status === 'approved' && p.data().role === 'admin';
+        }
+
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) { view('signinView'); return; }
+            try {
+                if (!(await isAdmin(user))) {
+                    show('This account is not an approved admin, so it can’t review signups.', 'err');
+                    await auth.signOut();
+                    view('signinView');
+                    return;
+                }
+                const snap = await db.collection('excos').doc(uid).get();
+                if (!snap.exists) { show('This signup no longer exists (it may have been removed).', 'err'); view('doneView'); return; }
+                applicant = snap.data();
+                if (applicant.status !== 'pending') {
+                    show('Already handled: this account is ' + applicant.status + '.', 'info'); view('doneView'); return;
+                }
+                if (uid === user.uid) { show("You can't review your own account.", 'err'); view('doneView'); return; }
+                $('details').innerHTML =
+                    '<div><span>Name</span><span>' + esc(applicant.name) + '</span></div>' +
+                    '<div><span>Email</span><span>' + esc(applicant.email) + '</span></div>' +
+                    '<div><span>Requested position</span><span>' + esc(applicant.requestedOffice || 'Not given') + '</span></div>' +
+                    (applicant.phone ? '<div><span>Phone</span><span>' + esc(applicant.phone) + '</span></div>' : '') +
+                    '<div><span>Signed up</span><span>' + (applicant.createdAt && applicant.createdAt.toDate ? applicant.createdAt.toDate().toLocaleString() : '') + '</span></div>';
+                const match = (OFFICE_DOCS || []).find(o => o.name === applicant.requestedOffice || o.id === applicant.requestedOffice);
+                if (match) $('office').value = match.id;
+                msg.className = 'msg';
+                view('reviewView');
+            } catch (err) {
+                show('Could not load this signup: ' + err.message, 'err');
+            }
+        });
+
+        $('signinForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            $('signinBtn').disabled = true;
+            try {
+                await auth.signInWithEmailAndPassword($('email').value.trim(), $('password').value);
+            } catch (err) {
+                show('Sign-in failed. Check your email and password.', 'err');
+            } finally {
+                $('signinBtn').disabled = false;
+            }
+        });
+
+        async function decide(decision) {
+            const role = $('role').value;
+            const office = $('office').value || null;
+            const label = decision === 'approve' ? ('Approve ' + (applicant.name || applicant.email) + ' as ' + (role === 'admin' ? 'an ADMIN' : 'an EXCO') + '?') : ('Reject ' + (applicant.name || applicant.email) + '?');
+            if (!confirm(label)) return;
+            $('approveBtn').disabled = $('rejectBtn').disabled = true;
+            show('Saving...', 'info');
+            try {
+                await functions.httpsCallable('reviewSignup')({ uid, token: token || null, decision, role, office });
+            } catch (err) {
+                // If the Cloud Function isn't deployed (Spark plan), fall back
+                // to the same direct admin write the dashboard uses. Firestore
+                // rules still require the caller to be an admin.
+                const notDeployed = err && (err.code === 'functions/not-found' || err.code === 'functions/internal' || err.code === 'functions/unavailable');
+                if (!notDeployed) {
+                    show(err.message || 'Something went wrong.', 'err');
+                    $('approveBtn').disabled = $('rejectBtn').disabled = false;
+                    return;
+                }
+                try {
+                    const update = decision === 'approve' ? { status: 'approved', role, office } : { status: 'rejected' };
+                    await db.collection('excos').doc(uid).update(Object.assign(update, {
+                        reviewedBy: auth.currentUser.email,
+                        reviewedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    }));
+                    await db.collection('audit_logs').add({
+                        actorUid: auth.currentUser.uid, actorEmail: auth.currentUser.email,
+                        action: decision === 'approve' ? 'signup.approve.' + role : 'signup.reject',
+                        collection: 'excos', targetId: uid,
+                        details: (applicant.email || '') + (office ? ' office=' + office : ''),
+                        at: firebase.firestore.FieldValue.serverTimestamp()
+                    }).catch(() => {});
+                } catch (err2) {
+                    show(err2.message || 'Something went wrong.', 'err');
+                    $('approveBtn').disabled = $('rejectBtn').disabled = false;
+                    return;
+                }
+            }
+            show(decision === 'approve'
+                ? 'Approved. They can sign in once their email is verified.'
+                : 'Rejected. They will not get access.', 'ok');
+            view('doneView');
+        }
+
+        $('approveBtn').addEventListener('click', () => decide('approve'));
+        $('rejectBtn').addEventListener('click', () => decide('reject'));
+    })();
+    </script>
+</body>
+</html>

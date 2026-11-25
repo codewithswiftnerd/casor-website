@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery | CASOR UNIPORT</title>
+
+
+    <meta name="description" content="Browse photos from CASOR UNIPORT's worship services, events and fellowship activities at the University of Port Harcourt." />
+    <link rel="canonical" href="https://casoruniport.netlify.app/gallery.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Gallery | CASOR UNIPORT" />
+    <meta property="og:description" content="Browse photos from CASOR UNIPORT's worship services, events and fellowship activities at the University of Port Harcourt." />
+    <meta property="og:url" content="https://casoruniport.netlify.app/gallery.html" />
+    <meta property="og:image" content="https://casoruniport.netlify.app/images/icon-512.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- ===== FONTS ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <!-- ===== FONT AWESOME ===== -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+
+    <!-- ===== STYLES ===== -->
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="theme.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0B1F44" />
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ================= NAVBAR ================= -->
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="CASOR Logo" data-img-slot="logo" />
+        </div>
+
+        <nav id="mainNav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="units.html">Units</a>
+            <a href="events.html">Programs</a>
+            <a href="gallery.html" aria-current="page">Gallery</a>
+            <a href="library.html">Library</a>
+            <a href="news.html">News</a>
+            <a href="meeting.html">Meetings</a>
+            <a href="contact.html">Contact</a>
+            <a href="portal/login.html" class="nav-mobile-login">Login</a>
+        </nav>
+
+        <a href="portal/login.html" class="nav-btn">Login</a>
+
+        <div class="menu" id="menuToggle" role="button" tabindex="0" aria-label="Open menu" aria-controls="mainNav" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- ================= PAGE HERO ================= -->
+    <section id="main" class="page-hero hero-bg-gallery" data-bg-slot="hero-gallery">
+        <div class="page-hero-inner">
+            <p class="breadcrumb"><a href="index.html">Home</a> / Gallery</p>
+            <h1>Gallery</h1>
+            <p>Moments from our services, outreaches and fellowship life
+            together as a CASOR family.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+
+        <!-- Back button + current folder name, shown only inside a folder -->
+        <div class="gallery-back-row" id="galleryBackRow">
+            <button class="gallery-back-btn" id="galleryBackBtn"><i class="fas fa-arrow-left"></i> All Folders</button>
+            <h2 id="galleryFolderTitle"></h2>
+        </div>
+
+        <!-- Folder tiles -->
+        <div class="folder-grid" id="folderGrid">
+            <div class="folder-empty-state" id="folderState">
+                <i class="fas fa-spinner fa-spin"></i>
+                Loading albums...
+            </div>
+        </div>
+
+        <!-- Photos inside the open folder -->
+        <div class="photo-grid" id="photoGrid" style="display:none;"></div>
+
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox-overlay" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+        <button class="lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
+        <img loading="lazy" decoding="async" id="lightboxImg" src="" alt="" />
+        <button class="lightbox-next" id="lightboxNext"><i class="fas fa-chevron-right"></i></button>
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
+
+
+    
+
+    <!-- ================= FOOTER ================= -->
+    <footer id="contact">
+
+        <div class="newsletter-row">
+            <h3>Stay Connected</h3>
+            <p>Receive updates about events, sermons and fellowship activities.</p>
+            <form id="newsletterForm">
+                <input
+                type="email"
+                id="newsletterEmail"
+                placeholder="Enter your email"
+                required
+                />
+                <button type="submit">Subscribe</button>
+            </form>
+            <p id="newsletterFeedback" style="margin-top:12px;font-size:14px;color:var(--gold);display:none;"></p>
+        </div>
+
+        <div class="footer-grid">
+
+            <div>
+                <h3>CASOR UNIPORT</h3>
+                <p data-text-slot="footer-tagline">Raising Kingdom Ambassadors for Global Impact.</p>
+            </div>
+
+            <div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="units.html">Units</a></li>
+                    <li><a href="events.html">Programs</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="library.html">Library</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="meeting.html">Meeting Board</a></li>
+                    <li><a href="register.html">Register as a member</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Service Times</h4>
+                <p data-text-slot="footer-service-1">Sunday · 2:00 PM<br />Our Saviour's Chapel, Children Hall</p>
+                <p data-text-slot="footer-service-2">Wednesday · 5:30 PM<br />Assemblies of God Church,<br />Choba 1, Alikor Estate</p>
+                <p data-text-slot="footer-service-3">Thursday · 6:00 PM<br />Prayers, Botanical Garden</p>
+                <p data-text-slot="footer-service-4">Tuesday · 5:00 PM<br />Bible Study, CASOR Secretariat</p>
+            </div>
+
+            <div>
+                <h4>Contact</h4>
+                <p data-text-slot="footer-address">University of Port Harcourt</p>
+                <p><a href="mailto:casoruniportarchive@gmail.com">casoruniportarchive@gmail.com</a></p>
+                <p data-text-slot="footer-phone">0813 162 2282</p>
+            </div>
+
+        </div>
+
+        <hr />
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 CASOR UNIPORT. All Rights Reserved.</p>
+            <div class="socials">
+                <a href="https://www.facebook.com/profile.php?id=100073965431930" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@casor_uniport?_r=1&amp;_t=ZS-98hoQ5qWfQ5" aria-label="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
+                <a href="https://youtube.com/@casoruniport?si=IqWac8OB43dLpl9D" aria-label="YouTube" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+    <script src="portal/firebase-config.js"></script>
+    <script src="push-subscribe.js"></script>
+    <script src="newsletter-subscribe.js"></script>
+
+    <script src="animations.js"></script>
+    <script src="site-content.js"></script>
+    <script src="site-images.js"></script>
+    <script src="install-prompt.js"></script>
+
+    <script>
+        // ===== MOBILE MENU TOGGLE =====
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        menuToggle.addEventListener('click', function() {
+            const isOpen = mainNav.classList.toggle('active');
+            menuToggle.classList.toggle('open', isOpen);
+            // Toggle icon
+            const icon = this.querySelector('i');
+            icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        // Close menu when a nav link is clicked (on mobile)
+        document.querySelectorAll('#mainNav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    mainNav.classList.remove('active');
+                    menuToggle.classList.remove('open');
+                    const icon = menuToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-bars';
+                }
+            });
+        });
+
+        // Newsletter form handling now lives in newsletter-subscribe.js
+        // (loaded below, right after portal/firebase-config.js) so the
+        // real Firestore signup logic isn't duplicated across every page.
+
+        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ============================================================
+        //  GALLERY - folder-based albums, loaded from Firestore.
+        //  Public, read-only, no login needed.
+        //
+        //  Firestore shape, matching what the EXCO Dashboard's
+        //  "Gallery" tab writes:
+        //    collection "folders"  : { name, section:"gallery", coverUrl, createdAt }
+        //    collection "galleryPhotos": { folderId, caption, url, addedAt }
+        // ============================================================
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        // Pulls a Google Drive file ID out of common share-link formats
+        // so a real preview can be shown instead of a broken image icon.
+        function driveThumb(url) {
+            if (!url) return null;
+            if (/\.(jpe?g|png|gif|webp)$/i.test(url) && !url.includes('drive.google.com')) return url;
+            const patterns = [/\/file\/d\/([a-zA-Z0-9_-]+)/, /[?&]id=([a-zA-Z0-9_-]+)/, /\/d\/([a-zA-Z0-9_-]+)/];
+            for (const re of patterns) {
+                const m = url.match(re);
+                if (m) return `https://lh3.googleusercontent.com/d/${m[1]}=w800`;
+            }
+            return url;
+        }
+
+        // The 6 photos that used to be hardcoded on this page live on
+        // as a built-in, always-first "Fellowship Highlights" folder,
+        // so nothing already on the site gets lost. Admin-created
+        // folders from the dashboard appear alongside it.
+        const HIGHLIGHTS_ID = '__highlights__';
+        const highlightsFolder = {
+            id: HIGHLIGHTS_ID,
+            name: 'Fellowship Highlights',
+            coverUrl: 'images/CASOR.jpg'
+        };
+        const highlightsPhotos = [
+            { url: 'images/CASOR.jpg', caption: 'CASOR fellowship' },
+            { url: 'images/worship.jpg', caption: 'Worship service' },
+            { url: 'images/media.jpg', caption: 'Publicity & media team' },
+            { url: 'images/prayer.jpg', caption: 'Prayer session' },
+            { url: 'images/Evangelism.jpg', caption: 'Evangelism outreach' },
+            { url: 'images/prayer_unit.jpg', caption: 'Prayer unit' }
+        ];
+
+        const folderGrid = document.getElementById('folderGrid');
+        const folderState = document.getElementById('folderState');
+        const photoGrid = document.getElementById('photoGrid');
+        const backRow = document.getElementById('galleryBackRow');
+        const backBtn = document.getElementById('galleryBackBtn');
+        const folderTitleEl = document.getElementById('galleryFolderTitle');
+
+        let allFolders = [highlightsFolder];
+        let allPhotos = [...highlightsPhotos.map(p => ({ ...p, folderId: HIGHLIGHTS_ID }))];
+        let currentPhotos = [];
+        let currentIndex = 0;
+
+        function photoCountFor(folderId) {
+            return allPhotos.filter(p => p.folderId === folderId).length;
+        }
+
+        function renderFolders() {
+            if (allFolders.length === 0) {
+                folderGrid.innerHTML = `<div class="folder-empty-state"><i class="fas fa-images"></i>No albums yet. Check back soon!</div>`;
+                return;
+            }
+            folderGrid.innerHTML = allFolders.map(f => {
+                const count = photoCountFor(f.id);
+                const cover = driveThumb(f.coverUrl) || (allPhotos.find(p => p.folderId === f.id) || {}).url;
+                const coverHtml = cover
+                    ? `<img loading="lazy" decoding="async" src="${cover}" alt="${escapeHtml(f.name)}" onerror="this.parentElement.innerHTML='<i class=&quot;fas fa-images folder-cover-fallback&quot;></i>';" />`
+                    : `<i class="fas fa-images folder-cover-fallback"></i>`;
+                return `
+                    <div class="folder-card" data-folder-id="${f.id}">
+                        <div class="folder-cover">
+                            ${coverHtml}
+                            <span class="folder-count-badge">${count} photo${count === 1 ? '' : 's'}</span>
+                        </div>
+                        <h3>${escapeHtml(f.name)}</h3>
+                    </div>`;
+            }).join('');
+
+            folderGrid.querySelectorAll('.folder-card').forEach(card => {
+                card.addEventListener('click', () => openFolder(card.dataset.folderId));
+            });
+        }
+
+        function openFolder(folderId) {
+            const folder = allFolders.find(f => f.id === folderId);
+            if (!folder) return;
+            currentPhotos = allPhotos.filter(p => p.folderId === folderId);
+
+            folderTitleEl.textContent = folder.name;
+            backRow.classList.add('active');
+            folderGrid.style.display = 'none';
+            photoGrid.style.display = 'grid';
+
+            if (currentPhotos.length === 0) {
+                photoGrid.innerHTML = `<div class="folder-empty-state"><i class="fas fa-image"></i>No photos in this album yet.</div>`;
+                return;
+            }
+
+            photoGrid.innerHTML = currentPhotos.map((p, i) => {
+                const thumb = driveThumb(p.url);
+                return `
+                    <div class="photo-card" data-index="${i}">
+                        <img src="${thumb}" alt="${escapeHtml(p.caption || folder.name)}" loading="lazy" />
+                        ${p.caption ? `<div class="photo-caption">${escapeHtml(p.caption)}</div>` : ''}
+                    </div>`;
+            }).join('');
+
+            photoGrid.querySelectorAll('.photo-card').forEach(card => {
+                card.addEventListener('click', () => openLightbox(parseInt(card.dataset.index, 10)));
+            });
+
+            window.scrollTo({ top: photoGrid.offsetTop - 120, behavior: 'smooth' });
+        }
+
+        function closeFolder() {
+            backRow.classList.remove('active');
+            photoGrid.style.display = 'none';
+            folderGrid.style.display = 'grid';
+        }
+        backBtn.addEventListener('click', closeFolder);
+
+        // ----- Lightbox -----
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+
+        function openLightbox(index) {
+            currentIndex = index;
+            showLightboxPhoto();
+            lightbox.classList.add('active');
+        }
+        function showLightboxPhoto() {
+            const p = currentPhotos[currentIndex];
+            if (!p) return;
+            lightboxImg.src = driveThumb(p.url);
+            lightboxImg.alt = p.caption || '';
+            lightboxCaption.textContent = p.caption || '';
+        }
+        document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('active'));
+        document.getElementById('lightboxPrev').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + currentPhotos.length) % currentPhotos.length;
+            showLightboxPhoto();
+        });
+        document.getElementById('lightboxNext').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % currentPhotos.length;
+            showLightboxPhoto();
+        });
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('active'); });
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') lightbox.classList.remove('active');
+            if (e.key === 'ArrowLeft') document.getElementById('lightboxPrev').click();
+            if (e.key === 'ArrowRight') document.getElementById('lightboxNext').click();
+        });
+
+        // ----- Load from Firestore -----
+        let foldersLoaded = false, photosLoaded = false;
+        function tryRender() {
+            if (foldersLoaded && photosLoaded) renderFolders();
+        }
+
+        db.collection('folders').where('section', '==', 'gallery').onSnapshot(snap => {
+            const dynamicFolders = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            allFolders = [highlightsFolder, ...dynamicFolders];
+            foldersLoaded = true;
+            tryRender();
+        }, err => {
+            console.error('Gallery folders load failed:', err);
+            foldersLoaded = true;
+            tryRender();
+        });
+
+        db.collection('galleryPhotos').orderBy('addedAt', 'desc').onSnapshot(snap => {
+            const dynamicPhotos = snap.docs.map(doc => doc.data());
+            allPhotos = [...highlightsPhotos.map(p => ({ ...p, folderId: HIGHLIGHTS_ID })), ...dynamicPhotos];
+            photosLoaded = true;
+            tryRender();
+        }, err => {
+            console.error('Gallery photos load failed:', err);
+            photosLoaded = true;
+            tryRender();
+        });
+    </script>
+
+</body>
+</html>

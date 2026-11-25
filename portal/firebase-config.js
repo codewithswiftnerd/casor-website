@@ -1,21 +1,20 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Public Firebase web config. These values identify the project; they are
+// not secrets. Access is controlled by Firestore rules and Auth.
 const firebaseConfig = {
   apiKey: "AIzaSyAiACEdrFknfxa43WNubTV8A96YaNKgeyc",
   authDomain: "casorwebsite.firebaseapp.com",
   projectId: "casorwebsite",
-  storageBucket: "casorwebsite.firebasestorage.app",
+  storageBucket: "casorwebsite.appspot.com",
   messagingSenderId: "408409784355",
   appId: "1:408409784355:web:9080641fc27a2e5ecc7196",
   measurementId: "G-Q0KLLN365P"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+firebase.initializeApp(firebaseConfig);
+// Auth is only loaded on portal pages. Public pages skip the auth SDK
+// entirely (smaller download for visitors), so guard against it missing.
+const auth = (typeof firebase.auth === 'function') ? firebase.auth() : null;
+const db = firebase.firestore();
+// Storage is not used anywhere (it needs the paid Blaze plan). Files,
+// Library items and Site Images are Google Drive "Anyone with the link"
+// URLs saved in Firestore.

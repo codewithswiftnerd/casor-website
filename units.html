@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Units | CASOR UNIPORT</title>
+
+
+    <meta name="description" content="Meet the units that lead and support CASOR UNIPORT, from spiritual leadership to on-campus outreach." />
+    <link rel="canonical" href="https://casoruniport.netlify.app/units.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Our Units | CASOR UNIPORT" />
+    <meta property="og:description" content="Meet the units that lead and support CASOR UNIPORT, from spiritual leadership to on-campus outreach." />
+    <meta property="og:url" content="https://casoruniport.netlify.app/units.html" />
+    <meta property="og:image" content="https://casoruniport.netlify.app/images/icon-512.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- ===== FONTS ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <!-- ===== FONT AWESOME ===== -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+
+    <!-- ===== STYLES ===== -->
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="theme.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0B1F44" />
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ================= NAVBAR ================= -->
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="CASOR Logo" data-img-slot="logo" />
+        </div>
+
+        <nav id="mainNav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="units.html" aria-current="page">Units</a>
+            <a href="events.html">Programs</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="library.html">Library</a>
+            <a href="news.html">News</a>
+            <a href="meeting.html">Meetings</a>
+            <a href="contact.html">Contact</a>
+            <a href="portal/login.html" class="nav-mobile-login">Login</a>
+        </nav>
+
+        <a href="portal/login.html" class="nav-btn">Login</a>
+
+        <div class="menu" id="menuToggle" role="button" tabindex="0" aria-label="Open menu" aria-controls="mainNav" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- ================= PAGE HERO ================= -->
+    <section id="main" class="page-hero hero-bg-units" data-bg-slot="hero-units">
+        <div class="page-hero-inner">
+            <p class="breadcrumb"><a href="index.html">Home</a> / Units</p>
+            <h1>Our Units</h1>
+            <p>Every member has a place to serve. Explore the units below
+            and find where you fit in the CASOR family.</p>
+        </div>
+    </section>
+
+    <!-- ================= ADMINISTRATIVE ARM =================
+         The President, Vice President, General Secretary and Assistant
+         General Secretary lead the fellowship. They are not a unit and
+         don't present unit reports or vision statements. Photos are still
+         editable from the dashboard (Site Images -> Units). -->
+    <section class="content-section admin-arm">
+        <div class="section-head">
+            <span class="eyebrow">LEADERSHIP</span>
+            <h2>The <span>Administrative Arm</span></h2>
+            <p>The administrative house of the fellowship. They lead CASOR, coordinate every unit and keep its records.</p>
+        </div>
+        <div class="arm-grid">
+            <div class="arm-card">
+                <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="President" data-img-slot="unit-president" /></div>
+                <h3>President</h3>
+                <p>Provides overall spiritual leadership and direction for CASOR, representing the fellowship on and off campus.</p>
+            </div>
+            <div class="arm-card">
+                <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="Vice President" data-img-slot="unit-vice-president" /></div>
+                <h3>Vice President</h3>
+                <p>Supports the President in leading the fellowship and steps in to oversee affairs whenever needed.</p>
+            </div>
+            <div class="arm-card">
+                <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="General Secretary" data-img-slot="unit-general-secretary" /></div>
+                <h3>General Secretary</h3>
+                <p>Handles CASOR's official records, correspondence and communication, keeping the fellowship's administration in order.</p>
+            </div>
+            <div class="arm-card">
+                <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="Assistant General Secretary" data-img-slot="unit-asst-general-secretary" /></div>
+                <h3>Assistant General Secretary</h3>
+                <p>Assists the General Secretary with records, correspondence and administrative duties across the fellowship.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= UNITS (interactive list) ================= -->
+    <section class="content-section alt units-list-section" id="units-list">
+        <div class="section-head">
+            <span class="eyebrow">SERVE WITH US</span>
+            <h2>Our <span>Units</span></h2>
+            <p>Below are the units we have. Tap any unit to see what it does and who leads it.</p>
+        </div>
+        <label class="units-search">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <input type="search" id="unitsSearch" placeholder="Search units..." aria-label="Search units" />
+        </label>
+        <ol class="units-list" id="unitsList">
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-0" id="unit-b-0">
+                    <span class="unit-num">01</span>
+                    <span class="unit-ico"><i class="fas fa-coins" aria-hidden="true"></i></span>
+                    <span class="unit-name">Finance Unit</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-0" role="region" aria-labelledby="unit-b-0" hidden>
+                    <p>Manages CASOR's funds and records, handling contributions, disbursements and financial accountability.</p>
+                    <ul class="unit-leads"><li>Financial Secretary</li><li>Treasurer</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-1" id="unit-b-1">
+                    <span class="unit-num">02</span>
+                    <span class="unit-ico"><i class="fas fa-hands-praying" aria-hidden="true"></i></span>
+                    <span class="unit-name">Prayer Unit</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-1" role="region" aria-labelledby="unit-b-1" hidden>
+                    <p>Covers the fellowship in prayer before, during and after every service, program and outreach.</p>
+                    <ul class="unit-leads"><li>Head &middot; Prayer</li><li>Assistant &middot; Prayer</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-2" id="unit-b-2">
+                    <span class="unit-num">03</span>
+                    <span class="unit-ico"><i class="fas fa-bullhorn" aria-hidden="true"></i></span>
+                    <span class="unit-name">Evangelism Unit</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-2" role="region" aria-labelledby="unit-b-2" hidden>
+                    <p>Leads soul-winning efforts on campus, sharing the gospel one-on-one and in small groups wherever students can be reached.</p>
+                    <ul class="unit-leads"><li>Head &middot; Evangelism</li><li>Assistant &middot; Evangelism</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-3" id="unit-b-3">
+                    <span class="unit-num">04</span>
+                    <span class="unit-ico"><i class="fas fa-user-group" aria-hidden="true"></i></span>
+                    <span class="unit-name">Follow-up Unit</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-3" role="region" aria-labelledby="unit-b-3" hidden>
+                    <p>Keeps in touch with new converts and visitors after outreach, helping them settle into fellowship and grow in faith.</p>
+                    <ul class="unit-leads"><li>Head &middot; Follow-up</li><li>Assistant &middot; Follow-up</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-4" id="unit-b-4">
+                    <span class="unit-num">05</span>
+                    <span class="unit-ico"><i class="fas fa-route" aria-hidden="true"></i></span>
+                    <span class="unit-name">Outreach Unit</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-4" role="region" aria-labelledby="unit-b-4" hidden>
+                    <p>Plans and runs CASOR's outreach programs, taking the fellowship's love and message beyond campus to hostels and the wider community.</p>
+                    <ul class="unit-leads"><li>Head &middot; Outreach</li><li>Assistant &middot; Outreach</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-5" id="unit-b-5">
+                    <span class="unit-num">06</span>
+                    <span class="unit-ico"><i class="fas fa-people-group" aria-hidden="true"></i></span>
+                    <span class="unit-name">Brothers' &amp; Sisters' Leaders</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-5" role="region" aria-labelledby="unit-b-5" hidden>
+                    <p>Leads and shepherds the brothers' and sisters' fellowship groups, guiding discipleship and accountability within each.</p>
+                    <ul class="unit-leads"><li>Brother's Leader</li><li>Sister's Leader</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-6" id="unit-b-6">
+                    <span class="unit-num">07</span>
+                    <span class="unit-ico"><i class="fas fa-hand-holding-heart" aria-hidden="true"></i></span>
+                    <span class="unit-name">Brothers' &amp; Sisters' Welfare</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-6" role="region" aria-labelledby="unit-b-6" hidden>
+                    <p>Looks out for the wellbeing of brothers and sisters, checking in, following up and meeting practical needs within the fellowship.</p>
+                    <ul class="unit-leads"><li>Brother's Welfare</li><li>Sister's Welfare</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-7" id="unit-b-7">
+                    <span class="unit-num">08</span>
+                    <span class="unit-ico"><i class="fas fa-book-bible" aria-hidden="true"></i></span>
+                    <span class="unit-name">Bible Study Unit</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-7" role="region" aria-labelledby="unit-b-7" hidden>
+                    <p>Coordinates weekly Bible study sessions, helping members dig deeper into scripture and grow in personal study.</p>
+                    <ul class="unit-leads"><li>Head &middot; Bible Study</li><li>Assistant &middot; Bible Study</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-8" id="unit-b-8">
+                    <span class="unit-num">09</span>
+                    <span class="unit-ico"><i class="fas fa-camera" aria-hidden="true"></i></span>
+                    <span class="unit-name">Publicity Unit</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-8" role="region" aria-labelledby="unit-b-8" hidden>
+                    <p>Handles media coverage, design and getting the word out about everything CASOR is doing, online and on campus.</p>
+                    <ul class="unit-leads"><li>Head &middot; Publicity</li><li>Assistant &middot; Publicity</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-9" id="unit-b-9">
+                    <span class="unit-num">10</span>
+                    <span class="unit-ico"><i class="fas fa-handshake" aria-hidden="true"></i></span>
+                    <span class="unit-name">Public Relations Officer</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-9" role="region" aria-labelledby="unit-b-9" hidden>
+                    <p>Manages CASOR's public image and external relations, representing the fellowship's voice to outside bodies and guests.</p>
+                    <ul class="unit-leads"><li>Public Relations Officer</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-10" id="unit-b-10">
+                    <span class="unit-num">11</span>
+                    <span class="unit-ico"><i class="fas fa-house-chimney" aria-hidden="true"></i></span>
+                    <span class="unit-name">Male &amp; Female Park Coordinators</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-10" role="region" aria-labelledby="unit-b-10" hidden>
+                    <p>Oversees hall pastors across the male and female hostels, coordinating morning devotions in every park.</p>
+                    <ul class="unit-leads"><li>Head &middot; Male &amp; Female Park Coordinators</li><li>Assistant &middot; Male &amp; Female Park Coordinators</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-11" id="unit-b-11">
+                    <span class="unit-num">12</span>
+                    <span class="unit-ico"><i class="fas fa-music" aria-hidden="true"></i></span>
+                    <span class="unit-name">Shalom Unit</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-11" role="region" aria-labelledby="unit-b-11" hidden>
+                    <p>CASOR UNIPORT's choir, leading the fellowship in worship and preparing hearts through song for every service and special program.</p>
+                    <ul class="unit-leads"><li>Head &middot; Shalom</li><li>Assistant &middot; Shalom</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-12" id="unit-b-12">
+                    <span class="unit-num">13</span>
+                    <span class="unit-ico"><i class="fas fa-clipboard-list" aria-hidden="true"></i></span>
+                    <span class="unit-name">Organizing Unit</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-12" role="region" aria-labelledby="unit-b-12" hidden>
+                    <p>Coordinates the planning and logistics behind every service and program, from setup to sound, so everything runs smoothly.</p>
+                    <ul class="unit-leads"><li>Head &middot; Organizing</li><li>Assistant &middot; Organizing</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-13" id="unit-b-13">
+                    <span class="unit-num">14</span>
+                    <span class="unit-ico"><i class="fas fa-masks-theater" aria-hidden="true"></i></span>
+                    <span class="unit-name">Drama Unit</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-13" role="region" aria-labelledby="unit-b-13" hidden>
+                    <p>Uses drama and skits to bring gospel messages and Bible stories to life during services and outreach programs.</p>
+                    <ul class="unit-leads"><li>Head &middot; Drama</li><li>Assistant &middot; Drama</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-14" id="unit-b-14">
+                    <span class="unit-num">15</span>
+                    <span class="unit-ico"><i class="fas fa-newspaper" aria-hidden="true"></i></span>
+                    <span class="unit-name">Press &amp; Academic Unit</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-14" role="region" aria-labelledby="unit-b-14" hidden>
+                    <p>Documents CASOR's activities through press coverage, while supporting members academically, including through the Library.</p>
+                    <ul class="unit-leads"><li>Head &middot; Press &amp; Academic</li><li>Assistant &middot; Press &amp; Academic</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-15" id="unit-b-15">
+                    <span class="unit-num">16</span>
+                    <span class="unit-ico"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span>
+                    <span class="unit-name">Ambassadors Bible College (ABC)</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-15" role="region" aria-labelledby="unit-b-15" hidden>
+                    <p>CASOR's discipleship arm, nurturing new members in the foundations of the faith and grounding them in the Word.</p>
+                    <ul class="unit-leads"><li>Principal</li><li>Provost</li><li>Registrar</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+            <li class="unit-item">
+                <button type="button" class="unit-row" aria-expanded="false" aria-controls="unit-p-16" id="unit-b-16">
+                    <span class="unit-num">17</span>
+                    <span class="unit-ico"><i class="fas fa-user-graduate" aria-hidden="true"></i></span>
+                    <span class="unit-name">Final Year Brethren Fellowship (FYBF)</span>
+                    <i class="fas fa-plus unit-toggle" aria-hidden="true"></i>
+                </button>
+                <div class="unit-panel" id="unit-p-16" role="region" aria-labelledby="unit-b-16" hidden>
+                    <p>A dedicated fellowship for final year students, preparing them spiritually for life and ministry beyond the university.</p>
+                    <ul class="unit-leads"><li>Coordinator</li><li>Asst. Coordinator</li><li>Secretary</li><li>PRO</li></ul>
+                    <a class="unit-join" href="contact.html">I&rsquo;d like to join this unit</a>
+                </div>
+            </li>
+        </ol>
+        <p class="units-empty" id="unitsEmpty" hidden>No unit matches that search.</p>
+    </section>
+
+    <!-- ================= CURRENT SERVING EXCOs =================
+         Same photos (and data-img-slot names) the unit cards used before,
+         so anything already set in Site Images keeps working. -->
+    <section class="content-section excos-section" id="excos">
+        <div class="section-head">
+            <span class="eyebrow">THIS ADMINISTRATION</span>
+            <h2>Current Serving <span>EXCOs</span></h2>
+            <p>The brethren leading each unit this session.</p>
+        </div>
+        <div class="exco-grid">
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1YY0Ks3ibCYA0VGdWn16LzOuexbOW8J7y" alt="Finance Unit" data-img-slot="unit-finance" /></div>
+                <div class="exco-meta"><strong>Financial Secretary</strong><span>Finance Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1YY0Ks3ibCYA0VGdWn16LzOuexbOW8J7y" alt="Finance Unit (Treasurer)" data-img-slot="unit-finance-assistant" /></div>
+                <div class="exco-meta"><strong>Treasurer</strong><span>Finance Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1BXe9iN5bAVvYWkxswb7X0mcLmOFxmU2t" alt="Prayer Unit" data-img-slot="unit-prayer" /></div>
+                <div class="exco-meta"><strong>Head</strong><span>Prayer Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1BXe9iN5bAVvYWkxswb7X0mcLmOFxmU2t" alt="Prayer Unit (Assistant)" data-img-slot="unit-prayer-assistant" /></div>
+                <div class="exco-meta"><strong>Assistant</strong><span>Prayer Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1vubebsZ0grkjsG_fVUbC0vUUTPfyI7uU" alt="Evangelism Unit" data-img-slot="unit-evangelism" /></div>
+                <div class="exco-meta"><strong>Head</strong><span>Evangelism Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1vubebsZ0grkjsG_fVUbC0vUUTPfyI7uU" alt="Evangelism Unit (Assistant)" data-img-slot="unit-evangelism-assistant" /></div>
+                <div class="exco-meta"><strong>Assistant</strong><span>Evangelism Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="images/media.jpg" alt="Follow-up Unit" data-img-slot="unit-followup" /></div>
+                <div class="exco-meta"><strong>Head</strong><span>Follow-up Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="images/media.jpg" alt="Follow-up Unit (Assistant)" data-img-slot="unit-followup-assistant" /></div>
+                <div class="exco-meta"><strong>Assistant</strong><span>Follow-up Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/10c5xbLxftn88XZfuzaBunbpn4m4uWYSt" alt="Outreach Unit" data-img-slot="unit-outreach" /></div>
+                <div class="exco-meta"><strong>Head</strong><span>Outreach Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/10c5xbLxftn88XZfuzaBunbpn4m4uWYSt" alt="Outreach Unit (Assistant)" data-img-slot="unit-outreach-assistant" /></div>
+                <div class="exco-meta"><strong>Assistant</strong><span>Outreach Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/12Az4qr_k4RTW-DylC9_xbKwj0mmNMtJh" alt="Brother's Leader" data-img-slot="unit-bro-sis-leaders" /></div>
+                <div class="exco-meta"><strong>Brother's Leader</strong><span>Brothers' &amp; Sisters' Leaders</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/12Az4qr_k4RTW-DylC9_xbKwj0mmNMtJh" alt="Sister's Leader" data-img-slot="unit-bro-sis-leaders-assistant" /></div>
+                <div class="exco-meta"><strong>Sister's Leader</strong><span>Brothers' &amp; Sisters' Leaders</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1BqRao_Ex33fMY8HHEIA7C7T1FNeVSiEQ" alt="Brother's Welfare" data-img-slot="unit-bro-sis-welfare" /></div>
+                <div class="exco-meta"><strong>Brother's Welfare</strong><span>Brothers' &amp; Sisters' Welfare</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1BqRao_Ex33fMY8HHEIA7C7T1FNeVSiEQ" alt="Sister's Welfare" data-img-slot="unit-bro-sis-welfare-assistant" /></div>
+                <div class="exco-meta"><strong>Sister's Welfare</strong><span>Brothers' &amp; Sisters' Welfare</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/19HN-n5aO77-qUBiwfXxCnbBxcHLp-gIu" alt="Bible Study Unit" data-img-slot="unit-bible-study" /></div>
+                <div class="exco-meta"><strong>Head</strong><span>Bible Study Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/19HN-n5aO77-qUBiwfXxCnbBxcHLp-gIu" alt="Bible Study Unit (Assistant)" data-img-slot="unit-bible-study-assistant" /></div>
+                <div class="exco-meta"><strong>Assistant</strong><span>Bible Study Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1DN-qOGsQlnJU8Bz7Qym-Y0fjVmmjogpH" alt="Publicity Unit" data-img-slot="unit-publicity" /></div>
+                <div class="exco-meta"><strong>Head</strong><span>Publicity Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1DN-qOGsQlnJU8Bz7Qym-Y0fjVmmjogpH" alt="Publicity Unit (Assistant)" data-img-slot="unit-publicity-assistant" /></div>
+                <div class="exco-meta"><strong>Assistant</strong><span>Publicity Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="Public Relations Officer" data-img-slot="unit-pro" /></div>
+                <div class="exco-meta"><strong>Public Relations Officer</strong></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="images/media.jpg" alt="Male Park and Female Park Coordinators" data-img-slot="unit-park-coordinators" /></div>
+                <div class="exco-meta"><strong>Head</strong><span>Male &amp; Female Park Coordinators</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="images/media.jpg" alt="Male Park and Female Park Coordinators (Assistant)" data-img-slot="unit-park-coordinators-assistant" /></div>
+                <div class="exco-meta"><strong>Assistant</strong><span>Male &amp; Female Park Coordinators</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1pJ0FzjYmZsIbwOCuTO-9GCxd4lKRoDTm" alt="Shalom Unit" data-img-slot="unit-shalom" /></div>
+                <div class="exco-meta"><strong>Head</strong><span>Shalom Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1pJ0FzjYmZsIbwOCuTO-9GCxd4lKRoDTm" alt="Shalom Unit (Assistant)" data-img-slot="unit-shalom-assistant" /></div>
+                <div class="exco-meta"><strong>Assistant</strong><span>Shalom Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1Ua6koyarJrG5jpiFM7HNxD2KTJPakUmf" alt="Organizing Unit" data-img-slot="unit-organizing" /></div>
+                <div class="exco-meta"><strong>Head</strong><span>Organizing Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1Ua6koyarJrG5jpiFM7HNxD2KTJPakUmf" alt="Organizing Unit (Assistant)" data-img-slot="unit-organizing-assistant" /></div>
+                <div class="exco-meta"><strong>Assistant</strong><span>Organizing Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1qO9bxr_LhA4KYB3dcESm0p6Gpia_K9C-" alt="Drama Unit" data-img-slot="unit-drama" /></div>
+                <div class="exco-meta"><strong>Head</strong><span>Drama Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1qO9bxr_LhA4KYB3dcESm0p6Gpia_K9C-" alt="Drama Unit (Assistant)" data-img-slot="unit-drama-assistant" /></div>
+                <div class="exco-meta"><strong>Assistant</strong><span>Drama Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1f846NQG7dmlY18VpcR99EHEGfvuNZlP0" alt="Press and Academic Unit" data-img-slot="unit-press-academic" /></div>
+                <div class="exco-meta"><strong>Head</strong><span>Press &amp; Academic Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/d/1f846NQG7dmlY18VpcR99EHEGfvuNZlP0" alt="Press and Academic Unit (Assistant)" data-img-slot="unit-press-academic-assistant" /></div>
+                <div class="exco-meta"><strong>Assistant</strong><span>Press &amp; Academic Unit</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="ABC Principal" data-img-slot="unit-abc-principal" /></div>
+                <div class="exco-meta"><strong>Principal</strong><span>Ambassadors Bible College (ABC)</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="ABC Provost" data-img-slot="unit-abc-provost" /></div>
+                <div class="exco-meta"><strong>Provost</strong><span>Ambassadors Bible College (ABC)</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="ABC Registrar" data-img-slot="unit-abc-registrar" /></div>
+                <div class="exco-meta"><strong>Registrar</strong><span>Ambassadors Bible College (ABC)</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="FYB Coordinator" data-img-slot="unit-fybf-coordinator" /></div>
+                <div class="exco-meta"><strong>Coordinator</strong><span>Final Year Brethren Fellowship (FYBF)</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="Assistant FYB Coordinator" data-img-slot="unit-fybf-assistant-coordinator" /></div>
+                <div class="exco-meta"><strong>Asst. Coordinator</strong><span>Final Year Brethren Fellowship (FYBF)</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="FYB Secretary" data-img-slot="unit-fybf-secretary" /></div>
+                <div class="exco-meta"><strong>Secretary</strong><span>Final Year Brethren Fellowship (FYBF)</span></div>
+            </div>
+            <div class="exco-card">
+                <div class="exco-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="FYB PRO" data-img-slot="unit-fybf-pro" /></div>
+                <div class="exco-meta"><strong>PRO</strong><span>Final Year Brethren Fellowship (FYBF)</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= HALL PASTORS (this session) =================
+         Dynamic list, not fixed cards - the number of hall pastors
+         changes every administration (6, 7, 8...), so these are
+         managed from the portal's "Hall Pastors" tab instead of being
+         hard-coded here. Collection: "hall_pastors",
+         { name, photo, park ('Male'|'Female'), order, createdAt }. -->
+    <section class="content-section alt">
+        <div class="section-head">
+            <p class="eyebrow">This Session</p>
+            <h2>Hall <span>Pastors</span></h2>
+            <p>Serving under the Male and Female Park Coordinators, shepherding
+            morning devotions hall by hall. This list is updated each session.</p>
+        </div>
+        <div class="hall-pastors-columns">
+            <div class="hall-pastor-column">
+                <h3>Male Park</h3>
+                <div class="hall-pastor-grid" id="hallPastorsMale">
+                    <p class="admin-empty-inline"><i class="fas fa-spinner fa-spin"></i> Loading...</p>
+                </div>
+            </div>
+            <div class="hall-pastor-column">
+                <h3>Female Park</h3>
+                <div class="hall-pastor-grid" id="hallPastorsFemale">
+                    <p class="admin-empty-inline"><i class="fas fa-spinner fa-spin"></i> Loading...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= PAST PRESIDENTS LINK ================= -->
+    <section class="content-section" style="padding-top:0;">
+        <div class="library-promo">
+            <div class="library-promo-icon"><i class="fas fa-user-tie"></i></div>
+            <div class="library-promo-text">
+                <span class="eyebrow">OUR HISTORY</span>
+                <h2>Past <span>Admin Houses</span></h2>
+                <p>The Admin House of every past administration: President, Vice President,
+                General Secretary and Assistant General Secretary.</p>
+                <a href="presidents.html" class="btn-gold">View Past Admin Houses</a>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- ================= OUR COVERING =================
+         Patron, Patroness, District Coordinator and Alumni President.
+         Photos are editable in the dashboard (Site Images -> Units).
+         The old "matron" and "staff-adviser" slot names are kept, so any
+         photo already set for them still shows. -->
+    <section class="content-section alt covering" id="covering">
+        <div class="section-head">
+            <span class="eyebrow">OUR COVERING</span>
+            <h2>Patron, Patroness &amp; <span>Coordinators</span></h2>
+            <p>The fathers, mothers and friends who watch over the fellowship.</p>
+        </div>
+        <div class="arm-grid">
+            <div class="arm-card">
+                <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="Patron" data-img-slot="patron" /></div>
+                <h3>Patron</h3>
+                <p>Provides spiritual oversight and covering for CASOR, guiding its leadership with wisdom and experience.</p>
+            </div>
+            <div class="arm-card">
+                <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="Patroness" data-img-slot="matron" /></div>
+                <h3>Patroness</h3>
+                <p>Offers motherly guidance and pastoral care to the fellowship, supporting members through their university journey.</p>
+            </div>
+            <div class="arm-card">
+                <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="District Coordinator" data-img-slot="staff-adviser" /></div>
+                <h3>District Coordinator</h3>
+                <p>Links CASOR UNIPORT with the district, coordinating with the wider Christ Ambassadors body and its programmes.</p>
+            </div>
+            <div class="arm-card">
+                <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="Alumni President" data-img-slot="alumni-president" /></div>
+                <h3>Alumni President</h3>
+                <p>Leads the CASOR alumni body, keeping past members connected and supporting the fellowship today.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer id="contact">
+
+        <div class="newsletter-row">
+            <h3>Stay Connected</h3>
+            <p>Receive updates about events, sermons and fellowship activities.</p>
+            <form id="newsletterForm">
+                <input
+                type="email"
+                id="newsletterEmail"
+                placeholder="Enter your email"
+                required
+                />
+                <button type="submit">Subscribe</button>
+            </form>
+            <p id="newsletterFeedback" style="margin-top:12px;font-size:14px;color:var(--gold);display:none;"></p>
+        </div>
+
+        <div class="footer-grid">
+
+            <div>
+                <h3>CASOR UNIPORT</h3>
+                <p data-text-slot="footer-tagline">Raising Kingdom Ambassadors for Global Impact.</p>
+            </div>
+
+            <div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="units.html">Units</a></li>
+                    <li><a href="events.html">Programs</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="library.html">Library</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="meeting.html">Meeting Board</a></li>
+                    <li><a href="register.html">Register as a member</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Service Times</h4>
+                <p data-text-slot="footer-service-1">Sunday · 2:00 PM<br />Our Saviour's Chapel, Children Hall</p>
+                <p data-text-slot="footer-service-2">Wednesday · 5:30 PM<br />Assemblies of God Church,<br />Choba 1, Alikor Estate</p>
+                <p data-text-slot="footer-service-3">Thursday · 6:00 PM<br />Prayers, Botanical Garden</p>
+                <p data-text-slot="footer-service-4">Tuesday · 5:00 PM<br />Bible Study, CASOR Secretariat</p>
+            </div>
+
+            <div>
+                <h4>Contact</h4>
+                <p data-text-slot="footer-address">University of Port Harcourt</p>
+                <p><a href="mailto:casoruniportarchive@gmail.com">casoruniportarchive@gmail.com</a></p>
+                <p data-text-slot="footer-phone">0813 162 2282</p>
+            </div>
+
+        </div>
+
+        <hr />
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 CASOR UNIPORT. All Rights Reserved.</p>
+            <div class="socials">
+                <a href="https://www.facebook.com/profile.php?id=100073965431930" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@casor_uniport?_r=1&amp;_t=ZS-98hoQ5qWfQ5" aria-label="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
+                <a href="https://youtube.com/@casoruniport?si=IqWac8OB43dLpl9D" aria-label="YouTube" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+    <script src="portal/firebase-config.js"></script>
+    <script src="push-subscribe.js"></script>
+    <script src="newsletter-subscribe.js"></script>
+
+    <script src="animations.js"></script>
+    <script src="site-content.js"></script>
+    <script src="site-images.js"></script>
+    <script src="install-prompt.js"></script>
+
+    <script>
+        // ===== MOBILE MENU TOGGLE =====
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        menuToggle.addEventListener('click', function() {
+            const isOpen = mainNav.classList.toggle('active');
+            menuToggle.classList.toggle('open', isOpen);
+            // Toggle icon
+            const icon = this.querySelector('i');
+            icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        // Close menu when a nav link is clicked (on mobile)
+        document.querySelectorAll('#mainNav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    mainNav.classList.remove('active');
+                    menuToggle.classList.remove('open');
+                    const icon = menuToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-bars';
+                }
+            });
+        });
+
+        // Newsletter form handling now lives in newsletter-subscribe.js
+        // (loaded below, right after portal/firebase-config.js) so the
+        // real Firestore signup logic isn't duplicated across every page.
+
+        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ============================================================
+        //  HALL PASTORS - public, read-only, no login needed. Varies
+        //  in count every session, so it's a plain list rather than
+        //  fixed cards. Collection: "hall_pastors", matching what the
+        //  EXCO Dashboard's "Hall Pastors" tab writes:
+        //  { name, photo, park ('Male'|'Female'), order, createdAt }
+        // ============================================================
+        function escapeHtmlUnits(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function driveThumbUnits(url) {
+            if (!url) return null;
+            const patterns = [/\/file\/d\/([a-zA-Z0-9_-]+)/, /[?&]id=([a-zA-Z0-9_-]+)/, /\/d\/([a-zA-Z0-9_-]+)/];
+            for (const re of patterns) {
+                const m = url.match(re);
+                if (m) return `https://lh3.googleusercontent.com/d/${m[1]}=w300`;
+            }
+            return url; // already a plain image URL
+        }
+
+        function renderHallPastorGroup(containerId, entries) {
+            const el = document.getElementById(containerId);
+            if (entries.length === 0) {
+                el.innerHTML = '<p class="admin-empty-inline">Not yet added for this session.</p>';
+                return;
+            }
+            el.innerHTML = entries.map(e => {
+                const thumb = driveThumbUnits(e.photo);
+                const photoHtml = thumb
+                    ? `<img loading="lazy" decoding="async" src="${thumb}" alt="${escapeHtmlUnits(e.name)}" onerror="this.parentElement.innerHTML='<i class=&quot;fas fa-user&quot;></i>';" />`
+                    : `<i class="fas fa-user"></i>`;
+                return `
+                    <div class="hall-pastor-card">
+                        <div class="hall-pastor-photo">${photoHtml}</div>
+                        <span>${escapeHtmlUnits(e.name)}</span>
+                    </div>`;
+            }).join('');
+        }
+
+        db.collection('hall_pastors').orderBy('order', 'asc').onSnapshot(
+            snap => {
+                const all = snap.docs.map(doc => doc.data());
+                renderHallPastorGroup('hallPastorsMale', all.filter(p => p.park === 'Male'));
+                renderHallPastorGroup('hallPastorsFemale', all.filter(p => p.park === 'Female'));
+            },
+            err => {
+                console.error('Hall pastors load failed:', err);
+                document.getElementById('hallPastorsMale').innerHTML = '<p class="admin-empty-inline">Couldn\'t load right now.</p>';
+                document.getElementById('hallPastorsFemale').innerHTML = '<p class="admin-empty-inline">Couldn\'t load right now.</p>';
+            }
+        );
+    </script>
+
+    <script>
+        // ===== UNITS: accordion list + search =====
+        (function () {
+            const list = document.getElementById('unitsList');
+            if (!list) return;
+            list.addEventListener('click', (e) => {
+                const btn = e.target.closest('.unit-row');
+                if (!btn) return;
+                const open = btn.getAttribute('aria-expanded') === 'true';
+                list.querySelectorAll('.unit-row[aria-expanded="true"]').forEach(b => {
+                    b.setAttribute('aria-expanded', 'false');
+                    document.getElementById(b.getAttribute('aria-controls')).hidden = true;
+                    b.closest('.unit-item').classList.remove('open');
+                });
+                if (!open) {
+                    btn.setAttribute('aria-expanded', 'true');
+                    document.getElementById(btn.getAttribute('aria-controls')).hidden = false;
+                    btn.closest('.unit-item').classList.add('open');
+                }
+            });
+            const search = document.getElementById('unitsSearch');
+            const empty = document.getElementById('unitsEmpty');
+            search.addEventListener('input', () => {
+                const q = search.value.trim().toLowerCase();
+                let shown = 0;
+                list.querySelectorAll('.unit-item').forEach(li => {
+                    const hit = !q || li.textContent.toLowerCase().includes(q);
+                    li.hidden = !hit;
+                    if (hit) shown++;
+                });
+                empty.hidden = shown > 0;
+            });
+        })();
+    </script>
+</body>
+</html>

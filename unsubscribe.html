@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unsubscribe | CASOR UNIPORT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="theme.css" />
+    <style>
+        .unsub-wrap {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 6%;
+            text-align: center;
+        }
+        .unsub-card {
+            max-width: 460px;
+            width: 100%;
+        }
+        .unsub-card h1 {
+            font-family: var(--font-display);
+            color: var(--navy);
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+        .unsub-card p {
+            color: #444;
+            margin-bottom: 12px;
+        }
+        .unsub-card a.home-link {
+            color: var(--navy);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="unsub-wrap">
+        <div class="unsub-card">
+            <h1 id="unsubHeading">Working on it...</h1>
+            <p id="unsubMessage">Please wait a moment.</p>
+            <p><a class="home-link" href="index.html">Back to CASOR UNIPORT</a></p>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="portal/firebase-config.js"></script>
+    <script>
+        // ============================================================
+        // No backend involved here at all - this page writes straight
+        // to Firestore with the visitor's own browser, same as the
+        // subscribe form does. It's allowed to do this ONE specific
+        // write (flip a subscriber's status to 'unsubscribed') only
+        // because it can prove it knows that subscriber's private
+        // unsubscribeToken - the value from the email link, matched
+        // against what's already stored on the record. See the
+        // "subscribers" rule in SETUP-GUIDE.md for the exact check.
+        // ============================================================
+        (function () {
+            const heading = document.getElementById('unsubHeading');
+            const message = document.getElementById('unsubMessage');
+
+            function show(h, m) {
+                heading.textContent = h;
+                message.textContent = m;
+            }
+
+            const params = new URLSearchParams(window.location.search);
+            const email = (params.get('email') || '').trim().toLowerCase();
+            const token = (params.get('token') || '').trim();
+
+            if (!email || !token) {
+                show('Invalid link', 'This unsubscribe link is missing information.');
+                return;
+            }
+
+            const ref = db.collection('subscribers').doc(email);
+
+            // No read here on purpose - visitors can't read this
+            // collection (see the security rules), only ever write
+            // their own unsubscribe. The write itself is what proves
+            // (or disproves) the link is valid: it's only accepted if
+            // the token matches what's already stored on the record.
+            // The token goes in "unsubscribeProof" - the rules require it
+            // to match the stored unsubscribeToken (see firestore.rules).
+            ref.update({
+                status: 'unsubscribed',
+                unsubscribedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                unsubscribeProof: token
+            }).then(() => {
+                show("You're unsubscribed", email + " will no longer receive CASOR newsletters. Changed your mind? Just subscribe again from the website.");
+            }).catch((err) => {
+                if (err && (err.code === 'permission-denied' || err.code === 'not-found')) {
+                    show('Invalid link', 'This unsubscribe link is invalid or has expired.');
+                } else {
+                    show('Something went wrong', err.message || 'Please try again later.');
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
