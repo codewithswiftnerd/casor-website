@@ -1,6 +1,15 @@
 
-const ADMIN_ARM_DOC_TYPES = ['Minutes', 'Agenda', 'Proposed Semester Calendar'];
-const UNIT_DOC_TYPES = ['Minutes', 'Report', 'Vision Statement'];
+const ADMIN_ARM_DOC_TYPES = ['Vision Statement', 'Minutes', 'Agenda', 'Proposed Semester Calendar', 'Handover Note', 'Other'];
+const UNIT_DOC_TYPES = ['Vision Statement', 'Report', 'Minutes', 'Handover Note', 'Other'];
+const DOC_TYPE_INFO = {
+    'Vision Statement': { label: 'Vision Statement', plural: 'Vision Statements', icon: 'fa-eye', hint: 'Your vision and goals for this administration.' },
+    'Report': { label: 'Unit Report', plural: 'Unit Reports', icon: 'fa-chart-column', hint: 'Activity reports for general meetings.' },
+    'Minutes': { label: 'Minutes', plural: 'Minutes', icon: 'fa-file-lines', hint: 'Minutes of your meetings.' },
+    'Agenda': { label: 'Agenda', plural: 'Agendas', icon: 'fa-list-check', hint: 'Agendas for upcoming meetings.' },
+    'Proposed Semester Calendar': { label: 'Semester Calendar', plural: 'Semester Calendars', icon: 'fa-calendar-days', hint: 'The proposed calendar for the semester.' },
+    'Handover Note': { label: 'Handover Note', plural: 'Handover Notes', icon: 'fa-handshake', hint: 'Notes for whoever holds this office next.' },
+    'Other': { label: 'Other Document', plural: 'Other Documents', icon: 'fa-folder-open', hint: 'Anything else that belongs to this office.' }
+};
 function officeDocTypes(office) {
     return office && office.adminArm ? ADMIN_ARM_DOC_TYPES : UNIT_DOC_TYPES;
 }

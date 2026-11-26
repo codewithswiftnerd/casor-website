@@ -15,6 +15,7 @@
         sheet.hidden = true;
         sheet.innerHTML =
             '<div class="share-card">' +
+                '<div class="share-preview" id="sharePreview" hidden><img id="sharePreviewImg" alt="" /></div>' +
                 '<p class="share-eyebrow">Share</p>' +
                 '<h3 id="shareSheetTitle"></h3>' +
                 '<p class="share-url" id="shareSheetUrl"></p>' +
@@ -75,6 +76,12 @@
         sheet.querySelector('#shareSheetUrl').textContent = current.url;
         sheet.querySelector('#shareWa').href = 'https://wa.me/?text=' + encodeURIComponent(current.title + '\n' + current.url);
         sheet.querySelector('#shareMore').hidden = !navigator.share;
+        var img = (opts && opts.image) || '';
+        var box = sheet.querySelector('#sharePreview');
+        var pic = sheet.querySelector('#sharePreviewImg');
+        box.hidden = !img;
+        pic.onerror = function () { box.hidden = true; };
+        if (img) pic.src = img; else pic.removeAttribute('src');
         sheet.hidden = false;
         document.documentElement.classList.add('share-open');
         requestAnimationFrame(function () { sheet.classList.add('on'); });
@@ -94,8 +101,50 @@
         if (!btn) return;
         e.preventDefault();
         e.stopPropagation();
-        open({ title: btn.getAttribute('data-share-title'), url: btn.getAttribute('data-share-url') });
+        var image = btn.getAttribute('data-share-image');
+        if (!image) {
+            var card = btn.closest('.arm-card, .resource-card, .news-card, .event-card-2, .exco-card');
+            var cardImg = card && card.querySelector('img');
+            if (cardImg && cardImg.currentSrc) image = cardImg.currentSrc;
+            else if (cardImg && cardImg.src) image = cardImg.src;
+        }
+        if (!image) {
+            var unit = btn.closest('.unit-item');
+            var slot = unit && unit.getAttribute('data-photo-slot');
+            var slotImg = slot && document.querySelector('img[data-img-slot="' + slot + '"]');
+            if (slotImg) image = slotImg.currentSrc || slotImg.src;
+        }
+        open({ title: btn.getAttribute('data-share-title'), url: btn.getAttribute('data-share-url'), image: image });
     });
 
-    window.CasorShare = { open: open, close: close };
+    function flash(el) {
+        if (!el) return;
+        setTimeout(function () {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            el.classList.remove('is-linked');
+            void el.offsetWidth;
+            el.classList.add('is-linked');
+        }, 150);
+    }
+
+    function param(name) {
+        try { return new URLSearchParams(location.search).get(name); } catch (e) { return null; }
+    }
+
+    function link(page, key, id) {
+        return page + '?' + key + '=' + encodeURIComponent(id);
+    }
+
+    function attr(s) {
+        return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function button(page, key, id, title, label, extraClass, image) {
+        return '<button type="button" class="share-btn' + (extraClass ? ' ' + extraClass : '') + '" data-share data-share-url="' + attr(link(page, key, id)) +
+            (image ? '" data-share-image="' + attr(image) : '') +
+            '" data-share-title="' + attr(title) + '" aria-label="Share ' + attr(title) + '"><i class="fas fa-share-nodes" aria-hidden="true"></i>' +
+            (label ? ' ' + label : '') + '</button>';
+    }
+
+    window.CasorShare = { open: open, close: close, flash: flash, param: param, link: link, button: button };
 })();

@@ -40,8 +40,20 @@ service cloud.firestore {
     }
     function allowedDocType(officeId, type) {
       return isAdminArm(officeId)
-        ? type in ['Minutes', 'Agenda', 'Proposed Semester Calendar']
-        : type in ['Report', 'Vision Statement', 'Minutes'];
+        ? type in ['Vision Statement', 'Minutes', 'Agenda', 'Proposed Semester Calendar', 'Handover Note', 'Other']
+        : type in ['Vision Statement', 'Report', 'Minutes', 'Handover Note', 'Other'];
+    }
+    function boardPasswordPath() {
+      return /databases/$(database)/documents/board_private/password;
+    }
+    function boardAccessPath() {
+      return /databases/$(database)/documents/board_access/$(request.auth.uid);
+    }
+    function hasBoardAccess() {
+      return isSignedIn()
+        && exists(boardPasswordPath())
+        && exists(boardAccessPath())
+        && get(boardAccessPath()).data.key == get(boardPasswordPath()).data.key;
     }
     function isHttpsUrl(v) {
       return v is string && v.size() < 2000 && v.matches('^https://.+');
@@ -127,8 +139,26 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
+    match /board_private/{docId} {
+      allow read: if isApprovedExco();
+      allow write: if isAdmin()
+                     && docId == 'password'
+                     && request.resource.data.keys().hasOnly(['password', 'key', 'updatedBy', 'updatedAt'])
+                     && shortText(request.resource.data.password, 60)
+                     && shortText(request.resource.data.key, 60);
+    }
+
+    match /board_access/{uid} {
+      allow read, delete: if isSignedIn() && request.auth.uid == uid;
+      allow create, update: if isSignedIn() && request.auth.uid == uid
+                     && request.resource.data.keys().hasOnly(['key', 'at'])
+                     && request.resource.data.key is string
+                     && exists(boardPasswordPath())
+                     && request.resource.data.key == get(boardPasswordPath()).data.key;
+    }
+
     match /meeting_docs/{docId} {
-      allow read: if resource.data.visible == true || isApprovedExco();
+      allow read: if isApprovedExco() || (resource.data.visible == true && hasBoardAccess());
 
       allow create: if canManageOffice(request.resource.data.office)
                      && request.resource.data.keys().hasOnly(

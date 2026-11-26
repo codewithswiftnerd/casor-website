@@ -209,6 +209,11 @@
             <li class="cov-item cov-health"><span class="cov-sym" aria-hidden="true"><i class="fas fa-heart-pulse"></i></span><span class="cov-name"><small>Covenant of</small> Perfect Health</span></li>
             <li class="cov-item cov-peace"><span class="cov-sym" aria-hidden="true"><i class="fas fa-dove"></i></span><span class="cov-name"><small>Covenant of</small> Peace</span></li>
             <li class="cov-item cov-fruit"><span class="cov-sym" aria-hidden="true"><i class="fas fa-apple-whole"></i></span><span class="cov-name"><small>Covenant of</small> Fruitfulness</span></li>
+            <li class="cov-item cov-life"><span class="cov-sym" aria-hidden="true"><i class="fas fa-tree"></i></span><span class="cov-name"><small>Covenant of</small> Life</span></li>
+            <li class="cov-item cov-royal"><span class="cov-sym" aria-hidden="true"><i class="fas fa-crown"></i></span><span class="cov-name"><small>Covenant of</small> Royalty</span></li>
+            <li class="cov-item cov-health"><span class="cov-sym" aria-hidden="true"><i class="fas fa-heart-pulse"></i></span><span class="cov-name"><small>Covenant of</small> Perfect Health</span></li>
+            <li class="cov-item cov-peace"><span class="cov-sym" aria-hidden="true"><i class="fas fa-dove"></i></span><span class="cov-name"><small>Covenant of</small> Peace</span></li>
+            <li class="cov-item cov-fruit"><span class="cov-sym" aria-hidden="true"><i class="fas fa-apple-whole"></i></span><span class="cov-name"><small>Covenant of</small> Fruitfulness</span></li>
         </ol>
     </section>
 
@@ -247,8 +252,12 @@
     </section>
 
     <section class="content-section admin-house" id="units">
+    <section class="content-section admin-house" id="units">
 
         <div class="section-head">
+            <span class="eyebrow">LEADERSHIP</span>
+            <h2>The <span>Admin House</span></h2>
+            <p>The President, Vice President, General Secretary and Assistant General Secretary lead CASOR and coordinate every unit.</p>
             <span class="eyebrow">LEADERSHIP</span>
             <h2>The <span>Admin House</span></h2>
             <p>The President, Vice President, General Secretary and Assistant General Secretary lead CASOR and coordinate every unit.</p>
@@ -259,25 +268,25 @@
                 <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="President" data-img-slot="unit-president" /></div>
                 <h3>President</h3>
                 <p>Spiritual leadership and direction for the fellowship.</p>
-                <button type="button" class="share-btn" data-share data-share-url="units.html#president" data-share-title="President - CASOR UNIPORT Admin House"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share</button>
+                <button type="button" class="share-btn" data-share data-share-url="units.html?unit=president" data-share-title="President - CASOR UNIPORT Admin House"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share</button>
             </div>
             <div class="arm-card">
                 <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="Vice President" data-img-slot="unit-vice-president" /></div>
                 <h3>Vice President</h3>
                 <p>Supports the President and oversees affairs when needed.</p>
-                <button type="button" class="share-btn" data-share data-share-url="units.html#vice-president" data-share-title="Vice President - CASOR UNIPORT Admin House"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share</button>
+                <button type="button" class="share-btn" data-share data-share-url="units.html?unit=vice-president" data-share-title="Vice President - CASOR UNIPORT Admin House"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share</button>
             </div>
             <div class="arm-card">
                 <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="General Secretary" data-img-slot="unit-general-secretary" /></div>
                 <h3>General Secretary</h3>
                 <p>Keeps CASOR&rsquo;s records, minutes and correspondence.</p>
-                <button type="button" class="share-btn" data-share data-share-url="units.html#general-secretary" data-share-title="General Secretary - CASOR UNIPORT Admin House"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share</button>
+                <button type="button" class="share-btn" data-share data-share-url="units.html?unit=general-secretary" data-share-title="General Secretary - CASOR UNIPORT Admin House"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share</button>
             </div>
             <div class="arm-card">
                 <div class="arm-photo"><img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="Assistant General Secretary" data-img-slot="unit-asst-general-secretary" /></div>
                 <h3>Assistant General Secretary</h3>
                 <p>Assists with records and administration across the house.</p>
-                <button type="button" class="share-btn" data-share data-share-url="units.html#asst-general-secretary" data-share-title="Assistant General Secretary - CASOR UNIPORT Admin House"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share</button>
+                <button type="button" class="share-btn" data-share data-share-url="units.html?unit=asst-general-secretary" data-share-title="Assistant General Secretary - CASOR UNIPORT Admin House"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share</button>
             </div>
         </div>
 
@@ -323,6 +332,7 @@
 
         <div class="section-head light">
             <span class="eyebrow">WHAT'S HAPPENING</span>
+            <h2>CASOR Upcoming Programs</h2>
             <h2>CASOR Upcoming Programs</h2>
             <p>Mark your calendar and be sure to join us at these upcoming programs.</p>
         </div>
@@ -468,6 +478,7 @@
     <script src="install-prompt.js"></script>
     <script src="anthem.js"></script>
     <script src="share.js"></script>
+    <script src="share.js"></script>
 
     <script>
         const menuToggle = document.getElementById('menuToggle');
@@ -513,20 +524,21 @@
                     ? `<img loading="lazy" decoding="async" src="${escapeHtmlHome(p.imageUrl)}" alt="${escapeHtmlHome(p.title)}" onerror="this.closest('.event-img').querySelector('.torn-photo').remove();" />`
                     : `<img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="${escapeHtmlHome(p.title)}" />`;
                 return `
-                    <div class="event-card-2">
+                    <div class="event-card-2"${p.id ? ` id="program-${escapeHtmlHome(p.id)}"` : ''}>
                         <div class="event-img">
                             ${badge ? `<span class="event-date">${badge}</span>` : ''}
                             <div class="torn-photo">${photo}</div>
                         </div>
                         <span class="event-tag">${escapeHtmlHome(p.tag || '')}</span>
                         <h3>${escapeHtmlHome(p.title)}</h3>
+                        ${p.id && window.CasorShare ? CasorShare.button('events.html', 'program', p.id, (p.title || 'Program') + ' - CASOR UNIPORT', 'Share', 'program-share') : ''}
                     </div>`;
             }).join('');
         }
 
         try {
             db.collection('programs').orderBy('createdAt', 'desc').onSnapshot(
-                snap => renderHomePrograms(snap.docs.map(doc => doc.data())),
+                snap => renderHomePrograms(snap.docs.map(doc => ({ id: doc.id, ...doc.data() }))),
                 err => {
                     console.error('Programs load failed:', err);
                     document.getElementById('homeProgramsRow').innerHTML =
@@ -661,6 +673,7 @@
         (function () {
             const box = document.getElementById('heroMedia');
             if (!box || typeof db === 'undefined') return;
+            if (navigator.connection && navigator.connection.saveData) return;
             if (navigator.connection && navigator.connection.saveData) return;
             db.collection('site_content').doc('home-hero-video').get().then(doc => {
                 const url = doc.exists && doc.data().text ? String(doc.data().text).trim() : '';

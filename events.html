@@ -151,6 +151,7 @@
     <script src="site-content.js"></script>
     <script src="site-images.js"></script>
     <script src="install-prompt.js"></script>
+    <script src="share.js"></script>
 
     <script>
         const menuToggle = document.getElementById('menuToggle');
@@ -210,20 +211,27 @@
                     ? `<img loading="lazy" decoding="async" src="${escapeHtmlProg(p.imageUrl)}" alt="${escapeHtmlProg(p.title)}" onerror="this.closest('.event-img').querySelector('.torn-photo').remove();" />`
                     : `<img loading="lazy" decoding="async" src="images/CASOR.jpg" alt="${escapeHtmlProg(p.title)}" />`;
                 return `
-                    <div class="event-card-2">
+                    <div class="event-card-2"${p.id ? ` id="program-${escapeHtmlProg(p.id)}"` : ''}>
                         <div class="event-img">
                             ${badge ? `<span class="event-date">${badge}</span>` : ''}
                             <div class="torn-photo">${photo}</div>
                         </div>
                         <span class="event-tag">${escapeHtmlProg(p.tag || '')}</span>
                         <h3>${escapeHtmlProg(p.title)}</h3>
+                        ${p.id && window.CasorShare ? CasorShare.button('events.html', 'program', p.id, (p.title || 'Program') + ' - CASOR UNIPORT', 'Share', 'program-share') : ''}
                     </div>`;
             }).join('');
+            if (!sharedProgramDone && window.CasorShare) {
+                sharedProgramDone = true;
+                const id = CasorShare.param('program');
+                if (id) CasorShare.flash(document.getElementById('program-' + id));
+            }
         }
+        let sharedProgramDone = false;
 
         try {
             db.collection('programs').orderBy('createdAt', 'desc').onSnapshot(
-                snap => renderProgramsPage(snap.docs.map(doc => doc.data())),
+                snap => renderProgramsPage(snap.docs.map(doc => ({ id: doc.id, ...doc.data() }))),
                 err => {
                     console.error('Programs load failed:', err);
                     document.getElementById('programsRow').innerHTML =

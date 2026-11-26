@@ -59,7 +59,7 @@
     <section id="main" class="mb-hero">
         <p class="breadcrumb"><a href="index.html">Home</a> / Meeting Board</p>
         <h1>Meeting Board</h1>
-        <p class="mb-sub">Minutes, vision statements and unit reports for the house. Read along on your phone during the meeting, no printed copy needed.</p>
+        <p class="mb-sub">Minutes, vision statements, unit reports and handover notes for the house. Read along on your phone during the meeting, no printed copy needed.</p>
         <div class="mb-status" id="mbStatus" aria-live="polite">
             <span class="skeleton" style="display:inline-block;width:220px;height:22px;"></span>
         </div>
@@ -74,12 +74,25 @@
                 <button class="filter-pill" data-type="Proposed Semester Calendar" role="tab" aria-selected="false">Semester Calendar</button>
                 <button class="filter-pill" data-type="Vision Statement" role="tab" aria-selected="false">Vision Statements</button>
                 <button class="filter-pill" data-type="Report" role="tab" aria-selected="false">Unit Reports</button>
+                <button class="filter-pill" data-type="Handover Note" role="tab" aria-selected="false">Handover Notes</button>
+                <button class="filter-pill" data-type="Other" role="tab" aria-selected="false">Other</button>
             </div>
             <label class="mb-search">
                 <i class="fas fa-search" aria-hidden="true"></i>
                 <input type="search" id="mbSearch" placeholder="Search by office or title" aria-label="Search documents" />
             </label>
         </div>
+        <form class="mb-lock" id="mbLock" hidden autocomplete="off">
+            <span class="mb-lock-icon"><i class="fas fa-lock" aria-hidden="true"></i></span>
+            <h2>Enter the board password</h2>
+            <p id="mbLockMsg">The Meeting Board is for members of the house. The password is announced at the meeting.</p>
+            <div class="mb-lock-row">
+                <input type="password" id="mbLockInput" placeholder="Password" aria-label="Meeting Board password" maxlength="60" autocapitalize="none" autocorrect="off" spellcheck="false" />
+                <button type="button" class="mb-lock-eye" id="mbLockEye" aria-label="Show password"><i class="fas fa-eye" aria-hidden="true"></i></button>
+            </div>
+            <button type="submit" class="btn-primary" id="mbLockBtn">Open the board</button>
+            <span class="mb-lock-err" id="mbLockErr" aria-live="polite"></span>
+        </form>
         <div id="mbList"></div>
     </section>
 
@@ -90,6 +103,7 @@
                 <strong id="mbReaderTitle"></strong>
                 <span id="mbReaderSub"></span>
             </div>
+            <button type="button" class="mb-reader-open" id="mbReaderShare" aria-label="Share this document"><i class="fas fa-share-nodes" aria-hidden="true"></i></button>
             <a class="mb-reader-open" id="mbReaderOpen" href="#" target="_blank" rel="noopener" aria-label="Open in new tab"><i class="fas fa-up-right-from-square"></i></a>
         </div>
         <iframe id="mbReaderFrame" title="Document preview" loading="lazy" referrerpolicy="no-referrer"></iframe>
@@ -166,6 +180,7 @@
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
     <script src="portal/firebase-config.js"></script>
@@ -176,6 +191,7 @@
     <script src="site-content.js"></script>
     <script src="site-images.js"></script>
     <script src="install-prompt.js"></script>
+    <script src="share.js"></script>
     <script src="portal/office-docs.js"></script>
     <script src="meeting.js"></script>
 

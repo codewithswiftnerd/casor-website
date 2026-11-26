@@ -122,3 +122,16 @@ Recommended order: deploy the site files and rules together, then assign offices
 | `gallery.html` | Share an album (icon on each album cover, and "Share album" inside an album) or a single photo ("Share photo" in the viewer). Links: `gallery.html?album=ID` and `gallery.html?album=ID&photo=ID`. |
 | Fivefold Covenant (index + about) | Roman numerals replaced with symbols: Life = green tree, Royalty = gold crown, Perfect Health = heartbeat, Peace = dove, Fruitfulness = fruit. |
 | `theme.css` | Styles for all of the above, added at the end. |
+
+---
+
+## Update: 26 Nov 2026 (My Office, password-protected Meeting Board, share previews)
+
+| Area | Change |
+|---|---|
+| Dashboard, **My Office** tab (was "Unit Reports") | Each EXCO lands on their own office page. Folders: Vision Statements, Unit Reports (or Agenda and Semester Calendar for the Admin House), Minutes, Handover Notes, Other Documents. Each folder has an Add button. Admins get a "Viewing office" switch. |
+| Meeting Board | Locked with a password. Admins set it in Dashboard, then My Office, then General Meetings. Members type it once per phone. Changing it locks everyone out until they enter the new one. Signed-in EXCOs don't need it. |
+| `portal/firestore-rules/firestore.rules` | New types (Handover Note, Other, and Vision Statement for the Admin House). New `board_private` and `board_access` collections. Meeting documents can only be read with the board password or an EXCO account. |
+| `netlify/edge-functions/share-preview.js` | WhatsApp previews show the shared item's own title and picture. |
+
+**One-time setup:** publish the new Firestore rules, and turn on Firebase Authentication > Sign-in method > **Anonymous**.

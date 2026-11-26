@@ -85,6 +85,7 @@
             <select class="library-folder-select" id="libraryFolderSelect">
                 <option value="all">All Folders</option>
             </select>
+            <button type="button" class="share-btn" id="libraryFolderShare" hidden><i class="fas fa-share-nodes" aria-hidden="true"></i> Share folder</button>
         </div>
 
         <div class="resource-grid" id="resourceGrid">
@@ -177,6 +178,7 @@
     <script src="site-content.js"></script>
     <script src="site-images.js"></script>
     <script src="install-prompt.js"></script>
+    <script src="share.js"></script>
 
     <script>
         const menuToggle = document.getElementById('menuToggle');
@@ -251,15 +253,18 @@
 
         function resourceActions(r) {
             const links = editableLinks(r.url);
+            const share = window.CasorShare ? CasorShare.button('library.html', 'doc', r.id, (r.title || 'Document') + ' - CASOR UNIPORT e-Library', '', 'icon-only resource-share') : '';
             if (links && links.copy) {
                 return `<div class="resource-actions">
                     <a href="${escapeHtml(links.copy)}" target="_blank" rel="noopener" class="btn-pill"><i class="fas fa-pen-to-square"></i> Make my copy</a>
                     ${links.downloads.map(d => `<a href="${escapeHtml(d.href)}" class="btn-pill ghost" rel="noopener"><i class="fas fa-download"></i> ${escapeHtml(d.label)}</a>`).join('')}
+                    ${share}
                 </div>`;
             }
-            return `<a href="${escapeHtml(r.url)}" target="_blank" rel="noopener" class="btn-pill">
-                            <i class="fas fa-download"></i> Download
-                        </a>`;
+            return `<div class="resource-actions">
+                        <a href="${escapeHtml(r.url)}" target="_blank" rel="noopener" class="btn-pill"><i class="fas fa-download"></i> Download</a>
+                        ${share}
+                    </div>`;
         }
 
         function renderPlannerFeature() {
@@ -330,7 +335,7 @@
                     : `<div class="resource-preview-fallback">${initial}</div>`;
 
                 return `
-                    <div class="resource-card" style="animation-delay:${(i % 6) * 0.05}s">
+                    <div class="resource-card" id="doc-${escapeHtml(r.id)}" style="animation-delay:${(i % 6) * 0.05}s">
                         <div class="resource-preview">${previewHtml}</div>
                         <div class="resource-category-row"><span class="resource-tag category">${escapeHtml(r.category || 'Other')}</span></div>
                         <h3>${escapeHtml(r.title)}</h3>
@@ -343,8 +348,10 @@
         function loadLibrary() {
             db.collection('library').orderBy('addedAt', 'desc').onSnapshot(
                 snap => {
-                    allResources = snap.docs.map(doc => doc.data());
+                    allResources = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    libraryLoaded = true;
                     renderResources();
+                    openSharedLibraryLink();
                 },
                 err => {
                     console.error('Library load failed:', err);
@@ -368,10 +375,45 @@
             });
         });
 
+        const folderShareBtn = document.getElementById('libraryFolderShare');
+        function updateFolderShare() {
+            const f = allLibraryFolders.find(x => x.id === activeFolder);
+            folderShareBtn.hidden = !f;
+        }
+        folderShareBtn.addEventListener('click', () => {
+            const f = allLibraryFolders.find(x => x.id === activeFolder);
+            if (f && window.CasorShare) CasorShare.open({ title: f.name + ' - CASOR UNIPORT e-Library', url: CasorShare.link('library.html', 'folder', f.id) });
+        });
+
         folderSelect.addEventListener('change', () => {
             activeFolder = folderSelect.value;
+            updateFolderShare();
             renderResources();
         });
+
+        let libraryLoaded = false, foldersLoaded = false, sharedLinkDone = false;
+        function openSharedLibraryLink() {
+            if (sharedLinkDone || !libraryLoaded || !foldersLoaded || !window.CasorShare) return;
+            sharedLinkDone = true;
+            const folderId = CasorShare.param('folder');
+            const docId = CasorShare.param('doc');
+            if (folderId && allLibraryFolders.some(f => f.id === folderId)) {
+                activeFolder = folderId;
+                folderSelect.value = folderId;
+                updateFolderShare();
+                renderResources();
+                CasorShare.flash(document.querySelector('.library-toolbar') || grid);
+            }
+            if (docId && allResources.some(r => r.id === docId)) {
+                searchInput.value = '';
+                activeFilter = 'all';
+                filterButtons.forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+                const doc = allResources.find(r => r.id === docId);
+                if (activeFolder !== 'all' && doc.folderId !== activeFolder) { activeFolder = 'all'; folderSelect.value = 'all'; updateFolderShare(); }
+                renderResources();
+                CasorShare.flash(document.getElementById('doc-' + docId));
+            }
+        }
 
         function loadLibraryFolders() {
             db.collection('folders').where('section', '==', 'library').onSnapshot(snap => {
@@ -380,8 +422,12 @@
                 folderSelect.innerHTML = '<option value="all">All Folders</option>' +
                     allLibraryFolders.map(f => `<option value="${f.id}">${escapeHtml(f.name)}</option>`).join('');
                 folderSelect.value = allLibraryFolders.some(f => f.id === current) ? current : 'all';
+                activeFolder = folderSelect.value;
+                foldersLoaded = true;
+                updateFolderShare();
                 renderResources();
-            }, err => console.error('Library folders load failed:', err));
+                openSharedLibraryLink();
+            }, err => { console.error('Library folders load failed:', err); foldersLoaded = true; openSharedLibraryLink(); });
         }
 
         loadLibrary();

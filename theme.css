@@ -897,3 +897,27 @@ html.share-open{ overflow:hidden; }
     .footer-grid ul{ columns:2; text-align:left; display:inline-block; }
 }
 footer > hr{ display:none; }
+
+.resource-actions .resource-share{ flex:0 0 46px; width:46px; height:46px; border-radius:12px; }
+.news-card .news-share{ margin-top:12px; }
+.news-read-more + .news-share{ margin-left:8px; }
+.event-card-2 .program-share{ margin-top:14px; }
+.events-strong .event-card-2 .program-share{ background:rgba(255,255,255,.12); color:#fff; }
+.events-strong .event-card-2 .program-share:hover{ background:rgba(255,255,255,.22); }
+#libraryFolderShare{ flex-shrink:0; }
+#libraryFolderShare[hidden]{ display:none; }
+.mb-reader-bar .mb-reader-open + .mb-reader-open{ margin-left:0; }
+.share-preview{ margin:-6px -4px 14px; border-radius:var(--radius); overflow:hidden; background:var(--surface-2); max-height:200px; display:flex; align-items:center; justify-content:center; }
+.share-preview[hidden]{ display:none; }
+.share-preview img{ width:100%; max-height:200px; object-fit:cover; display:block; }
+.mb-lock{ max-width:420px; margin:10px auto 40px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-xl); padding:28px 22px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:12px; }
+.mb-lock[hidden]{ display:none; }
+.mb-lock-icon{ width:60px; height:60px; border-radius:20px; background:var(--navy); color:var(--gold); display:grid; place-items:center; font-size:24px; }
+.mb-lock h2{ font-family:var(--font-display); font-size:24px; font-weight:800; letter-spacing:-.02em; margin:4px 0 0; color:var(--ink); }
+.mb-lock p{ color:var(--muted); font-size:15px; margin:0; }
+.mb-lock-row{ position:relative; width:100%; margin-top:6px; }
+.mb-lock-row input{ width:100%; font:inherit; font-size:17px; padding:14px 52px 14px 16px; border:1px solid var(--line); border-radius:var(--radius); background:var(--bg); }
+.mb-lock-row input:focus{ outline:2px solid var(--navy); outline-offset:1px; }
+.mb-lock-eye{ position:absolute; right:6px; top:50%; transform:translateY(-50%); width:42px; height:42px; border:none; background:none; color:var(--muted); cursor:pointer; font-size:16px; }
+.mb-lock .btn-primary{ width:100%; border:none; cursor:pointer; font:inherit; font-weight:700; }
+.mb-lock-err{ color:#b3261e; font-size:14px; font-weight:600; min-height:18px; }

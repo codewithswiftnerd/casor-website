@@ -164,6 +164,7 @@
     <script src="site-content.js"></script>
     <script src="site-images.js"></script>
     <script src="install-prompt.js"></script>
+    <script src="share.js"></script>
 
     <script>
         const menuToggle = document.getElementById('menuToggle');
@@ -227,13 +228,14 @@
                 const previewText = isLong ? fullText.slice(0, PREVIEW_LEN).trim() + '&hellip;' : fullText;
 
                 return `
-                    <article class="news-card" style="animation-delay:${(i % 6) * 0.05}s">
+                    <article class="news-card" id="post-${escapeHtml(n.id)}" style="animation-delay:${(i % 6) * 0.05}s">
                         ${photo}
                         <div class="news-card-body">
                             <span class="news-card-date">${escapeHtml(date)}</span>
                             <h3>${escapeHtml(n.title)}</h3>
                             <p class="news-card-text" data-full="${fullText.replace(/"/g, '&quot;')}" data-preview="${previewText.replace(/"/g, '&quot;')}">${previewText}</p>
                             ${isLong ? `<button type="button" class="news-read-more">Read more</button>` : ''}
+                            ${window.CasorShare ? CasorShare.button('news.html', 'post', n.id, (n.title || 'News') + ' - CASOR UNIPORT News', 'Share', 'news-share') : ''}
                         </div>
                     </article>`;
             }).join('');
@@ -258,8 +260,9 @@
         function loadNews() {
             db.collection('news').orderBy('postedAt', 'desc').onSnapshot(
                 snap => {
-                    allNews = snap.docs.map(doc => doc.data());
+                    allNews = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                     renderNews();
+                    openSharedPost();
                 },
                 err => {
                     console.error('News load failed:', err);
@@ -270,6 +273,20 @@
                         </div>`;
                 }
             );
+        }
+
+        let sharedPostDone = false;
+        function openSharedPost() {
+            if (sharedPostDone || !window.CasorShare) return;
+            sharedPostDone = true;
+            const id = CasorShare.param('post');
+            if (!id || !allNews.some(n => n.id === id)) return;
+            newsSearch.value = '';
+            renderNews();
+            const card = document.getElementById('post-' + id);
+            const more = card && card.querySelector('.news-read-more');
+            if (more && more.dataset.expanded !== 'true') more.click();
+            CasorShare.flash(card);
         }
 
         newsSearch.addEventListener('input', renderNews);

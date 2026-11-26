@@ -10,9 +10,15 @@
     let docs = [];
     let typeFilter = 'all';
     let gotMeetings = false, gotDocs = false;
+    let locked = false, everUnlocked = false, docsUnsub = null;
+    const lockEl = document.getElementById('mbLock');
+    const lockInput = document.getElementById('mbLockInput');
+    const lockBtn = document.getElementById('mbLockBtn');
+    const lockErr = document.getElementById('mbLockErr');
+    const lockMsg = document.getElementById('mbLockMsg');
 
     const ORDER = (typeof OFFICE_DOCS !== 'undefined') ? OFFICE_DOCS.map(o => o.id) : [];
-    const TYPE_ICON = { 'Minutes': 'fa-file-lines', 'Agenda': 'fa-list-check', 'Proposed Semester Calendar': 'fa-calendar-days', 'Vision Statement': 'fa-eye', 'Report': 'fa-chart-column' };
+    const TYPE_ICON = { 'Minutes': 'fa-file-lines', 'Agenda': 'fa-list-check', 'Proposed Semester Calendar': 'fa-calendar-days', 'Vision Statement': 'fa-eye', 'Report': 'fa-chart-column', 'Handover Note': 'fa-handshake', 'Other': 'fa-folder-open' };
 
     function esc(s) {
         return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -31,8 +37,9 @@
     }
 
     function render() {
-        if (!gotMeetings || !gotDocs) return;
+        if (!gotMeetings || (!gotDocs && !locked)) return;
         const live = meetings;
+        lockEl.hidden = true;
         if (!live.length) {
             statusEl.innerHTML = '<span class="mb-state">No meeting in session</span>';
             toolbar.hidden = true;
@@ -45,6 +52,12 @@
         const liveIds = new Set(live.map(m => m.id));
         const titles = live.map(m => `<strong>${esc(m.title)}</strong>${m.date ? ' &middot; ' + esc(new Date(m.date + 'T00:00').toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })) : ''}`).join('<br>');
         statusEl.innerHTML = `<span class="mb-state">Now in session</span><div class="mb-meeting-title">${titles}</div>`;
+        if (locked) {
+            toolbar.hidden = true;
+            listEl.innerHTML = '';
+            lockEl.hidden = false;
+            return;
+        }
         toolbar.hidden = false;
 
         const term = (search.value || '').trim().toLowerCase();
@@ -84,12 +97,29 @@
         }).join('');
 
         listEl.querySelectorAll('[data-doc-id]').forEach(btn => btn.addEventListener('click', () => openDoc(btn.dataset.docId)));
-    }
 
-    let lastFocus = null;
+        if (!sharedDocDone && window.CasorShare) {
+            sharedDocDone = true;
+            const id = CasorShare.param('doc');
+            const d = id && docs.find(x => x.id === id && liveIds.has(x.meetingId));
+            if (d) {
+                const card = listEl.querySelector('[data-doc-id="' + CSS.escape(id) + '"]');
+                if (card) CasorShare.flash(card);
+                openDoc(id);
+            }
+        }
+    }
+    let sharedDocDone = false;
+
+    let lastFocus = null, openId = null;
+    document.getElementById('mbReaderShare').addEventListener('click', () => {
+        const d = docs.find(x => x.id === openId);
+        if (d && window.CasorShare) CasorShare.open({ title: d.title + ' - CASOR Meeting Board', url: CasorShare.link('meeting.html', 'doc', d.id) });
+    });
     function openDoc(id) {
         const d = docs.find(x => x.id === id);
         if (!d) return;
+        openId = id;
         const prev = previewUrl(d.fileUrl);
         if (!prev) { window.open(d.fileUrl, '_blank', 'noopener'); return; }
         lastFocus = document.activeElement;
@@ -138,10 +168,77 @@
         gotMeetings = true;
         render();
     }, fail);
-    db.collection('meeting_docs').where('visible', '==', true).onSnapshot(snap => {
-        docs = snap.docs.map(d => ({ id: d.id, ...d.data() }))
-            .sort((a, b) => (a.addedAt?.toMillis?.() || 0) - (b.addedAt?.toMillis?.() || 0));
-        gotDocs = true;
+    function normalizeKey(pw) {
+        return String(pw || '').trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    function lock(message) {
+        locked = true;
+        gotDocs = false;
+        docs = [];
+        if (message) lockMsg.textContent = message;
         render();
-    }, fail);
+    }
+
+    function subscribeDocs() {
+        if (docsUnsub) docsUnsub();
+        docsUnsub = db.collection('meeting_docs').where('visible', '==', true).onSnapshot(snap => {
+            locked = false;
+            everUnlocked = true;
+            docs = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+                .sort((a, b) => (a.addedAt?.toMillis?.() || 0) - (b.addedAt?.toMillis?.() || 0));
+            gotDocs = true;
+            render();
+        }, err => {
+            docsUnsub = null;
+            if (err && err.code === 'permission-denied') {
+                if (!reader.hidden) closeDoc(false);
+                lock(everUnlocked ? 'The board password has changed. Enter the new one to keep reading.' : null);
+            } else {
+                fail(err);
+            }
+        });
+    }
+
+    document.getElementById('mbLockEye').addEventListener('click', () => {
+        const show = lockInput.type === 'password';
+        lockInput.type = show ? 'text' : 'password';
+        document.getElementById('mbLockEye').innerHTML = `<i class="fas ${show ? 'fa-eye-slash' : 'fa-eye'}" aria-hidden="true"></i>`;
+    });
+
+    lockEl.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const key = normalizeKey(lockInput.value);
+        if (!key) { lockErr.textContent = 'Type the password first.'; return; }
+        lockErr.textContent = '';
+        lockBtn.disabled = true;
+        lockBtn.textContent = 'Checking...';
+        try {
+            if (!auth.currentUser) await auth.signInAnonymously();
+            await db.collection('board_access').doc(auth.currentUser.uid).set({
+                key, at: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            lockInput.value = '';
+            subscribeDocs();
+        } catch (err) {
+            if (err && err.code === 'permission-denied') lockErr.textContent = "That password isn't right. Check it and try again.";
+            else if (err && /operation-not-allowed|admin-restricted/.test(err.code || '')) lockErr.textContent = "The board isn't ready for passwords yet. Please tell an admin.";
+            else lockErr.textContent = "Couldn't check the password. Check your network and try again.";
+        } finally {
+            lockBtn.disabled = false;
+            lockBtn.textContent = 'Open the board';
+        }
+    });
+
+    if (typeof auth === 'undefined' || !auth) {
+        lock('The board could not load. Refresh the page and try again.');
+    } else {
+        let firstAuth = true;
+        auth.onAuthStateChanged(user => {
+            if (!firstAuth) return;
+            firstAuth = false;
+            if (user) subscribeDocs();
+            else lock();
+        });
+    }
 })();

@@ -71,6 +71,7 @@
             <button class="gallery-back-btn" id="galleryBackBtn"><i class="fas fa-arrow-left"></i> All Folders</button>
             <h2 id="galleryFolderTitle"></h2>
             <button type="button" class="share-btn" id="albumShareBtn"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share album</button>
+            <button type="button" class="share-btn" id="albumShareBtn"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share album</button>
         </div>
 
         <div class="folder-grid" id="folderGrid">
@@ -86,6 +87,7 @@
 
     <div class="lightbox-overlay" id="lightbox">
         <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+        <button type="button" class="share-btn lightbox-share" id="photoShareBtn"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share photo</button>
         <button type="button" class="share-btn lightbox-share" id="photoShareBtn"><i class="fas fa-share-nodes" aria-hidden="true"></i> Share photo</button>
         <button class="lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
         <img loading="lazy" decoding="async" id="lightboxImg" src="" alt="" />
@@ -174,6 +176,7 @@
     <script src="site-content.js"></script>
     <script src="site-images.js"></script>
     <script src="install-prompt.js"></script>
+    <script src="share.js"></script>
     <script src="share.js"></script>
 
     <script>
@@ -279,12 +282,18 @@
                             ${coverHtml}
                             <span class="folder-count-badge">${count} photo${count === 1 ? '' : 's'}</span>
                             <button type="button" class="share-btn icon-only on-photo" data-album-share="${f.id}" aria-label="Share ${escapeHtml(f.name)}"><i class="fas fa-share-nodes" aria-hidden="true"></i></button>
+                            <button type="button" class="share-btn icon-only on-photo" data-album-share="${f.id}" aria-label="Share ${escapeHtml(f.name)}"><i class="fas fa-share-nodes" aria-hidden="true"></i></button>
                         </div>
                         <h3>${escapeHtml(f.name)}</h3>
                     </div>`;
             }).join('');
 
             folderGrid.querySelectorAll('.folder-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const shareBtn = e.target.closest('[data-album-share]');
+                    if (shareBtn) { e.stopPropagation(); shareAlbum(shareBtn.dataset.albumShare); return; }
+                    openFolder(card.dataset.folderId);
+                });
                 card.addEventListener('click', (e) => {
                     const shareBtn = e.target.closest('[data-album-share]');
                     if (shareBtn) { e.stopPropagation(); shareAlbum(shareBtn.dataset.albumShare); return; }
@@ -305,7 +314,8 @@
         function shareAlbum(folderId) {
             const f = allFolders.find(x => x.id === folderId);
             if (!f || !window.CasorShare) return;
-            CasorShare.open({ title: f.name + ' - CASOR UNIPORT Gallery', url: albumLink(folderId) });
+            const cover = driveThumb(f.coverUrl) || driveThumb((allPhotos.find(p => p.folderId === folderId) || {}).url);
+            CasorShare.open({ title: f.name + ' - CASOR UNIPORT Gallery', url: albumLink(folderId), image: cover });
         }
         document.getElementById('albumShareBtn').addEventListener('click', () => { if (openFolderId) shareAlbum(openFolderId); });
         document.getElementById('photoShareBtn').addEventListener('click', (e) => {
@@ -314,12 +324,13 @@
             const p = currentPhotos[currentIndex];
             if (!f || !p || !window.CasorShare) return;
             const label = p.caption ? p.caption + ' (' + f.name + ')' : f.name + ', photo ' + (currentIndex + 1);
-            CasorShare.open({ title: label + ' - CASOR UNIPORT Gallery', url: albumLink(openFolderId, currentIndex) });
+            CasorShare.open({ title: label + ' - CASOR UNIPORT Gallery', url: albumLink(openFolderId, currentIndex), image: driveThumb(p.url) });
         });
 
         function openFolder(folderId, noScroll) {
             const folder = allFolders.find(f => f.id === folderId);
             if (!folder) return;
+            openFolderId = folderId;
             openFolderId = folderId;
             currentPhotos = allPhotos.filter(p => p.folderId === folderId);
 
@@ -347,9 +358,12 @@
             });
 
             if (!noScroll) window.scrollTo({ top: photoGrid.offsetTop - 120, behavior: 'smooth' });
+            if (!noScroll) window.scrollTo({ top: photoGrid.offsetTop - 120, behavior: 'smooth' });
         }
 
         function closeFolder() {
+            openFolderId = null;
+            if (location.search) history.replaceState(null, '', 'gallery.html');
             openFolderId = null;
             if (location.search) history.replaceState(null, '', 'gallery.html');
             backRow.classList.remove('active');
@@ -412,6 +426,25 @@
             let idx = currentPhotos.findIndex(p => p.id === ph);
             if (idx < 0 && /^\d+$/.test(ph)) idx = parseInt(ph, 10) - 1;
             if (idx >= 0 && idx < currentPhotos.length) openLightbox(idx);
+            if (!(foldersLoaded && photosLoaded)) return;
+            renderFolders();
+            if (openFolderId) openFolder(openFolderId, true);
+            else openSharedLink();
+        }
+
+        let sharedLinkHandled = false;
+        function openSharedLink() {
+            if (sharedLinkHandled) return;
+            sharedLinkHandled = true;
+            const params = new URLSearchParams(location.search);
+            const id = params.get('album');
+            if (!id || !allFolders.some(f => f.id === id)) return;
+            openFolder(id);
+            const ph = params.get('photo');
+            if (!ph) return;
+            let idx = currentPhotos.findIndex(p => p.id === ph);
+            if (idx < 0 && /^\d+$/.test(ph)) idx = parseInt(ph, 10) - 1;
+            if (idx >= 0 && idx < currentPhotos.length) openLightbox(idx);
         }
 
         db.collection('folders').where('section', '==', 'gallery').onSnapshot(snap => {
@@ -426,6 +459,7 @@
         });
 
         db.collection('galleryPhotos').orderBy('addedAt', 'desc').onSnapshot(snap => {
+            const dynamicPhotos = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             const dynamicPhotos = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             allPhotos = [...highlightsPhotos.map(p => ({ ...p, folderId: HIGHLIGHTS_ID })), ...dynamicPhotos];
             photosLoaded = true;
