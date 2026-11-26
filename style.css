@@ -1,11 +1,4 @@
-/* =========================
-   FONTS
-========================= */
-/* Fonts are loaded with <link> tags in each page's <head> (Inter / Inter Tight). */
 
-/* =========================
-   RESET
-========================= */
 *{ margin:0; padding:0; box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
 body{
@@ -30,11 +23,6 @@ ul{ list-style:none; }
     --font-body:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* =========================
-   SIGNATURE TORN-PAPER PHOTO EFFECT
-   Used across the site so every photo reads as one consistent brand motif
-   instead of plain rectangular crops.
-========================= */
 .torn-photo{
     position:relative;
     background:#fff;
@@ -54,9 +42,6 @@ ul{ list-style:none; }
     );
 }
 
-/* =========================
-   TOP UTILITY BAR
-========================= */
 .topbar{
     background:var(--navy-dark);
     color:#cfd6e4;
@@ -81,9 +66,6 @@ ul{ list-style:none; }
     white-space:nowrap;
 }
 
-/* =========================
-   HEADER / NAV
-========================= */
 header{
     display:flex;
     align-items:center;
@@ -130,13 +112,6 @@ nav a:hover::after{ width:100%; }
 }
 .nav-btn:hover{ background:#fff; }
 
-/* Hamburger / close toggle.
-   BUG FIX: the mobile nav overlay (below) opens at z-index:2000, which
-   sat ABOVE this button (previously no z-index, so it defaulted under
-   the nav once the nav had a higher stacking value). That's why the
-   icon visually swapped to an X in the DOM but nobody could see or tap
-   it — it was rendering underneath the open menu. Giving the toggle a
-   higher z-index than the nav, plus its own tap-target circle, fixes it. */
 .menu{
     display:none;
     font-size:22px;
@@ -153,13 +128,8 @@ nav a:hover::after{ width:100%; }
 }
 .menu.open{ background:rgba(255,255,255,.12); }
 
-/* Login link duplicated inside the mobile nav overlay so it's reachable
-   from the hamburger menu — the standalone .nav-btn is desktop-only. */
 .nav-mobile-login{ display:none; }
 
-/* =========================
-   HERO
-========================= */
 .hero{
     position:relative;
     background:var(--navy);
@@ -262,9 +232,6 @@ nav a:hover::after{ width:100%; }
 }
 .hero-photo img{ height:480px; object-fit:cover; }
 
-/* =========================
-   SECTION HEAD
-========================= */
 .section-head{
     text-align:center;
     max-width:650px;
@@ -294,9 +261,6 @@ nav a:hover::after{ width:100%; }
 .section-head.light h2{ color:#fff; }
 .section-head.light p{ color:#c4cbdc; }
 
-/* =========================
-   FIND YOUR PLACE
-========================= */
 .find-place{ padding:110px 8% 100px; background:#fff; }
 .place-grid{
     display:grid;
@@ -341,9 +305,6 @@ nav a:hover::after{ width:100%; }
 .btn-pill i{ font-size:15px; }
 .btn-pill:hover{ background:var(--navy); color:#fff; }
 
-/* =========================
-   WHAT'S CASOR ALL ABOUT
-========================= */
 .whats-happening{
     padding:110px 8%;
     background:var(--cream);
@@ -387,9 +348,6 @@ nav a:hover::after{ width:100%; }
 }
 .btn-outline:hover{ background:var(--navy); color:#fff; }
 
-/* =========================
-   EVENTS - STRONG
-========================= */
 .events-strong{
     position:relative;
     background:var(--navy);
@@ -455,9 +413,6 @@ nav a:hover::after{ width:100%; }
 }
 .event-card-2:hover{ transform:translateY(-8px); }
 
-/* =========================
-   WE'D LOVE TO SEE YOU
-========================= */
 .see-you{
     position:relative;
     min-height:80vh;
@@ -530,9 +485,6 @@ nav a:hover::after{ width:100%; }
 }
 .socials a:hover{ background:var(--gold); color:var(--navy-dark); }
 
-/* =========================
-   SUPPORT CASOR
-========================= */
 .support-casor{
     background:var(--cream);
     padding:90px 8%;
@@ -610,9 +562,6 @@ nav a:hover::after{ width:100%; }
     .support-label{ flex-basis:100%; }
 }
 
-/* =========================
-   FOOTER
-========================= */
 footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
 
 .newsletter-row{
@@ -684,17 +633,10 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
     color:#b8c0d6;
 }
 
-/* =========================
-   "SEE ALL" LINK ROWS (home page teasers → dedicated pages)
-========================= */
 .section-more{ text-align:center; margin-top:50px; }
 .btn-outline.light{ border-color:rgba(255,255,255,.5); color:#fff; }
 .btn-outline.light:hover{ background:#fff; color:var(--navy); }
 
-/* =========================
-   INNER PAGE HERO
-   (About / Units / Events / Gallery / Contact)
-========================= */
 .page-hero{
     position:relative;
     background:var(--navy) center/cover no-repeat;
@@ -720,7 +662,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
 }
 .page-hero-inner{ position:relative; z-index:3; color:#fff; max-width:700px; }
 
-/* Per-page hero photos */
 .hero-bg-about{ background-image:url('images/worship.jpg'); }
 .hero-bg-units{ background-image:url('images/media.jpg'); }
 .hero-bg-events{ background-image:url('images/CASOR.jpg'); }
@@ -747,9 +688,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
 }
 .page-hero p{ margin-top:14px; color:#c4cbdc; max-width:520px; }
 
-/* =========================
-   GENERIC CONTENT SECTIONS (used by inner pages)
-========================= */
 .content-section{ padding:90px 8%; }
 .content-section.alt{ background:var(--cream); }
 
@@ -786,8 +724,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
 .unit-full-card .torn-photo{ padding:10px 10px 16px; box-shadow:none; }
 .unit-full-card .torn-photo img{ height:200px; }
 
-/* Two photos (Head / Assistant) side by side within one unit card,
-   instead of a separate card per person. */
 .unit-photo-split{
     display:flex;
     flex-wrap:wrap;
@@ -812,8 +748,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
     .unit-full-card .unit-photo-half .torn-photo img{ height:96px; }
 }
 
-/* ABC (3-up) and FYB (4-up) splits need to wrap into a 2-column
-   grid on narrow cards instead of squeezing 3-4 photos into one row. */
 .unit-photo-split-3 .unit-photo-half,
 .unit-photo-split-4 .unit-photo-half{ flex:0 0 calc(50% - 4px); }
 .unit-photo-split-3 .unit-photo-half .torn-photo img,
@@ -848,9 +782,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
 .unit-card-link:hover{ color:var(--gold-dark); }
 .unit-card-link i{ font-size:11px; }
 
-
-/* Gallery — masonry-style columns, each photo torn + gently rotated
-   so the wall of photos feels handpicked rather than a stock grid. */
 .gallery-grid{
     column-count:3;
     column-width:260px;
@@ -921,9 +852,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
 }
 .contact-form button:hover{ background:var(--gold); color:var(--navy-dark); }
 
-/* =========================
-   ABOUT PAGE — CAP / AIMS
-========================= */
 .cap-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
@@ -985,9 +913,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
     .aims-list{ grid-template-columns:1fr; }
 }
 
-/* =========================
-   HOMEPAGE — LIBRARY PROMO BAND
-========================= */
 .library-promo{
     position:relative;
     background:var(--navy-dark);
@@ -1020,9 +945,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
 .library-promo-text p{ color:#c4cbdc; max-width:520px; }
 .library-promo .btn-gold{ flex-shrink:0; }
 
-/* =========================
-   LIBRARY PAGE
-========================= */
 .library-toolbar{
     display:flex;
     align-items:center;
@@ -1091,8 +1013,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
     box-shadow:0 20px 40px rgba(0,0,0,.08);
     border-color:transparent;
 }
-/* Real preview of the document (pulled from its Google Drive
-   thumbnail) instead of a generic file-type icon. */
 .resource-preview{
     width:100%;
     aspect-ratio:16/10;
@@ -1145,7 +1065,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
 }
 .library-state i{ font-size:32px; color:var(--gold-dark); margin-bottom:14px; display:block; }
 
-/* ===== News / blog page ===== */
 .news-list{
     display:flex;
     flex-direction:column;
@@ -1227,11 +1146,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
     to{ opacity:1; transform:translateY(0); }
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
-/* ----- Tablets / small laptops ----- */
 @media (max-width:1100px){
     .hero-headline{ font-size:50px; }
     .hero-grid{ grid-template-columns:1fr; padding:110px 8% 60px; }
@@ -1250,14 +1164,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
     .library-promo{ grid-template-columns:1fr; text-align:center; justify-items:center; padding:70px 8%; }
 }
 
-/* ----- Tablets, small laptops & wide phones: nav collapses -----
-   Raised from the old 900px cutoff to 1024px. Plenty of real phones
-   (especially budget Android devices, or any phone with "Desktop site"
-   requested) report a CSS viewport width well above 900px — on the old
-   cutoff those got served the full desktop nav + Login button crammed
-   into a narrow screen instead of the hamburger menu. 1024px is the
-   standard tablet-landscape ceiling, so it now reliably catches those
-   devices too. */
 @media (max-width:1024px){
     .topbar{ padding:9px 6%; font-size:12px; }
     .topbar-left span:nth-child(2){ display:none; }
@@ -1290,8 +1196,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
     nav.active a:nth-child(7){ transition-delay:.35s; }
     .menu{ display:flex; }
     .nav-btn{ display:none; }
-    /* The Login link that lives inside #mainNav — only ever shown on
-       mobile, where it takes the .nav-btn's place inside the overlay. */
     .nav-mobile-login{
         display:inline-block;
         background:var(--gold);
@@ -1316,7 +1220,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
     .content-section{ padding:70px 6%; }
 }
 
-/* ----- Large phones ----- */
 @media (max-width:600px){
     .topbar{ font-size:11px; justify-content:center; text-align:center; }
     .topbar-left{ justify-content:center; width:100%; }
@@ -1349,7 +1252,6 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
     .library-promo-text h2{ font-size:26px; }
 }
 
-/* ----- Small phones ----- */
 @media (max-width:400px){
     .hero-headline{ font-size:27px; }
     .hero-address,.hero-service{ font-size:12px; }
@@ -1358,19 +1260,9 @@ footer{ background:var(--navy-dark); color:#fff; padding:0 8% 30px; }
     .see-you h2{ font-size:24px; }
 }
 
-/* =========================
-   PAGE LOAD FADE-IN
-========================= */
 body{ opacity:0; transition:opacity .6s ease; }
 body.page-loaded{ opacity:1; }
 
-/* =========================
-   SCROLL FADE IN / OUT
-   Applied by animations.js to cards, section headers and photos —
-   elements fade + drift in as they enter the viewport, and fade back
-   out if they scroll back out of view, so the page feels alive rather
-   than static.
-========================= */
 .reveal{
     opacity:0;
     transform:translateY(28px);
@@ -1386,13 +1278,6 @@ body.page-loaded{ opacity:1; }
     .reveal,
     .reveal.is-visible{ opacity:1; transform:none; transition:none; }
 }
-
-/* ============================================================
-   FOLDER-BASED GALLERY & LIBRARY FOLDERS
-   Added so an admin can create folders (e.g. by event or
-   department) from the dashboard and drop photos / resources
-   into them. Reuses the site's existing card/pill language.
-   ============================================================ */
 
 .folder-grid{
     display:grid;
@@ -1505,7 +1390,6 @@ body.page-loaded{ opacity:1; }
 }
 .photo-card:hover .photo-caption{ opacity:1; }
 
-/* Lightbox */
 .lightbox-overlay{
     display:none;
     position:fixed; inset:0;
@@ -1550,7 +1434,6 @@ body.page-loaded{ opacity:1; }
 }
 .folder-empty-state i{ font-size:32px; color:var(--gold-dark); margin-bottom:14px; display:block; }
 
-/* Library folder filter dropdown, sits next to the category pills */
 .library-folder-select{
     border:2px solid var(--navy);
     background:#fff;
@@ -1575,10 +1458,6 @@ body.page-loaded{ opacity:1; }
     .lightbox-overlay{ padding:16px; }
 }
 
-/* ============================================================
-   PRESIDENTIAL PAGE - past Presidents & Vice Presidents by
-   session, alongside a note on that session's admin units.
-   ============================================================ */
 .leadership-grid{
     display:flex;
     flex-direction:column;
@@ -1650,7 +1529,6 @@ body.page-loaded{ opacity:1; }
 .leadership-note strong{ color:var(--navy); }
 .leadership-link-row{ margin-top:22px; }
 
-/* ----- Presidential timeline + hover polish ----- */
 .leadership-grid{ position:relative; padding-left:34px; }
 .leadership-grid::before{
     content:'';
@@ -1680,10 +1558,6 @@ body.page-loaded{ opacity:1; }
 .leadership-session-badge{ transition:transform .3s ease; }
 .leadership-card:hover .leadership-session-badge{ transform:translateY(-2px); }
 
-/* Sample/placeholder entries, seeded from the dashboard so the page
-   never launches empty - visually flagged so it's obvious to an
-   admin (and honest to visitors) that it's a placeholder until
-   someone edits it in the dashboard. */
 .leadership-card--sample{
     border:1px dashed var(--gold-dark);
     background:repeating-linear-gradient(135deg, #fff, #fff 18px, #fdf8ea 18px, #fdf8ea 36px);
@@ -1698,7 +1572,6 @@ body.page-loaded{ opacity:1; }
     box-shadow:0 8px 18px rgba(0,0,0,.18);
 }
 
-/* Decorative floating crown on the Presidential Page hero */
 .page-hero-icon{
     position:absolute; top:18%; right:8%;
     font-size:120px;
@@ -1724,16 +1597,6 @@ body.page-loaded{ opacity:1; }
     .page-hero-icon{ animation:none; }
 }
 
-/* ============================================================
-   APP SPLASH - plays once per browser session, on first load of
-   the homepage. Photos float in from the edges and gather around
-   the mark, which then sweeps away to reveal the site. This is
-   also what greets anyone who opens CASOR from their phone's
-   home screen after adding it via Chrome. Every photo and the
-   tagline are wired through the same data-img-slot /
-   data-text-slot system as the rest of the site, so they're all
-   editable from the dashboard - no code changes needed.
-   ============================================================ */
 .app-splash{
     position:fixed; inset:0; z-index:9999;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -1758,17 +1621,11 @@ body.page-loaded{ opacity:1; }
     border:3px solid rgba(255,199,44,.5);
     box-shadow:0 20px 40px rgba(0,0,0,.4);
     opacity:0;
-    /* Two animations: the one-time fly-in, then a slow infinite bob
-       once settled, so the screen isn't static for the rest of the
-       (now much longer) 15s splash. Each photo's own rule below sets
-       matching animation-delay pairs - the second delay is timed to
-       start right as that photo's fly-in finishes. */
     animation: splashFloatIn 1.3s cubic-bezier(.2,.8,.2,1) forwards,
                splashIdleBob 4.6s ease-in-out infinite;
 }
 .splash-photo img{ width:100%; height:100%; object-fit:cover; }
 
-/* ---- Wave 1: original six, appear in the first second ---- */
 .sp-1{ top:12%; left:9%; --tx:-60px; --ty:-40px; animation-delay:.1s, 1.4s; }
 .sp-2{ top:16%; right:8%; --tx:70px; --ty:-30px; animation-delay:.25s, 1.55s; }
 .sp-3{ bottom:15%; left:11%; --tx:-50px; --ty:60px; animation-delay:.4s, 1.7s; }
@@ -1776,9 +1633,6 @@ body.page-loaded{ opacity:1; }
 .sp-5{ top:calc(50% - 45px); left:4%; width:90px; height:90px; --tx:-80px; --ty:0px; animation-delay:.7s, 2s; }
 .sp-6{ top:calc(50% - 45px); right:4%; width:90px; height:90px; --tx:80px; --ty:0px; animation-delay:.85s, 2.15s; }
 
-/* ---- Wave 2: four more, drift in later so new photos keep
-   showing up well into the 15s splash instead of everything
-   happening in the first second and then sitting still. ---- */
 .sp-7{ top:6%; left:37%; width:95px; height:95px; --tx:-40px; --ty:-75px; animation-delay:4s, 5.3s; }
 .sp-8{ top:5%; right:35%; width:95px; height:95px; --tx:40px; --ty:-75px; animation-delay:6.2s, 7.5s; }
 .sp-9{ bottom:5%; left:35%; width:95px; height:95px; --tx:-40px; --ty:75px; animation-delay:8.4s, 9.7s; }
@@ -1873,11 +1727,6 @@ body.page-loaded{ opacity:1; }
     }
 }
 
-/* ============================================================
-   ADD TO HOME SCREEN - custom Chrome install banner, shown in
-   place of Chrome's own mini-bar so it matches the site. Wired
-   up in install-prompt.js.
-   ============================================================ */
 .install-banner{
     position:fixed; left:16px; right:16px; bottom:16px;
     max-width:420px; margin:0 auto;
@@ -1917,9 +1766,6 @@ body.page-loaded{ opacity:1; }
     .install-banner{ left:10px; right:10px; bottom:10px; padding:12px; }
 }
 
-/* ================= NEWS POPUP CAROUSEL =================
-   Homepage-only modal, shown once per session via JS in index.html.
-   Uses the same navy/gold palette and fonts as the rest of the site. */
 .news-popup-overlay{
     position:fixed;
     inset:0;
@@ -2062,9 +1908,6 @@ body.news-popup-open{ overflow:hidden; }
     .news-popup-body{ padding:40px 18px 20px; }
 }
 
-/* ================= HALL PASTORS (units.html) =================
-   Two-column list (Male Park / Female Park) whose entry count
-   changes every session, managed from the portal's Hall Pastors tab. */
 .hall-pastors-columns{
     display:grid;
     grid-template-columns:1fr 1fr;

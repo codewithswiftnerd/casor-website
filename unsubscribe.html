@@ -55,16 +55,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script src="portal/firebase-config.js"></script>
     <script>
-        // ============================================================
-        // No backend involved here at all - this page writes straight
-        // to Firestore with the visitor's own browser, same as the
-        // subscribe form does. It's allowed to do this ONE specific
-        // write (flip a subscriber's status to 'unsubscribed') only
-        // because it can prove it knows that subscriber's private
-        // unsubscribeToken - the value from the email link, matched
-        // against what's already stored on the record. See the
-        // "subscribers" rule in SETUP-GUIDE.md for the exact check.
-        // ============================================================
         (function () {
             const heading = document.getElementById('unsubHeading');
             const message = document.getElementById('unsubMessage');
@@ -85,13 +75,6 @@
 
             const ref = db.collection('subscribers').doc(email);
 
-            // No read here on purpose - visitors can't read this
-            // collection (see the security rules), only ever write
-            // their own unsubscribe. The write itself is what proves
-            // (or disproves) the link is valid: it's only accepted if
-            // the token matches what's already stored on the record.
-            // The token goes in "unsubscribeProof" - the rules require it
-            // to match the stored unsubscribeToken (see firestore.rules).
             ref.update({
                 status: 'unsubscribed',
                 unsubscribedAt: firebase.firestore.FieldValue.serverTimestamp(),

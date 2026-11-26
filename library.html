@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library | CASOR UNIPORT</title>
 
-
     <meta name="description" content="Explore resources from the CASOR UNIPORT library, including sermons, teachings and study materials." />
     <link rel="canonical" href="https://casoruniport.netlify.app/library.html" />
     <meta property="og:type" content="website" />
@@ -14,16 +13,13 @@
     <meta property="og:url" content="https://casoruniport.netlify.app/library.html" />
     <meta property="og:image" content="https://casoruniport.netlify.app/images/icon-512.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <!-- ===== FONTS ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-    <!-- ===== FONT AWESOME ===== -->
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
 
-    <!-- ===== STYLES ===== -->
     <link rel="icon" type="image/png" href="images/logo.png" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -35,7 +31,6 @@
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- ================= NAVBAR ================= -->
     <header>
         <div class="logo">
             <img src="images/logo.png" alt="CASOR Logo" data-img-slot="logo" />
@@ -61,7 +56,6 @@
         </div>
     </header>
 
-    <!-- ================= PAGE HERO ================= -->
     <section id="main" class="page-hero hero-bg-library" data-bg-slot="hero-library">
         <div class="page-hero-inner">
             <p class="breadcrumb"><a href="index.html">Home</a> / Library</p>
@@ -91,6 +85,7 @@
             <select class="library-folder-select" id="libraryFolderSelect">
                 <option value="all">All Folders</option>
             </select>
+            <button type="button" class="share-btn" id="libraryFolderShare" hidden><i class="fas fa-share-nodes" aria-hidden="true"></i> Share folder</button>
         </div>
 
         <div class="resource-grid" id="resourceGrid">
@@ -102,7 +97,6 @@
 
     </section>
 
-    <!-- ================= FOOTER ================= -->
     <footer id="contact">
 
         <div class="newsletter-row">
@@ -173,7 +167,6 @@
 
     </footer>
 
-    <!-- ===== FIREBASE (read-only here - no login needed to browse/download) ===== -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
@@ -185,9 +178,9 @@
     <script src="site-content.js"></script>
     <script src="site-images.js"></script>
     <script src="install-prompt.js"></script>
+    <script src="share.js"></script>
 
     <script>
-        // ===== MOBILE MENU TOGGLE =====
         const menuToggle = document.getElementById('menuToggle');
         const mainNav = document.getElementById('mainNav');
 
@@ -209,20 +202,6 @@
             });
         });
 
-        // Newsletter form handling now lives in newsletter-subscribe.js
-        // (loaded below, right after portal/firebase-config.js) so the
-        // real Firestore signup logic isn't duplicated across every page.
-
-        // ============================================================
-        //  LIBRARY - load resources from Firestore, then search/filter
-        //  client-side. Public, read-only, no login needed.
-        //
-        //  Firestore doc shape (collection: "library"), matching what
-        //  the EXCO Dashboard's "Library" tab writes:
-        //  { title, category, courseCode, level, url, addedBy, addedAt }
-        // ============================================================
-        // Pulls a Google Drive file ID out of common share-link formats
-        // so a real preview can be shown instead of a generic icon.
         function driveThumb(url) {
             if (!url) return null;
             const patterns = [/\/file\/d\/([a-zA-Z0-9_-]+)/, /[?&]id=([a-zA-Z0-9_-]+)/, /\/d\/([a-zA-Z0-9_-]+)/];
@@ -253,13 +232,6 @@
                 .replace(/'/g, '&#39;');
         }
 
-        // ===== EDITABLE DOWNLOADS (Study Planner etc.) =====
-        // Google Docs / Sheets / Slides links get:
-        //   "Make my copy" - Google's /copy page: an editable copy in the
-        //                    member's own Drive (the original is untouched)
-        //   Word / Excel / PDF downloads via Google's /export endpoint, so
-        //                    people without Google can edit offline too.
-        // Plain Drive files (an uploaded .docx/.xlsx) get a direct download.
         function editableLinks(url) {
             const u = String(url || '');
             const m = u.match(/docs\.google\.com\/(document|spreadsheets|presentation)\/d\/([a-zA-Z0-9_-]+)/);
@@ -281,15 +253,18 @@
 
         function resourceActions(r) {
             const links = editableLinks(r.url);
+            const share = window.CasorShare ? CasorShare.button('library.html', 'doc', r.id, (r.title || 'Document') + ' - CASOR UNIPORT e-Library', '', 'icon-only resource-share') : '';
             if (links && links.copy) {
                 return `<div class="resource-actions">
                     <a href="${escapeHtml(links.copy)}" target="_blank" rel="noopener" class="btn-pill"><i class="fas fa-pen-to-square"></i> Make my copy</a>
                     ${links.downloads.map(d => `<a href="${escapeHtml(d.href)}" class="btn-pill ghost" rel="noopener"><i class="fas fa-download"></i> ${escapeHtml(d.label)}</a>`).join('')}
+                    ${share}
                 </div>`;
             }
-            return `<a href="${escapeHtml(r.url)}" target="_blank" rel="noopener" class="btn-pill">
-                            <i class="fas fa-download"></i> Download
-                        </a>`;
+            return `<div class="resource-actions">
+                        <a href="${escapeHtml(r.url)}" target="_blank" rel="noopener" class="btn-pill"><i class="fas fa-download"></i> Download</a>
+                        ${share}
+                    </div>`;
         }
 
         function renderPlannerFeature() {
@@ -360,7 +335,7 @@
                     : `<div class="resource-preview-fallback">${initial}</div>`;
 
                 return `
-                    <div class="resource-card" style="animation-delay:${(i % 6) * 0.05}s">
+                    <div class="resource-card" id="doc-${escapeHtml(r.id)}" style="animation-delay:${(i % 6) * 0.05}s">
                         <div class="resource-preview">${previewHtml}</div>
                         <div class="resource-category-row"><span class="resource-tag category">${escapeHtml(r.category || 'Other')}</span></div>
                         <h3>${escapeHtml(r.title)}</h3>
@@ -373,8 +348,10 @@
         function loadLibrary() {
             db.collection('library').orderBy('addedAt', 'desc').onSnapshot(
                 snap => {
-                    allResources = snap.docs.map(doc => doc.data());
+                    allResources = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    libraryLoaded = true;
                     renderResources();
+                    openSharedLibraryLink();
                 },
                 err => {
                     console.error('Library load failed:', err);
@@ -398,14 +375,46 @@
             });
         });
 
+        const folderShareBtn = document.getElementById('libraryFolderShare');
+        function updateFolderShare() {
+            const f = allLibraryFolders.find(x => x.id === activeFolder);
+            folderShareBtn.hidden = !f;
+        }
+        folderShareBtn.addEventListener('click', () => {
+            const f = allLibraryFolders.find(x => x.id === activeFolder);
+            if (f && window.CasorShare) CasorShare.open({ title: f.name + ' - CASOR UNIPORT e-Library', url: CasorShare.link('library.html', 'folder', f.id) });
+        });
+
         folderSelect.addEventListener('change', () => {
             activeFolder = folderSelect.value;
+            updateFolderShare();
             renderResources();
         });
 
-        // Folders (collection "folders", section:"library") - created
-        // from the EXCO Dashboard's Library tab so resources like the
-        // Constitution, CAC docs or Training Handbook can be grouped.
+        let libraryLoaded = false, foldersLoaded = false, sharedLinkDone = false;
+        function openSharedLibraryLink() {
+            if (sharedLinkDone || !libraryLoaded || !foldersLoaded || !window.CasorShare) return;
+            sharedLinkDone = true;
+            const folderId = CasorShare.param('folder');
+            const docId = CasorShare.param('doc');
+            if (folderId && allLibraryFolders.some(f => f.id === folderId)) {
+                activeFolder = folderId;
+                folderSelect.value = folderId;
+                updateFolderShare();
+                renderResources();
+                CasorShare.flash(document.querySelector('.library-toolbar') || grid);
+            }
+            if (docId && allResources.some(r => r.id === docId)) {
+                searchInput.value = '';
+                activeFilter = 'all';
+                filterButtons.forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+                const doc = allResources.find(r => r.id === docId);
+                if (activeFolder !== 'all' && doc.folderId !== activeFolder) { activeFolder = 'all'; folderSelect.value = 'all'; updateFolderShare(); }
+                renderResources();
+                CasorShare.flash(document.getElementById('doc-' + docId));
+            }
+        }
+
         function loadLibraryFolders() {
             db.collection('folders').where('section', '==', 'library').onSnapshot(snap => {
                 allLibraryFolders = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -413,14 +422,17 @@
                 folderSelect.innerHTML = '<option value="all">All Folders</option>' +
                     allLibraryFolders.map(f => `<option value="${f.id}">${escapeHtml(f.name)}</option>`).join('');
                 folderSelect.value = allLibraryFolders.some(f => f.id === current) ? current : 'all';
+                activeFolder = folderSelect.value;
+                foldersLoaded = true;
+                updateFolderShare();
                 renderResources();
-            }, err => console.error('Library folders load failed:', err));
+                openSharedLibraryLink();
+            }, err => { console.error('Library folders load failed:', err); foldersLoaded = true; openSharedLibraryLink(); });
         }
 
         loadLibrary();
         loadLibraryFolders();
 
-        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');

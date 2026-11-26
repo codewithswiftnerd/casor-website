@@ -1,10 +1,3 @@
-// ============================================================
-//  MEMBER SELF-REGISTRATION (register.html)
-//  Writes ONE new document into the private "members" collection
-//  (the same list admins see in Dashboard -> Members). Visitors can
-//  only create; they can never read, edit or delete anything there
-//  (see firestore.rules). Nothing entered here is shown on the site.
-// ============================================================
 (function () {
     const form = document.getElementById('regForm');
     if (!form) return;
@@ -21,7 +14,7 @@
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         err.hidden = true;
-        if ($('regWebsite').value) return; // bot filled the honeypot
+        if ($('regWebsite').value) return;
 
         const name = $('regName').value.trim().replace(/\s+/g, ' ');
         const phone = $('regPhone').value.trim();
@@ -33,7 +26,6 @@
         if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fail('That email address doesn’t look right.', $('regEmail'));
         if (!$('regConsent').checked) return fail('Please tick the box to agree before registering.', $('regConsent'));
 
-        // One submission per browser per day is plenty; stops double-taps.
         try {
             const last = +localStorage.getItem('casorRegisteredAt') || 0;
             if (Date.now() - last < 24 * 3600 * 1000) {

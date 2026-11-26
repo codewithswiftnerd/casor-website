@@ -1,64 +1,8 @@
-/**
- * ============================================================
- * CASOR NEWSLETTER SENDER - Google Apps Script version.
- *
- * WHY THIS EXISTS: sending a newsletter needs *something* running on
- * a server, not just in the visitor's browser - otherwise your Brevo
- * API key would have to sit in public JavaScript anyone can view.
- * Firebase Cloud Functions is the normal way to do that, but it only
- * deploys on the paid Blaze plan (even at zero usage, it needs a
- * billing card on file). Apps Script is Google's other option for
- * "run a bit of server code" and it's genuinely free forever, no card
- * needed at all - so this file does the same job Cloud Functions
- * would have.
- *
- * WHAT IT DOES: receives a POST from the dashboard's Compose
- * Newsletter tab, checks the request is really from a logged-in
- * CASOR admin, then calls Brevo's API to send the email to each
- * subscriber. It never touches Firestore - the dashboard already has
- * the subscriber list (it's an admin, so it can read it) and writes
- * the newsletter history entry itself right after this script
- * reports back success/failure counts.
- *
- * THIS FILE ALSO SENDS WEB PUSH NOTIFICATIONS now (same free
- * approach, same reasoning - see the "WEB PUSH NOTIFICATIONS" block
- * near the bottom of this file for that half, including its own
- * setup steps).
- *
- * SETUP:
- * 1. Go to script.google.com -> New project.
- * 2. Delete the placeholder code, paste in this whole file.
- * 3. Click the gear icon (Project Settings) -> Script Properties ->
- *    add two properties:
- *      BREVO_API_KEY     = your Brevo API key (Brevo dashboard ->
- *                           profile -> "SMTP & API" -> "API Keys" tab
- *                           -> Generate a new API key. This is
- *                           DIFFERENT from the SMTP key/login - Apps
- *                           Script uses Brevo's HTTP API, not SMTP.)
- *      ADMIN_EMAILS       = comma-separated list of exactly the
- *                           email addresses allowed to send a
- *                           newsletter, e.g.
- *                           "igrie318@gmail.com,otheradmin@gmail.com"
- *                           (must match the email each admin actually
- *                           logs into the dashboard with)
- * 4. Deploy -> New deployment -> type "Web app".
- *      Execute as: Me
- *      Who has access: Anyone
- *    Click Deploy, authorize when asked, then copy the URL it gives
- *    you (ends in /exec).
- * 5. Paste that URL into APPS_SCRIPT_URL near the top of
- *    portal/dashboard.html's <script> section.
- * 6. Whenever you edit this file again, you must create a NEW
- *    deployment (Deploy -> Manage deployments -> pencil icon -> New
- *    version) for the change to actually take effect - saving alone
- *    isn't enough.
- * ============================================================
- */
 
-const FIREBASE_WEB_API_KEY = 'AIzaSyAiACEdrFknfxa43WNubTV8A96YaNKgeyc'; // from portal/firebase-config.js - this one is meant to be public, it's not a secret
-const SITE_URL = 'https://casoruniport.netlify.app'; // no trailing slash - used to build each unsubscribe link (from the site's canonical URL; change if you move to a custom domain)
+const FIREBASE_WEB_API_KEY = 'AIzaSyAiACEdrFknfxa43WNubTV8A96YaNKgeyc';
+const SITE_URL = 'https://casoruniport.netlify.app';
 const FROM_NAME = 'CASOR UNIPORT';
-const FROM_EMAIL = 'casoruniportarchive@gmail.com'; // must be a "verified sender" in your Brevo account (Brevo -> Senders) before sending will work
+const FROM_EMAIL = 'casoruniportarchive@gmail.com';
 
 function doPost(e) {
     let payload;
@@ -68,17 +12,14 @@ function doPost(e) {
         return jsonResponse({ success: false, error: 'Bad request body.' });
     }
 
-    // Two jobs share this one Web App URL now: the newsletter (below)
-    // and web push notifications (see handlePushRequest near the
-    // bottom of this file). The dashboard tells us which one it wants
-    // via payload.action - default (no action, or action !== 'push')
-    // stays the newsletter, so nothing about the existing newsletter
-    // call from dashboard.html needs to change.
     if (payload.action === 'push') {
         return handlePushRequest(payload);
     }
     if (payload.action === 'upload') {
         return handleUploadRequest(payload);
+    }
+    if (payload.action === 'deleteExco') {
+        return handleDeleteExcoRequest(payload);
     }
     return handleNewsletterRequest(payload);
 }
@@ -136,7 +77,6 @@ function handleNewsletterRequest(payload) {
     return jsonResponse({ success: true, recipientCount: sent, failedCount: failed });
 }
 
-/** Rejects anything that isn't a genuinely valid, unexpired Firebase sign-in for this project. Returns the verified email, or null. */
 function verifyFirebaseIdToken(idToken) {
     const url = 'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=' + FIREBASE_WEB_API_KEY;
     try {
@@ -147,13 +87,10 @@ function verifyFirebaseIdToken(idToken) {
             muteHttpExceptions: true
         });
         const data = JSON.parse(response.getContentText());
-        // Only trust VERIFIED emails - otherwise someone could register an
-        // admin's address before they do and pass the ADMIN_EMAILS check.
         if (data.users && data.users[0] && data.users[0].email && data.users[0].emailVerified === true) {
             return data.users[0].email;
         }
     } catch (err) {
-        // falls through to return null below
     }
     return null;
 }
@@ -227,41 +164,11 @@ function jsonResponse(obj) {
     return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
 }
 
-/**
- * ============================================================
- * WEB PUSH NOTIFICATIONS - Google Apps Script version.
- *
- * WHY THIS EXISTS: same reasoning as the newsletter above. Sending a
- * push needs Firebase's private service-account credentials, which
- * can never sit in browser JS - normally that means Cloud Functions,
- * but those require the paid Blaze plan just to deploy, even at zero
- * usage. This reuses the same free Apps Script Web App instead.
- *
- * WHEN IT RUNS: called directly from portal/dashboard.html the
- * instant a NEW News post or Statutory Program is saved (not on
- * edits) - not on a timer, so there's no Firestore trigger needed
- * (Apps Script has no equivalent of one anyway).
- *
- * SETUP:
- * 1. Firebase Console -> Project Settings -> Service Accounts ->
- *    Generate new private key. This downloads a JSON file - open it,
- *    copy its ENTIRE contents.
- * 2. Script Properties (same place as BREVO_API_KEY / ADMIN_EMAILS
- *    above) -> add a property:
- *      FCM_SERVICE_ACCOUNT_JSON = <paste the whole JSON file content>
- * 3. Create a NEW deployment version (Deploy -> Manage deployments ->
- *    pencil icon -> New version) so this code actually goes live -
- *    the same URL already pasted into dashboard.html's APPS_SCRIPT_URL
- *    keeps working, nothing to change there.
- * 4. In Firestore rules, change push_subscribers' `allow read: if
- *    false;` to `allow read: if isAdmin();` and redeploy rules -
- *    dashboard.html needs to read the subscriber token list to pass
- *    along here. See the updated rules block in SETUP-GUIDE.md.
- * ============================================================
- */
-
-/** Exchanges the service account's private key for a short-lived FCM OAuth token, by hand-signing a JWT - no external library needed. */
 function getFcmAccessToken() {
+    return getServiceAccessToken_('https://www.googleapis.com/auth/firebase.messaging');
+}
+
+function getServiceAccessToken_(scope) {
     const raw = PropertiesService.getScriptProperties().getProperty('FCM_SERVICE_ACCOUNT_JSON');
     if (!raw) {
         throw new Error('FCM_SERVICE_ACCOUNT_JSON is not set in Script Properties yet.');
@@ -273,7 +180,7 @@ function getFcmAccessToken() {
     const header = { alg: 'RS256', typ: 'JWT' };
     const claimSet = {
         iss: sa.client_email,
-        scope: 'https://www.googleapis.com/auth/firebase.messaging',
+        scope: scope,
         aud: 'https://oauth2.googleapis.com/token',
         exp: now + 3600,
         iat: now
@@ -294,16 +201,11 @@ function getFcmAccessToken() {
     });
     const data = JSON.parse(response.getContentText());
     if (!data.access_token) {
-        throw new Error('Could not get an FCM access token: ' + response.getContentText());
+        throw new Error('Could not get a Google access token: ' + response.getContentText());
     }
     return { token: data.access_token, projectId: sa.project_id };
 }
 
-/**
- * Sends one push per token via FCM's HTTP v1 API and reports back
- * which tokens are dead (uninstalled / permission revoked) so
- * dashboard.html can prune them from push_subscribers.
- */
 function handlePushRequest(payload) {
     const { idToken, title, body, link, tokens } = payload;
 
@@ -315,15 +217,6 @@ function handlePushRequest(payload) {
         return jsonResponse({ success: false, error: 'Your session has expired - please log in again.' });
     }
 
-    // Same admin gate as handleNewsletterRequest above. Without this,
-    // ANY signed-in Firebase user - including someone who just self-
-    // registered on signup.html a moment ago, unverified and
-    // unapproved - could call this Web App URL directly (it's public,
-    // "Who has access: Anyone") and push an arbitrary title/body/link
-    // notification to every subscribed device. Sending push is an
-    // admin-only action in the dashboard's UI; it must also be
-    // admin-only here, since the UI can't enforce anything once
-    // someone calls this URL themselves.
     const adminEmails = getAdminEmails();
     if (adminEmails.indexOf(callerEmail.toLowerCase()) === -1) {
         return jsonResponse({ success: false, error: 'Only CASOR admins can send push notifications.' });
@@ -374,37 +267,12 @@ function handlePushRequest(payload) {
                 }
             }
         } catch (err) {
-            // Network hiccup on this one token - leave it alone rather
-            // than treating a transient failure as a dead token.
         }
     });
 
     return jsonResponse({ success: true, sentCount: sent, deadTokens: deadTokens });
 }
 
-
-/**
- * ============================================================
- * FILE UPLOADS (free - no Firebase Storage / Blaze plan needed)
- *
- * The dashboard's "Upload from device" buttons send the chosen file here.
- * This script saves it into a "CASOR Website Uploads" folder in the
- * Google Drive of the account that deployed this script, makes it
- * viewable by anyone with the link, and returns a link the website can
- * use straight away. Nobody has to open Google Drive by hand.
- *
- * Who may upload: a signed-in, email-verified user who is either in
- * ADMIN_EMAILS or has an APPROVED excos/{uid} record in Firestore. The
- * approval check reads Firestore with the user's own ID token, so the
- * normal security rules decide - no extra secret needed.
- *
- * Limits: about 20 MB per file (images are shrunk in the browser first).
- * Google Drive gives 15 GB free per Google account.
- *
- * SETUP: after pasting this file, Deploy -> Manage deployments -> edit ->
- * New version, and accept the new Google Drive permission when asked.
- * ============================================================
- */
 const FIREBASE_PROJECT_ID = 'casorwebsite';
 const UPLOAD_MAX_BYTES = 20 * 1024 * 1024;
 const UPLOAD_ALLOWED = /^(image\/(jpeg|png|webp|gif)|application\/pdf|application\/msword|application\/vnd\.openxmlformats-officedocument\.(wordprocessingml\.document|spreadsheetml\.sheet|presentationml\.presentation)|application\/vnd\.ms-(excel|powerpoint)|text\/plain|audio\/(mpeg|mp4|x-m4a|aac|wav)|video\/mp4)$/;
@@ -470,11 +338,69 @@ function handleUploadRequest(payload) {
     return jsonResponse({
         success: true,
         id: id,
-        // A normal Drive link - every part of the site already knows how to
-        // turn it into an image or a preview.
         url: 'https://drive.google.com/file/d/' + id + '/view',
         isImage: isImage,
         viewUrl: 'https://drive.google.com/file/d/' + id + '/view',
         name: safeName
     });
+}
+
+
+function isAdminCaller_(user, idToken) {
+    if (getAdminEmails().indexOf(String(user.email).toLowerCase()) !== -1) return true;
+    try {
+        const url = 'https://firestore.googleapis.com/v1/projects/' + FIREBASE_PROJECT_ID +
+            '/databases/(default)/documents/excos/' + encodeURIComponent(user.localId);
+        const res = UrlFetchApp.fetch(url, { headers: { Authorization: 'Bearer ' + idToken }, muteHttpExceptions: true });
+        if (res.getResponseCode() !== 200) return false;
+        const f = JSON.parse(res.getContentText()).fields || {};
+        return f.status && f.status.stringValue === 'approved' && f.role && f.role.stringValue === 'admin';
+    } catch (err) {
+        return false;
+    }
+}
+
+function handleDeleteExcoRequest(payload) {
+    const idToken = payload.idToken;
+    const uid = payload.uid;
+    if (!idToken) return jsonResponse({ success: false, error: 'Not signed in.' });
+
+    const caller = lookupFirebaseUser_(idToken);
+    if (!caller) return jsonResponse({ success: false, error: 'Your session has expired - please log in again.' });
+    if (!isAdminCaller_(caller, idToken)) return jsonResponse({ success: false, error: 'Only admins can remove EXCOs.' });
+
+    if (typeof uid !== 'string' || !/^[A-Za-z0-9_-]{1,128}$/.test(uid)) {
+        return jsonResponse({ success: false, error: 'Missing or invalid account id.' });
+    }
+    if (uid === caller.localId) {
+        return jsonResponse({ success: false, error: "You can't remove your own account. Ask another admin." });
+    }
+
+    let auth;
+    try {
+        auth = getServiceAccessToken_('https://www.googleapis.com/auth/cloud-platform');
+    } catch (err) {
+        return jsonResponse({ success: false, error: err.message });
+    }
+    const headers = { Authorization: 'Bearer ' + auth.token };
+    const projectId = auth.projectId || FIREBASE_PROJECT_ID;
+
+    const del = UrlFetchApp.fetch('https://identitytoolkit.googleapis.com/v1/projects/' + projectId + '/accounts:delete', {
+        method: 'post',
+        contentType: 'application/json',
+        headers: headers,
+        payload: JSON.stringify({ localId: uid }),
+        muteHttpExceptions: true
+    });
+    const delCode = del.getResponseCode();
+    if ((delCode < 200 || delCode >= 300) && del.getContentText().indexOf('USER_NOT_FOUND') === -1) {
+        return jsonResponse({ success: false, error: 'Could not delete the login (' + delCode + '): ' + del.getContentText().slice(0, 300) });
+    }
+
+    const base = 'https://firestore.googleapis.com/v1/projects/' + projectId + '/databases/(default)/documents/';
+    ['excos/', 'approval_tokens/'].forEach(function (col) {
+        UrlFetchApp.fetch(base + col + encodeURIComponent(uid), { method: 'delete', headers: headers, muteHttpExceptions: true });
+    });
+
+    return jsonResponse({ success: true });
 }
