@@ -1,17 +1,3 @@
-// ============================================================
-//  ADD TO HOME SCREEN - custom install banner
-//  Chrome (desktop + Android) fires "beforeinstallprompt" once
-//  the manifest.json + a registered service worker are in place.
-//  We capture that event instead of letting Chrome show its own
-//  mini-bar, and show a small banner that matches the site.
-//
-//  On the homepage this waits for the app-splash intro to finish
-//  first, so it never competes with it. On every other page it
-//  shows up after a short, friendlier delay.
-//
-//  Not shown: inside an already-installed/standalone app, or for
-//  14 days after someone dismisses it.
-// ============================================================
 (function () {
     var deferredPrompt = null;
     var DISMISS_KEY = 'casorInstallDismissedAt';
@@ -79,7 +65,6 @@
 
         if (isStandalone() || recentlyDismissed()) return;
 
-        // Give the homepage's app-splash intro room to finish first.
         var delay = document.getElementById('appSplash') ? 13500 : 1500;
         setTimeout(function () {
             if (deferredPrompt) buildBanner();

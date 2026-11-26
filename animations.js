@@ -1,19 +1,9 @@
-// ===== PAGE LOAD FADE-IN =====
-// Whole page fades in once the DOM is ready, instead of just snapping into view.
 document.documentElement.classList.add('js-anim');
 window.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(() => document.body.classList.add('page-loaded'));
 });
-// Safety net: if DOMContentLoaded already fired before this script ran, or
-// something blocks it, still reveal the page on full load.
 window.addEventListener('load', () => document.body.classList.add('page-loaded'));
 
-// ===== SCROLL FADE IN / OUT =====
-// Tags common content blocks with `.reveal` and toggles `.is-visible` as
-// they cross the viewport - fading (and gently sliding) in on the way in,
-// and back out if scrolled past - so the page feels interactive rather
-// than static. Done from JS (rather than baked into every page) so every
-// page picks up the same behaviour automatically.
 document.addEventListener('DOMContentLoaded', () => {
     const selectors = [
         '.hero-inner', '.hero-photo',
@@ -36,12 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     targets.forEach((el, i) => {
         el.classList.add('reveal');
-        // Small stagger so grids of cards don't all pop at once.
         el.style.transitionDelay = `${(i % 4) * 0.08}s`;
     });
 
     if (!('IntersectionObserver' in window) || targets.length === 0) {
-        // No support (or nothing to animate) - just show everything.
         targets.forEach(el => el.classList.add('is-visible'));
         return;
     }
@@ -58,9 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
     targets.forEach(el => observer.observe(el));
 });
 
-// ===== HEADER + MENU POLISH (theme.css) =====
-// Adds a hairline under the sticky header once the page scrolls, lets the
-// hamburger work from the keyboard, and keeps aria-expanded in sync.
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('header');
     if (header) {

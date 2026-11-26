@@ -138,7 +138,6 @@
             margin-right: 6px;
         }
 
-        /* ===== Search + filter toolbar (Files & Library browsing) ===== */
         .admin-toolbar {
             display: flex;
             align-items: center;
@@ -186,7 +185,6 @@
             color: #fff;
         }
 
-        /* ===== Card grid (Files browsing) ===== */
         .file-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -225,7 +223,6 @@
             grid-column: 1 / -1;
         }
 
-        /* ===== Site Images panel ===== */
         .image-group-title {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
@@ -294,7 +291,6 @@
             .image-slot-input { flex-basis: 100%; }
         }
 
-        /* ===== Site Content panel ===== */
         .content-slot-row {
             display: flex;
             align-items: flex-start;
@@ -350,7 +346,6 @@
             display: block;
         }
 
-        /* ===== Unit Reports panel - office cards ===== */
         .office-search {
             width: 100%;
             max-width: 360px;
@@ -489,7 +484,6 @@
             font-size: 11px;
         }
 
-        /* ===== Office modal ===== */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -849,11 +843,6 @@
             }
         }
 
-        /* ============================================================
-           Refresh (Bolt-inspired): calmer surfaces, rounder controls,
-           horizontally scrollable tabs on phones, plus styles for the
-           Overview, Meetings and Activity Log additions.
-           ============================================================ */
         body { background: #F4F6F5; font-family: 'Inter', 'Poppins', sans-serif; color: #14181F; }
         .card { border-radius: 20px; box-shadow: 0 1px 2px rgba(11,31,68,.04), 0 8px 24px rgba(11,31,68,.05); border: 1px solid #E8ECEA; }
         .card h2 { font-family: 'Inter Tight', 'Montserrat', sans-serif; text-transform: none; font-size: 20px; letter-spacing: -.02em; font-weight: 800; }
@@ -918,6 +907,60 @@
             .list-actions { flex-wrap: wrap; }
             .table-wrap { overflow-x: auto; }
         }
+        .my-office { padding-bottom: 18px; }
+        .mo-head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+        .mo-photo { width: 72px; height: 72px; border-radius: 20px; object-fit: cover; flex-shrink: 0; background: #eef1f6; }
+        .mo-head-text { min-width: 0; }
+        .mo-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #8a93a6; }
+        .mo-head-text h2 { margin: 2px 0 4px; font-size: 22px; line-height: 1.2; }
+        .mo-head-text p { margin: 0; font-size: 13px; color: #6b7385; }
+        .mo-switch { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: #f4f6fa; border-radius: 12px; padding: 10px 12px; margin-bottom: 16px; }
+        .mo-switch label { font-weight: 700; font-size: 13px; color: var(--navy); }
+        .mo-switch select { flex: 1 1 220px; margin: 0; }
+        .mo-live { background: #fff7db; border: 1px solid #f2d27a; color: #5a4300; border-radius: 12px; padding: 10px 14px; font-size: 13.5px; margin: 0 0 16px; }
+        .mo-live .fa-circle { color: #d93025; font-size: 9px; vertical-align: middle; }
+        .mo-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; padding: 30px 16px; background: #f4f6fa; border-radius: 16px; color: #5b6476; }
+        .mo-empty i { font-size: 28px; color: var(--navy); margin-bottom: 6px; }
+        .mo-empty strong { color: var(--navy); }
+        .mo-sections { display: grid; gap: 14px; }
+        .mo-folder { border: 1px solid #e6e9f0; border-radius: 16px; padding: 14px; background: #fff; }
+        .mo-folder-head { display: flex; align-items: center; gap: 12px; }
+        .mo-folder-icon { width: 44px; height: 44px; border-radius: 12px; background: #eef2fb; color: var(--navy); display: grid; place-items: center; font-size: 18px; flex-shrink: 0; }
+        .mo-folder-text { flex: 1; min-width: 0; }
+        .mo-folder-text h3 { margin: 0; font-size: 16px; color: var(--navy); display: flex; align-items: center; gap: 8px; }
+        .mo-folder-text p { margin: 2px 0 0; font-size: 12.5px; color: #7a8294; }
+        .mo-count { font-size: 12px; font-weight: 700; background: #eef2fb; color: var(--navy); border-radius: 999px; padding: 1px 9px; }
+        .mo-add { flex-shrink: 0; padding: 9px 14px; font-size: 13px; }
+        .mo-folder .office-doc-list { margin: 12px 0 0; }
+        .mo-folder .office-doc-list li { border-radius: 10px; }
+        .mo-folder .office-doc-list li.mo-none { border-style: dashed; color: #9aa1b1; font-size: 13px; justify-content: flex-start; }
+        .mo-onboard { color: var(--navy); }
+        .mo-photo-edit { margin-top: 18px; font-size: 13px; }
+        .mo-photo-edit summary { cursor: pointer; color: var(--navy); font-weight: 600; }
+        .mo-photo-edit .office-photo-edit { margin-top: 10px; }
+        .mo-label { display: block; font-size: 12px; font-weight: 700; color: var(--navy); margin: 4px 0 4px; text-align: left; }
+        .mo-form-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        #officeModalOverlay .office-add-form { border-top: none; padding-top: 0; margin-top: 0; }
+        #officeModalOverlay .office-add-form h4 { font-size: 15px; }
+        .mo-switch[hidden], .mo-empty[hidden], .mo-live[hidden], .mo-photo-edit[hidden] { display: none !important; }
+        .mo-folder .office-doc-list .list-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+        .mo-folder .office-doc-list .list-actions .btn-outline { padding: 6px 10px; font-size: 12px; margin: 0; }
+        @media (max-width: 560px) {
+            .my-office { padding-left: 14px; padding-right: 14px; }
+            .mo-folder { padding: 12px; }
+            .mo-folder-head { gap: 10px; }
+            .mo-folder-icon { width: 38px; height: 38px; font-size: 16px; border-radius: 10px; }
+            .mo-folder-text h3 { font-size: 15px; }
+            .mo-folder-text p { display: none; }
+            .mo-add { padding: 8px 12px; }
+            .mo-photo { width: 60px; height: 60px; border-radius: 16px; }
+            .mo-head-text h2 { font-size: 19px; }
+            .mo-folder .office-doc-list li { flex-direction: column; align-items: flex-start; }
+        }
+        .board-pw { margin: 18px 0; padding: 14px; border-radius: 12px; background: #f4f6fa; }
+        .board-pw h3 { margin: 0 0 4px; font-size: 15px; color: var(--navy); }
+        .board-pw p { margin: 0 0 10px; font-size: 13px; color: #5b6476; }
+        .board-pw .current { font-weight: 700; color: var(--navy); letter-spacing: .04em; }
     </style>
 </head>
 <body>
@@ -945,7 +988,7 @@
             <button class="tab-btn" data-panel="hallPastorsPanel">Hall Pastors</button>
             <button class="tab-btn" data-panel="newsPanel">News</button>
             <button class="tab-btn" data-panel="programsPanel">Statutory Programs</button>
-            <button class="tab-btn" data-panel="unitsPanel">Unit Reports</button>
+            <button class="tab-btn" data-panel="unitsPanel">My Office</button>
             <button class="tab-btn" data-panel="imagesPanel">Site Images</button>
             <button class="tab-btn" data-panel="contentPanel">Site Content</button>
             <button class="tab-btn" data-panel="subscribersPanel">Subscribers</button>
@@ -953,8 +996,6 @@
             <button class="tab-btn" data-panel="approvalsPanel">Approvals</button>
         </div>
 
-        <!-- FILES PANEL (Google Drive links) -->
-        <!-- OVERVIEW (admin) -->
         <div class="panel active" id="overviewPanel">
             <div class="stat-grid" id="overviewStats">
                 <div class="stat-card"><span class="stat-num" id="statMembers">–</span><span class="stat-label">Registered members <span id="statNewMembers"></span></span></div>
@@ -1019,7 +1060,6 @@
             </div>
         </div>
 
-        <!-- MEMBERS PANEL (CASORites membership database) -->
         <div class="panel" id="membersPanel">
             <div class="card">
                 <h2 id="memberFormTitle">Add a Member</h2>
@@ -1095,7 +1135,6 @@
             </div>
         </div>
 
-        <!-- LIBRARY PANEL (public - feeds library.html on the main site) -->
         <div class="panel" id="libraryPanel">
             <div class="card">
                 <h2 id="libraryFormTitle">Add a Resource</h2>
@@ -1158,7 +1197,6 @@
             </div>
         </div>
 
-        <!-- GALLERY PANEL (public - feeds gallery.html on the main site) -->
         <div class="panel" id="galleryPanel">
             <div class="card">
                 <h2 id="galFolderFormTitle">Gallery Albums</h2>
@@ -1205,7 +1243,6 @@
             </div>
         </div>
 
-        <!-- PRESIDENTS PANEL (public - feeds presidents.html on the main site) -->
         <div class="panel" id="presidentsPanel">
             <div class="card">
                 <h2 id="presFormTitle">Add an Admin House (past administration)</h2>
@@ -1265,7 +1302,6 @@
             </div>
         </div>
 
-        <!-- ABC OFFICIALS PANEL (public - feeds abc-officials.html on the main site) -->
         <div class="panel" id="abcOfficialsPanel">
             <div class="card">
                 <h2 id="abcFormTitle">Add a Session</h2>
@@ -1315,7 +1351,6 @@
             </div>
         </div>
 
-        <!-- HALL PASTORS PANEL (public - feeds units.html on the main site) -->
         <div class="panel" id="hallPastorsPanel">
             <div class="card">
                 <h2 id="hallPastorFormTitle">Add A Hall Pastor</h2>
@@ -1348,7 +1383,6 @@
             </div>
         </div>
 
-        <!-- NEWS PANEL (public - feeds news.html on the main site) -->
         <div class="panel" id="newsPanel">
             <div class="card">
                 <h2 id="newsFormTitle">Post News</h2>
@@ -1375,8 +1409,6 @@
             </div>
         </div>
 
-        <!-- STATUTORY PROGRAMS PANEL (public - feeds the "CASOR Statutory
-             Programs" section on index.html and the full list on events.html) -->
         <div class="panel" id="programsPanel">
             <div class="card">
                 <h2 id="programFormTitle">Add a Statutory Program</h2>
@@ -1419,9 +1451,7 @@
             </div>
         </div>
 
-        <!-- UNIT REPORTS / VISION STATEMENTS PANEL (EXCO-only, not public) -->
         <div class="panel" id="unitsPanel">
-            <!-- Admin: administration session + general meetings -->
             <div class="card" id="meetingsAdminCard" style="display:none;">
                 <h2>General Meetings &amp; Meeting Board</h2>
                 <div class="guide-box">
@@ -1433,6 +1463,16 @@
                     When the meeting ends, press <strong>Close meeting</strong>:
                     the documents disappear from the public page but stay in
                     the records here for future administrations.
+                </div>
+                <div class="board-pw">
+                    <h3><i class="fas fa-lock" aria-hidden="true"></i> Meeting Board password</h3>
+                    <p>Members type this once on their phone to open the <a href="../meeting.html" target="_blank" rel="noopener">Meeting Board</a>. It isn't case-sensitive. Changing it locks everyone out until they enter the new one, so change it after each meeting if you like.</p>
+                    <p>Current password: <span class="current" id="boardPwCurrent">Not set yet (the board stays locked)</span></p>
+                    <div class="inline-form">
+                        <input type="text" id="boardPwInput" placeholder="New password, e.g. ambassadors2026" maxlength="60" autocomplete="off" />
+                        <button class="btn-outline" id="saveBoardPwBtn">Save password</button>
+                    </div>
+                    <span id="boardPwFeedback" class="small-feedback"></span>
                 </div>
                 <div class="session-row">
                     <label for="currentSessionInput"><strong>Current administration / session</strong></label>
@@ -1451,68 +1491,64 @@
                 <div id="meetingsList" style="margin-top:18px;"><p class="admin-empty">Loading meetings...</p></div>
             </div>
 
-            <div class="card">
-                <h2>Office Reports, Minutes &amp; Vision Statements</h2>
-                <div class="guide-box">
-                    <strong>Your office only.</strong> You can open and update the
-                    office an admin has assigned to your account (shown with a
-                    <strong>Your office</strong> badge). Admins can open every office.
-                    If your office isn't marked, ask an admin to assign it in
-                    <em>Approvals</em>.<br /><br />
-                    <strong>Upload as a document or photo.</strong> Tap
-                    <strong>Upload file</strong> and pick it from your phone or computer. When a meeting is live, tap
-                    <strong>Present at meeting</strong> on a document to show it on the
-                    public Meeting Board.
-                </div>
-                <p id="myOfficeNote" class="office-note"></p>
-                <input type="text" class="office-search" id="officeSearch" placeholder="Search for an office..." />
-                <div id="officeGrid"></div>
-            </div>
-        </div>
-
-        <!-- Office documents modal, shared by all office cards -->
-        <div class="modal-overlay" id="officeModalOverlay" hidden>
-            <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="officeModalTitle">
-                <button type="button" class="modal-close" id="officeModalClose" aria-label="Close">&times;</button>
-
-                <div id="officeLockedView">
-                    <img class="modal-photo" id="officeLockedPhoto" src="" alt="" />
-                    <h3 id="officeModalTitle">Office Name</h3>
-                    <p class="modal-sub">This office isn't assigned to your account, so you can't view or change its documents. Ask an admin to assign it to you in the Approvals tab.</p>
+            <div class="card my-office" id="myOfficeCard">
+                <div class="mo-head">
+                    <img class="mo-photo" id="officeHeadPhoto" src="../images/CASOR.jpg" alt="" />
+                    <div class="mo-head-text">
+                        <span class="mo-eyebrow">My Office</span>
+                        <h2 id="officeHeadName">Loading...</h2>
+                        <p id="officeHeadMeta"></p>
+                    </div>
                 </div>
 
-                <div id="officeUnlockedView" style="display:none;">
-                    <img class="modal-photo" id="officeUnlockedPhoto" src="" alt="" />
-                    <h3 id="officeModalTitleUnlocked">Office Name</h3>
-                    <p class="modal-sub" id="officeLiveMeetingNote"></p>
+                <div class="mo-switch" id="officeSwitchRow" hidden>
+                    <label for="officeSwitch">Viewing office</label>
+                    <select id="officeSwitch"></select>
+                </div>
 
+                <p class="mo-live" id="officeLiveMeetingNote" hidden></p>
+
+                <div class="mo-empty" id="officeNoAccess" hidden>
+                    <i class="fas fa-user-lock" aria-hidden="true"></i>
+                    <strong>No office is linked to your account yet.</strong>
+                    <span>Ask an admin to assign your office in the <em>Approvals</em> tab. Once it's linked, your office's documents show up here.</span>
+                </div>
+
+                <div class="mo-sections" id="officeSections"></div>
+
+                <details class="mo-photo-edit" id="officePhotoEdit">
+                    <summary>Change office photo</summary>
                     <div class="office-photo-edit">
                         <input type="url" id="officePhotoInput" placeholder="Paste a Google Drive 'Anyone with the link' photo URL..." />
                         <button class="btn-outline" id="saveOfficePhotoBtn">Update Photo</button>
                         <span id="officePhotoFeedback"></span>
                     </div>
+                </details>
+            </div>
+        </div>
 
-                    <ul class="office-doc-list" id="officeDocList"></ul>
-
-                    <div class="office-add-form">
-                        <h4>Add Minutes, a Report or a Vision Statement</h4>
-                        <input type="hidden" id="officeReportId" />
-                        <select id="officeReportType">
-                            <option value="Minutes">Minutes</option>
-                            <option value="Report">Report</option>
-                            <option value="Vision Statement">Vision Statement</option>
-                        </select>
-                        <input type="text" id="officeReportTitle" maxlength="200" placeholder="Title (e.g. 'August Activity Report')" />
-                        <input type="url" id="officeReportFileUrl" placeholder="Google Drive shareable link (https://drive.google.com/...)" />
-                        <button class="btn" id="saveOfficeReportBtn">Add Entry</button>
-                        <button class="btn-outline" id="cancelOfficeReportEditBtn" style="display:none;margin-left:8px;">Cancel</button>
-                        <div id="officeFeedback"></div>
+        <div class="modal-overlay" id="officeModalOverlay" hidden>
+            <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="officeFormTitle">
+                <button type="button" class="modal-close" id="officeModalClose" aria-label="Close">&times;</button>
+                <div class="office-add-form">
+                    <h4 id="officeFormTitle">Add a document</h4>
+                    <p class="modal-sub" id="officeFormSub"></p>
+                    <input type="hidden" id="officeReportId" />
+                    <label class="mo-label" for="officeReportType">Folder</label>
+                    <select id="officeReportType"></select>
+                    <label class="mo-label" for="officeReportTitle">Title</label>
+                    <input type="text" id="officeReportTitle" maxlength="200" placeholder="e.g. 'August Activity Report'" />
+                    <label class="mo-label" for="officeReportFileUrl">Document</label>
+                    <input type="url" id="officeReportFileUrl" placeholder="Upload a file, or paste a Google Drive link (https://...)" />
+                    <div class="mo-form-actions">
+                        <button class="btn" id="saveOfficeReportBtn">Save</button>
+                        <button class="btn-outline" id="cancelOfficeReportEditBtn">Cancel</button>
                     </div>
+                    <div id="officeFeedback"></div>
                 </div>
             </div>
         </div>
 
-        <!-- SITE IMAGES PANEL (public - controls images shown across the main site) -->
         <div class="panel" id="imagesPanel">
             <div class="card">
                 <h2>Site Images</h2>
@@ -1528,7 +1564,6 @@
             </div>
         </div>
 
-        <!-- SITE CONTENT PANEL (public - controls text shown across the main site) -->
         <div class="panel" id="contentPanel">
             <div class="card">
                 <h2>Site Content</h2>
@@ -1546,8 +1581,6 @@
             </div>
         </div>
 
-        <!-- SUBSCRIBERS PANEL (private - the newsletter mailing list; never
-             readable by public visitors, see Firestore rules) -->
         <div class="panel" id="subscribersPanel">
             <div class="card">
                 <h2>Subscribers</h2>
@@ -1576,9 +1609,6 @@
             </div>
         </div>
 
-        <!-- COMPOSE NEWSLETTER PANEL (private - writing here does nothing
-             until "Send Newsletter" is clicked; sending itself happens
-             server-side, see /apps-script/Code.gs) -->
         <div class="panel" id="composePanel">
             <div class="card">
                 <h2>Compose Newsletter</h2>
@@ -1617,7 +1647,6 @@
             </div>
         </div>
 
-        <!-- APPROVALS PANEL - review new signups and approve them -->
         <div class="panel" id="approvalsPanel">
             <div class="card">
                 <h2>Pending EXCO Signups</h2>
@@ -1674,30 +1703,12 @@
     <script src="firebase-config.js">
     </script>
     <script>
-        // Only dashboard.html needs Cloud Functions (for the admin-only
-        // "Remove" button on the EXCO list below) - login.html and
-        // signup.html also load firebase-config.js but not this script,
-        // so functions() is defined here rather than in firebase-config.js
-        // itself to avoid breaking those pages.
         const functions = firebase.functions();
     </script>
     <script src="office-docs.js">
     </script>
     <script src="uploader.js"></script>
     <script>
-        // ===== ESCAPE HTML =====
-        // The old version did:
-        //   const div = document.createElement('div');
-        //   div.textContent = str;
-        //   return div.innerHTML;
-        // That round-trip only escapes &, <, > - it does NOT escape quote
-        // characters, because quotes are only special inside an HTML
-        // *attribute*, not inside a text node. But several places below
-        // use escapeHtml() output as the content of a double-quoted
-        // attribute (data-edit-title="${safeTitle}" etc). A title or name
-        // containing a " could close that attribute early and inject
-        // arbitrary markup/JS. Escaping quotes explicitly fixes it for
-        // both text and attribute contexts.
         function escapeHtml(str) {
             if (!str) return '';
             return String(str)
@@ -1708,34 +1719,7 @@
                 .replace(/'/g, '&#39;');
         }
 
-        // ===== ROLE =====
-        // 'admin' can see/use every tab. 'exco' (the default) can only
-        // view & upload Unit Reports / Vision Statements, and can VIEW
-        // (not post/edit/delete) News. This is enforced twice: here in
-        // the UI (so an exco never even sees the other tabs/buttons) and
-        // - the part that actually matters for security - in the
-        // Firestore rules (see SETUP-GUIDE.md), since anyone can read
-        // this JS file and a rule is the only thing that can't be
-        // bypassed from devtools.
-        // Used by the Compose Newsletter tab's "Send" button - calls the
-        // free Google Apps Script Web App (see /apps-script/Code.gs)
-        // instead of a Firebase Cloud Function, since Cloud Functions
-        // need the paid Blaze plan just to deploy. Paste the URL you
-        // get after deploying that script here - it ends in /exec.
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FLCccF64DmNwYHRcemyEgrtJ5JbPs_lZVgLfCcrXHUJLsspY5fI9zI/exec';      // ============================================================
-        //  WEB PUSH - fires the instant a NEW News post or Statutory
-        //  Program is saved (see the two call sites in the News and
-        //  Programs sections below - never called on edits). Reuses the
-        //  same free Apps Script Web App above (action: 'push' tells
-        //  Code.gs which job this call is) instead of a Cloud Function,
-        //  since Cloud Functions need the paid Blaze plan just to
-        //  deploy. See "WEB PUSH NOTIFICATIONS" in apps-script/Code.gs
-        //  for the sending half and its setup steps.
-        //
-        //  Never throws into its caller - a failed/misconfigured push
-        //  send should never stop the post itself from saving, so every
-        //  failure is just logged to the console instead.
-        // ============================================================
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FLCccF64DmNwYHRcemyEgrtJ5JbPs_lZVgLfCcrXHUJLsspY5fI9zI/exec';
         async function sendPushForNewPost(title, body, link) {
             try {
                 if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.indexOf('PASTE_') === 0) return;
@@ -1762,33 +1746,15 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     );
                 }
             } catch (err) {
-                // Post itself already saved fine at this point - a push
-                // failure here is never worth surfacing to the admin as
-                // an error on the Post/Add button.
                 console.error('Push send failed:', err);
             }
         }
 
-        // Same permanent-admin email list as the Firestore rules'
-        // isBootstrapAdmin(). Keep these two lists identical - this one
-        // decides what the UI SHOWS this person, the rules' copy decides
-        // what they can actually READ/WRITE. Before this list existed,
-        // the bootstrap admin's rules access was always correct but the
-        // dashboard UI only trusted the 'role' field on their excos doc -
-        // so if that field was ever missing, they'd have full permission
-        // behind the scenes but see the plain EXCO view, no admin tabs,
-        // no Office Passwords card. Checking this list here closes that
-        // gap for good.
         const BOOTSTRAP_ADMIN_EMAILS = ['igrie318@gmail.com'];
 
         let currentUserRole = 'exco';
         let currentUserProfile = null;
 
-        // ===== AUDIT LOG =====
-        // Append-only record of important admin/EXCO actions. The rules
-        // pin actorUid to the signed-in user and "at" to server time, and
-        // forbid edits/deletes, so entries can't be forged or erased from
-        // the client. Never blocks the action it records.
         function logAudit(action, collection, targetId, details) {
             try {
                 if (!auth.currentUser) return;
@@ -1801,7 +1767,7 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     details: String(details || '').slice(0, 500),
                     at: firebase.firestore.FieldValue.serverTimestamp()
                 }).catch(err => console.warn('Audit log not written:', err.message));
-            } catch (e) { /* never break the UI over logging */ }
+            } catch (e) {  }
         }
         const ADMIN_ONLY_PANELS = ['overviewPanel', 'filesPanel', 'membersPanel', 'libraryPanel',
             'galleryPanel', 'presidentsPanel', 'abcOfficialsPanel', 'hallPastorsPanel', 'programsPanel', 'imagesPanel', 'contentPanel', 'approvalsPanel',
@@ -1814,32 +1780,19 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 return;
             }
 
-            // Remove every tab an exco shouldn't see, leaving Unit
-            // Reports and News.
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 if (ADMIN_ONLY_PANELS.includes(btn.dataset.panel)) btn.remove();
             });
 
-            // "Shared Files" (filesPanel) is active by default in the
-            // HTML, but excos don't have that tab any more - switch the
-            // default view to Unit Reports instead.
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             document.querySelector('[data-panel="unitsPanel"]').classList.add('active');
             document.getElementById('unitsPanel').classList.add('active');
 
-            // News: view-only for excos - hide the posting form, the
-            // list itself is fine to read (renderNewsAdmin also hides
-            // the Edit/Delete buttons per-post, see below).
             const newsFormCard = document.getElementById('newsFormTitle').closest('.card');
             if (newsFormCard) newsFormCard.style.display = 'none';
         }
 
-        // ===== AUTH GUARD =====
-        // Guards against a hung Firestore read (blocked/unreliable network,
-        // etc.) leaving the user stuck on the loading screen forever with
-        // no error and no way out. If the profile check doesn't come back
-        // within 15s, bail out to an error state instead of waiting forever.
         function withTimeout(promise, ms) {
             return Promise.race([
                 promise,
@@ -1885,8 +1838,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             document.getElementById('loadingScreen').style.display = 'none';
             applyRoleToUI();
 
-            // Unit Reports (own office), meetings and News load for everyone.
-            // Everything else is admin-only data the rules would deny anyway.
             loadUnitReports();
             loadNewsAdmin();
             loadOverview();
@@ -1914,16 +1865,13 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             auth.signOut().then(() => window.location.href = 'login.html');
         });
 
-        // ============================================================
-        //  OVERVIEW - only figures we can read reliably from Firestore.
-        // ============================================================
         async function countOf(query) {
             try {
                 if (typeof query.count === 'function') {
                     const agg = await query.count().get();
                     return agg.data().count;
                 }
-            } catch (e) { /* fall back below */ }
+            } catch (e) {  }
             const snap = await query.get();
             return snap.size;
         }
@@ -1996,7 +1944,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ===== TABS =====
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -2006,9 +1953,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         });
 
-        // ============================================================
-        //  FILES (Google Drive links)
-        // ============================================================
         const fileId = document.getElementById('fileId');
         const addFileBtn = document.getElementById('addFileBtn');
         const fileTitle = document.getElementById('fileTitle');
@@ -2161,9 +2105,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  MEMBERS (CASORites membership database)
-        // ============================================================
         const memberId = document.getElementById('memberId');
         const memberName = document.getElementById('memberName');
         const memberGender = document.getElementById('memberGender');
@@ -2274,7 +2215,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 return;
             }
 
-            // Possible duplicates: same phone digits on more than one record.
             const phoneCount = {};
             allMembers.forEach(x => { const k = (x.phone || '').replace(/\D/g, '').slice(-10); if (k) phoneCount[k] = (phoneCount[k] || 0) + 1; });
             const rows = filtered.map(m => {
@@ -2392,11 +2332,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         });
 
-        // Opens a clean, header/nav-free window with just the table
-        // currently on screen (respects the active search/filter) and
-        // triggers the browser's print dialog on it - simpler and more
-        // reliable across browsers than @media print rules on the
-        // full dashboard, which has tabs, forms and buttons to hide.
         function printTable(title, headers, rows) {
             const win = window.open('', '_blank');
             const generated = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -2432,7 +2367,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
 
         function csvCell(v) {
             const t = String(v == null ? '' : v);
-            // Neutralise spreadsheet formulas and quote everything.
             return '"' + (/^[=+\-@]/.test(t) ? "'" + t : t).replace(/"/g, '""') + '"';
         }
         document.getElementById('exportMembersBtn').addEventListener('click', () => {
@@ -2464,10 +2398,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  LIBRARY (public - read on library.html doesn't need login;
-        //  writes here require an approved EXCO, same as Files/Members)
-        // ============================================================
         const libraryId = document.getElementById('libraryId');
         const libraryTitle = document.getElementById('libraryTitle');
         const libraryCategory = document.getElementById('libraryCategory');
@@ -2617,12 +2547,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  LIBRARY FOLDERS - lightweight folders (collection "folders",
-        //  section:"library") used to group resources such as the
-        //  Constitution, CAC Documents or Training Handbook. Also
-        //  populates the folder <select> on the resource form above.
-        // ============================================================
         let allLibFolders = [];
         const libFolderId = document.getElementById('libFolderId');
         const libFolderName = document.getElementById('libFolderName');
@@ -2713,11 +2637,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }, err => console.error('Library folders load failed:', err));
         }
 
-        // ============================================================
-        //  GALLERY - public albums feeding gallery.html. Albums live in
-        //  collection "folders" (section:"gallery"); photos live in
-        //  collection "galleryPhotos" and reference a folder by id.
-        // ============================================================
         const galFolderId = document.getElementById('galFolderId');
         const galFolderName = document.getElementById('galFolderName');
         const galFolderCover = document.getElementById('galFolderCover');
@@ -2964,12 +2883,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }, err => console.error('Gallery photos load failed:', err));
         }
 
-        // ============================================================
-        //  PRESIDENTS - past Presidents/VPs/GS/AGS by session, feeding
-        //  the public presidents.html page. Collection: "presidents".
-        //  { session, president, presidentPhoto, vp, vpPhoto,
-        //    gs, gsPhoto, ags, agsPhoto, adminNote, order, createdAt }
-        // ============================================================
         const presId = document.getElementById('presId');
         const presSession = document.getElementById('presSession');
         const presPresidentName = document.getElementById('presPresidentName');
@@ -3018,9 +2931,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 session, president, presidentPhoto, vp, vpPhoto,
                 gs, gsPhoto, ags, agsPhoto, adminNote, order,
                 presidentPhone, vpPhone, gsPhone, agsPhone,
-                // Always explicitly false here (even on a normal update) so
-                // that editing and saving one of the seeded sample sessions
-                // below correctly clears its "sample" flag.
                 sample: false,
                 addedBy: auth.currentUser.email,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -3052,7 +2962,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
 
         cancelPresEditBtn.addEventListener('click', resetPresForm);
 
-        // ----- Seed 3 sample sessions (one-time helper) -----
         const seedPresSamplesBtn = document.getElementById('seedPresSamplesBtn');
         const seedPresFeedback = document.getElementById('seedPresFeedback');
         if (seedPresSamplesBtn) {
@@ -3235,14 +3144,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }, err => console.error('Presidents load failed:', err));
         }
 
-        // ============================================================
-        //  ABC OFFICIALS - past ABC Coordinators/Assistant/Secretary by
-        //  session, feeding the public abc-officials.html page.
-        //  Collection: "abc_officials".
-        //  { session, coordinator, coordinatorPhoto, viceCoordinator,
-        //    viceCoordinatorPhoto, secretary, secretaryPhoto, adminNote,
-        //    order, createdAt }
-        // ============================================================
         const abcId = document.getElementById('abcId');
         const abcSession = document.getElementById('abcSession');
         const abcCoordinatorName = document.getElementById('abcCoordinatorName');
@@ -3278,9 +3179,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             const data = {
                 session, coordinator, coordinatorPhoto, viceCoordinator, viceCoordinatorPhoto,
                 secretary, secretaryPhoto, adminNote, order,
-                // Always explicitly false here (even on a normal update) so
-                // that editing and saving one of the seeded sample sessions
-                // below correctly clears its "sample" flag.
                 sample: false,
                 addedBy: auth.currentUser.email,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -3312,7 +3210,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
 
         cancelAbcEditBtn.addEventListener('click', resetAbcForm);
 
-        // ----- Seed 3 sample sessions (one-time helper) -----
         const seedAbcSamplesBtn = document.getElementById('seedAbcSamplesBtn');
         const seedAbcFeedback = document.getElementById('seedAbcFeedback');
         if (seedAbcSamplesBtn) {
@@ -3472,12 +3369,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }, err => console.error('ABC officials load failed:', err));
         }
 
-        // ============================================================
-        //  HALL PASTORS - a plain list (not paired sessions like
-        //  Presidents/ABC), since the count varies every administration.
-        //  Feeds the public units.html page. Collection: "hall_pastors".
-        //  { name, photo, park ('Male'|'Female'), order, createdAt }
-        // ============================================================
         const hallPastorId = document.getElementById('hallPastorId');
         const hallPastorName = document.getElementById('hallPastorName');
         const hallPastorPark = document.getElementById('hallPastorPark');
@@ -3600,14 +3491,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }, err => console.error('Hall pastors load failed:', err));
         }
 
-        // ============================================================
-        //  NEWS - public posts feeding news.html, newest first. Same
-        //  add/edit/delete shape as Library. The photo is optional and
-        //  reuses driveLinkToImageUrl() (defined below, in Site Images)
-        //  to turn a Drive share link into a hotlinkable URL - function
-        //  declarations are hoisted, so it's fine that it's defined
-        //  later in this same script.
-        // ============================================================
         const newsId = document.getElementById('newsId');
         const newsTitle = document.getElementById('newsTitle');
         const newsBody = document.getElementById('newsBody');
@@ -3760,12 +3643,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  STATUTORY PROGRAMS (public - feeds the homepage "What's
-        //  Happening" section and events.html). Same add/edit/delete
-        //  shape as News, so new programs can be added at any time -
-        //  even right after hosting one - no code changes needed.
-        // ============================================================
         const programId = document.getElementById('programId');
         const programTitle = document.getElementById('programTitle');
         const programTag = document.getElementById('programTag');
@@ -3929,13 +3806,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  APPROVALS - shows anyone who signed up on signup.html and
-        //  hasn't been approved yet. Approving writes status:'approved'
-        //  and role directly onto their OWN excos/{uid} document - the
-        //  only document involved. There's no separate "preapproved"
-        //  list to keep in sync anymore.
-        // ============================================================
         function officeOptionsHtml(selectedId) {
             return (typeof OFFICE_DOCS !== 'undefined' ? OFFICE_DOCS : []).map(o =>
                 `<option value="${o.id}"${selectedId === o.id ? ' selected' : ''}>${escapeHtml(o.name)}</option>`
@@ -4074,13 +3944,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     </table>
                 </div>`;
 
-            // Which office (if any) this person's own password-change
-            // button in the Unit Reports tab is allowed to touch - see
-            // the office_passwords / office_passwords_plain / office_photos
-            // Firestore rules, which now check this field instead of
-            // trusting every approved EXCO with every office. Admin-only
-            // to set, same as role - a self-service field here would let
-            // anyone claim any office and overwrite its password.
             list.querySelectorAll('[data-office-for]').forEach(sel => {
                 sel.addEventListener('change', async () => {
                     const uid = sel.dataset.officeFor;
@@ -4109,7 +3972,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     btn.disabled = true;
                     btn.textContent = 'Updating...';
                     try {
-                        // One write, one document - that's the whole change.
                         await db.collection('excos').doc(uid).update({ role: nextRole });
                         logAudit('exco.role', 'excos', uid, nextRole);
                     } catch (err) {
@@ -4120,16 +3982,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 });
             });
 
-            // Removing a past EXCO fully offboards them: their excos
-            // profile doc AND their actual Firebase login are both
-            // deleted, so they can't sign back in even if they still
-            // know their password. That needs the Admin SDK (a normal
-            // signed-in admin can delete Firestore docs but never
-            // someone else's login), so this calls the deleteExco Cloud
-            // Function rather than writing to Firestore directly - see
-            // functions/index.js and SETUP-GUIDE.md.
-            // Credential reset without ever seeing anyone's password:
-            // Firebase emails them a one-time link to choose a new one.
             list.querySelectorAll('[data-reset-email]').forEach(btn => {
                 btn.addEventListener('click', async () => {
                     const email = btn.dataset.resetEmail;
@@ -4156,9 +4008,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     btn.textContent = 'Removing...';
                     try {
                         await functions.httpsCallable('deleteExco')({ uid });
-                        // No manual re-render needed - the excos
-                        // onSnapshot listener below fires on its own the
-                        // moment the doc is gone.
                     } catch (err) {
                         alert('Remove failed: ' + err.message);
                         btn.disabled = false;
@@ -4204,7 +4053,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 try {
                     await functions.httpsCallable('deleteExco')({ uid: btn.dataset.removeRejectedUid });
                 } catch (err) {
-                    // Cloud Functions not deployed: at least remove the profile.
                     try {
                         await db.collection('excos').doc(btn.dataset.removeRejectedUid).delete();
                         logAudit('exco.remove_profile', 'excos', btn.dataset.removeRejectedUid, 'rejected; login not deleted');
@@ -4227,9 +4075,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        //  Used to populate the Unit Reports dropdown/filter AND to
-        //  label the unit-photo rows in the Site Images panel below.
-        // ============================================================
         const UNIT_LIST = [
             { slot: 'unit-president', label: 'President', photoMode: 'single' },
             { slot: 'unit-vice-president', label: 'Vice President', photoMode: 'single' },
@@ -4267,8 +4112,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             { slot: 'alumni-president', label: 'Alumni President' }
         ];
 
-        // Members panel's Unit dropdown reuses the same list so it
-        // stays consistent with Unit Reports / Site Images.
         (function populateMemberUnitOptions() {
             const select = document.getElementById('memberUnit');
             UNIT_LIST.forEach(u => {
@@ -4279,31 +4122,19 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         })();
 
-        // ============================================================
-        //  OFFICE REPORTS / VISION STATEMENTS (internal only - never
-        //  read from the public site, unlike Library and Site Images).
-        //  Each EXCO office gets its own card, gated by its own
-        //  password (see office-docs.js / OFFICE_DOCS) - this is a
-        //  second, office-specific lock on top of the portal login,
-        //  so one exco's account can't post as another office.
-        //  Once unlocked, that office's entries live in the same
-        //  "unit_reports" Firestore collection as before, filtered
-        //  by unit === office.id.
-        // ============================================================
-        const officeGrid = document.getElementById('officeGrid');
-        const officeSearch = document.getElementById('officeSearch');
+        const officeSections = document.getElementById('officeSections');
+        const officeSwitchRow = document.getElementById('officeSwitchRow');
+        const officeSwitch = document.getElementById('officeSwitch');
+        const officeNoAccess = document.getElementById('officeNoAccess');
+        const officeHeadPhoto = document.getElementById('officeHeadPhoto');
+        const officeHeadName = document.getElementById('officeHeadName');
+        const officeHeadMeta = document.getElementById('officeHeadMeta');
+        const officePhotoEdit = document.getElementById('officePhotoEdit');
         const officeModalOverlay = document.getElementById('officeModalOverlay');
         const officeModalClose = document.getElementById('officeModalClose');
-        const officeLockedView = document.getElementById('officeLockedView');
-        const officeUnlockedView = document.getElementById('officeUnlockedView');
-        const officeLockedPhoto = document.getElementById('officeLockedPhoto');
-        const officeUnlockedPhoto = document.getElementById('officeUnlockedPhoto');
         const officePhotoInput = document.getElementById('officePhotoInput');
         const saveOfficePhotoBtn = document.getElementById('saveOfficePhotoBtn');
         const officePhotoFeedback = document.getElementById('officePhotoFeedback');
-        const officeModalTitle = document.getElementById('officeModalTitle');
-        const officeModalTitleUnlocked = document.getElementById('officeModalTitleUnlocked');
-        const officeDocList = document.getElementById('officeDocList');
 
         const officeReportId = document.getElementById('officeReportId');
         const officeReportType = document.getElementById('officeReportType');
@@ -4316,18 +4147,20 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
         let activeOffice = null;
         let activeOfficeReports = [];
         let officeReportsUnsub = null;
-        let liveMeetings = [];          // meetings with status 'live'
-        let myMeetingDocs = [];         // meeting_docs added from the open office
+        let officeMeetingDocsUnsub = null;
+        let officeReportsLoaded = false;
+        let liveMeetings = [];
+        let myMeetingDocs = [];
+        let boardPassword = '';
 
-        // Which office this account may manage (set by an admin in the
-        // Approvals tab). Admins may manage every office. The Firestore
-        // rules enforce exactly the same thing server-side.
         function canManageOffice(officeId) {
             return currentUserRole === 'admin' || (currentUserProfile && currentUserProfile.office === officeId);
         }
 
-        // Office photos default to office-docs.js, but can be overridden
-        // per office (Google Drive photo URL) - collection office_photos.
+        function typeInfo(t) {
+            return (typeof DOC_TYPE_INFO !== 'undefined' && DOC_TYPE_INFO[t]) || { label: t, plural: t, icon: 'fa-file', hint: '' };
+        }
+
         let officePhotoOverrides = {};
         function getOfficePhoto(office) {
             return officePhotoOverrides[office.id]?.url || office.photo;
@@ -4336,150 +4169,99 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             db.collection('office_photos').onSnapshot(snap => {
                 officePhotoOverrides = {};
                 snap.forEach(doc => { officePhotoOverrides[doc.id] = doc.data(); });
-                renderOfficeGrid();
-                if (activeOffice) {
-                    const src = getOfficePhoto(activeOffice);
-                    officeLockedPhoto.src = src;
-                    officeUnlockedPhoto.src = src;
-                }
+                if (activeOffice) officeHeadPhoto.src = getOfficePhoto(activeOffice);
             }, err => console.warn('Office photos did not load:', err.message));
         }
 
-        function renderOfficeGrid() {
-            const term = officeSearch.value.trim().toLowerCase();
+        function setupMyOffice() {
             if (typeof OFFICE_DOCS === 'undefined' || !OFFICE_DOCS.length) {
-                officeGrid.innerHTML = '<p class="admin-empty">No offices configured yet.</p>';
+                officeHeadName.textContent = 'No offices configured';
                 return;
             }
-            const note = document.getElementById('myOfficeNote');
-            if (note) {
-                const mine = currentUserProfile && OFFICE_DOCS.find(o => o.id === currentUserProfile.office);
-                note.textContent = currentUserRole === 'admin'
-                    ? 'You are an admin: you can open every office.'
-                    : (mine ? `Your office: ${mine.name}` : 'No office is assigned to your account yet. Ask an admin to assign one.');
-            }
-
-            // EXCOs see their own office first.
-            const filtered = OFFICE_DOCS.filter(o =>
-                !term || o.name.toLowerCase().includes(term) || (o.category || '').toLowerCase().includes(term));
-            if (filtered.length === 0) {
-                officeGrid.innerHTML = '<p class="admin-empty">No office matches that search.</p>';
-                return;
-            }
-
-            let html = '';
-            let currentCategory = null;
-            filtered.forEach((office, idx) => {
-                if (office.category !== currentCategory) {
-                    if (currentCategory !== null) html += '</div>';
-                    html += `<div class="office-group-title">${escapeHtml(office.category || 'Other')}</div><div class="office-grid">`;
-                    currentCategory = office.category;
-                }
-                html += officeCardHtml(office);
-                if (idx === filtered.length - 1) html += '</div>';
-            });
-            officeGrid.innerHTML = html;
-
-            officeGrid.querySelectorAll('.office-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const office = OFFICE_DOCS.find(o => o.id === card.dataset.officeId);
-                    if (office) openOfficeModal(office);
+            const mine = currentUserProfile && OFFICE_DOCS.find(o => o.id === currentUserProfile.office);
+            if (currentUserRole === 'admin') {
+                let html = '', group = null;
+                OFFICE_DOCS.forEach(o => {
+                    if (o.category !== group) {
+                        if (group !== null) html += '</optgroup>';
+                        html += `<optgroup label="${escapeHtml(o.category || 'Other')}">`;
+                        group = o.category;
+                    }
+                    html += `<option value="${o.id}">${escapeHtml(o.name)}${mine && mine.id === o.id ? ' (yours)' : ''}</option>`;
                 });
-            });
-        }
-
-        function officeCardHtml(office) {
-            const allowed = canManageOffice(office.id);
-            const mine = currentUserProfile && currentUserProfile.office === office.id;
-            return `
-                <div class="office-card${allowed ? ' unlocked' : ' not-mine'}${mine ? ' mine' : ''}" data-office-id="${office.id}" tabindex="0" role="button" aria-label="${escapeHtml(office.name)}">
-                    <div class="office-photo">
-                        <img src="${escapeHtml(getOfficePhoto(office))}" alt="${escapeHtml(office.name)}" loading="lazy" onerror="this.style.opacity=0.2;" />
-                        <span class="status-badge">${allowed ? '✓' : '🔒'}</span>
-                    </div>
-                    <div class="office-body">
-                        <h3>${escapeHtml(office.name)}</h3>
-                        <p>${mine ? 'Your office' : (allowed ? 'Open' : 'Not assigned to you')}</p>
-                    </div>
-                </div>`;
-        }
-
-        officeSearch.addEventListener('input', renderOfficeGrid);
-        officeGrid.addEventListener('keydown', (e) => {
-            if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('office-card')) {
-                e.preventDefault();
-                e.target.click();
+                officeSwitch.innerHTML = html + '</optgroup>';
+                officeSwitchRow.hidden = false;
+                const start = mine || OFFICE_DOCS[0];
+                officeSwitch.value = start.id;
+                showOffice(start);
+            } else if (mine) {
+                officeSwitchRow.hidden = true;
+                showOffice(mine);
+            } else {
+                officeSwitchRow.hidden = true;
+                activeOffice = null;
+                officeHeadName.textContent = 'Your office';
+                officeHeadMeta.textContent = auth.currentUser ? auth.currentUser.email : '';
+                officeNoAccess.hidden = false;
+                officeSections.innerHTML = '';
+                officePhotoEdit.hidden = true;
             }
+        }
+
+        officeSwitch.addEventListener('change', () => {
+            const o = OFFICE_DOCS.find(x => x.id === officeSwitch.value);
+            if (o) showOffice(o);
         });
 
-        function openOfficeModal(office) {
+        function updateOfficeMeta() {
+            if (!activeOffice) return;
+            const mine = currentUserProfile && currentUserProfile.office === activeOffice.id;
+            officeHeadMeta.textContent = [activeOffice.category, currentSession ? 'Session ' + currentSession : '', mine ? 'Your office' : (currentUserRole === 'admin' ? 'Viewing as admin' : '')]
+                .filter(Boolean).join(' · ');
+        }
+
+        function showOffice(office) {
             activeOffice = office;
-            resetOfficeReportForm();
-            const photoSrc = getOfficePhoto(office);
-            officeLockedPhoto.src = photoSrc;
-            officeLockedPhoto.alt = office.name;
-            officeUnlockedPhoto.src = photoSrc;
-            officeUnlockedPhoto.alt = office.name;
-            officeModalTitle.textContent = office.name;
-            officeModalTitleUnlocked.textContent = office.name;
+            officeNoAccess.hidden = true;
+            officePhotoEdit.hidden = false;
+            officePhotoEdit.open = false;
+            officeHeadPhoto.src = getOfficePhoto(office);
+            officeHeadPhoto.alt = office.name;
+            officeHeadName.textContent = office.name;
+            updateOfficeMeta();
             officePhotoInput.value = '';
             officePhotoFeedback.textContent = '';
-
-            // The Administrative Arm (President, VP, Gen Sec, Asst Gen Sec)
-            // isn't a unit: its documents are minutes, agendas and proposed
-            // semester calendars - never unit reports or vision statements.
-            const armOnly = !!office.adminArm;
-            const LABELS = { 'Report': 'Unit Report' };
             officeReportType.innerHTML = officeDocTypes(office)
-                .map(t => `<option value="${t}">${LABELS[t] || t}</option>`).join('');
-            const addHeading = document.querySelector('#officeUnlockedView .office-add-form h4');
-            if (addHeading) addHeading.textContent = armOnly
-                ? 'Add Minutes, an Agenda or a Proposed Semester Calendar'
-                : 'Add Minutes, a Unit Report or a Vision Statement';
-
-            if (canManageOffice(office.id)) {
-                officeLockedView.style.display = 'none';
-                officeUnlockedView.style.display = 'block';
-                loadActiveOfficeReports();
-            } else {
-                officeLockedView.style.display = 'block';
-                officeUnlockedView.style.display = 'none';
-            }
+                .map(t => `<option value="${t}">${escapeHtml(typeInfo(t).label)}</option>`).join('');
             renderLiveMeetingNote();
-            officeModalOverlay.hidden = false;
+            loadActiveOfficeReports();
         }
 
-        function closeOfficeModal() {
-            officeModalOverlay.hidden = true;
-            activeOffice = null;
-            if (officeReportsUnsub) { officeReportsUnsub(); officeReportsUnsub = null; }
-            if (officeMeetingDocsUnsub) { officeMeetingDocsUnsub(); officeMeetingDocsUnsub = null; }
-        }
-
-        officeModalClose.addEventListener('click', closeOfficeModal);
-        officeModalOverlay.addEventListener('click', (e) => { if (e.target === officeModalOverlay) closeOfficeModal(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !officeModalOverlay.hidden) closeOfficeModal(); });
-
-        let officeMeetingDocsUnsub = null;
         function loadActiveOfficeReports() {
             if (!activeOffice) return;
             if (officeReportsUnsub) officeReportsUnsub();
             if (officeMeetingDocsUnsub) officeMeetingDocsUnsub();
-            officeDocList.innerHTML = '<li class="office-doc-empty">Loading...</li>';
+            officeReportsLoaded = false;
+            activeOfficeReports = [];
+            myMeetingDocs = [];
+            officeSections.innerHTML = '<p class="admin-empty">Loading your documents...</p>';
+            const officeId = activeOffice.id;
             officeReportsUnsub = db.collection('unit_reports')
-                .where('unit', '==', activeOffice.id)
+                .where('unit', '==', officeId)
                 .onSnapshot(snap => {
+                    if (!activeOffice || activeOffice.id !== officeId) return;
                     activeOfficeReports = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }))
                         .sort((a, b) => (b.submittedAt?.toMillis?.() || 0) - (a.submittedAt?.toMillis?.() || 0));
+                    officeReportsLoaded = true;
                     renderActiveOfficeReports();
                 }, err => {
-                    officeDocList.innerHTML = `<li class="office-doc-empty">Could not load documents: ${escapeHtml(err.message)}</li>`;
+                    officeSections.innerHTML = `<p class="admin-empty">Could not load documents: ${escapeHtml(err.message)}</p>`;
                 });
-            // Which of this office's documents are on the board right now.
             officeMeetingDocsUnsub = db.collection('meeting_docs')
-                .where('office', '==', activeOffice.id)
+                .where('office', '==', officeId)
                 .where('visible', '==', true)
                 .onSnapshot(snap => {
+                    if (!activeOffice || activeOffice.id !== officeId) return;
                     myMeetingDocs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
                     renderActiveOfficeReports();
                 }, err => console.warn('Meeting docs did not load:', err.message));
@@ -4493,122 +4275,157 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             const el = document.getElementById('officeLiveMeetingNote');
             if (!el) return;
             const m = currentLiveMeeting();
-            el.textContent = m
-                ? `In session: ${m.title}. Tap "Present at meeting" to put a document on the public Meeting Board.`
-                : 'No meeting is live right now.';
+            el.hidden = !m;
+            el.innerHTML = m
+                ? `<i class="fas fa-circle" aria-hidden="true"></i> <strong>In session: ${escapeHtml(m.title)}.</strong> Tap <em>Present at meeting</em> on a document to put it on the Meeting Board.`
+                  + (boardPassword ? ` Board password: <strong>${escapeHtml(boardPassword)}</strong>` : '')
+                : '';
         }
 
         function renderActiveOfficeReports() {
-            if (!activeOffice) return;
-            if (activeOfficeReports.length === 0) {
-                officeDocList.innerHTML = '<li class="office-doc-empty">No documents yet. Add the first one below.</li>';
+            if (!activeOffice || !officeReportsLoaded) return;
+            const types = officeDocTypes(activeOffice);
+            const live = currentLiveMeeting();
+            const groups = {};
+            types.forEach(t => { groups[t] = []; });
+            activeOfficeReports.forEach(r => {
+                const t = types.includes(r.type) ? r.type : 'Other';
+                (groups[t] = groups[t] || []).push(r);
+            });
+
+            officeSections.innerHTML = types.map(t => {
+                const info = typeInfo(t);
+                const items = groups[t] || [];
+                const list = items.length ? items.map(r => {
+                    const date = r.submittedAt?.toDate ? r.submittedAt.toDate().toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+                    const presented = live && myMeetingDocs.find(d => d.sourceReportId === r.id && d.meetingId === live.id);
+                    const presentBtn = live
+                        ? (presented
+                            ? `<button class="btn-outline" data-or-unpresent-id="${presented.id}">Remove from board</button>`
+                            : `<button class="btn-outline" data-or-present-id="${r.id}">Present at meeting</button>`)
+                        : '';
+                    const other = t === 'Other' && r.type && r.type !== 'Other' ? escapeHtml(typeInfo(r.type).label) + ' · ' : '';
+                    return `
+                        <li>
+                            <div class="doc-main">
+                                <a href="${escapeHtml(r.fileUrl || '')}" target="_blank" rel="noopener">${escapeHtml(r.title)}</a>
+                                <span>${other}${date}${r.session ? ' &middot; ' + escapeHtml(r.session) : ''}${presented ? ' &middot; <strong class="mo-onboard">On the board</strong>' : ''}</span>
+                            </div>
+                            <div class="list-actions">
+                                ${presentBtn}
+                                <button class="btn-outline" data-or-edit-id="${r.id}">Edit</button>
+                                <button class="btn-outline btn-danger" data-or-del-id="${r.id}">Delete</button>
+                            </div>
+                        </li>`;
+                }).join('') : `<li class="mo-none">Nothing here yet.</li>`;
+                return `
+                    <section class="mo-folder">
+                        <div class="mo-folder-head">
+                            <span class="mo-folder-icon"><i class="fas ${info.icon}" aria-hidden="true"></i></span>
+                            <div class="mo-folder-text">
+                                <h3>${escapeHtml(info.plural)} <span class="mo-count">${items.length}</span></h3>
+                                <p>${escapeHtml(info.hint)}</p>
+                            </div>
+                            <button class="btn mo-add" data-or-add-type="${escapeHtml(t)}"><i class="fas fa-plus" aria-hidden="true"></i> Add</button>
+                        </div>
+                        <ul class="office-doc-list">${list}</ul>
+                    </section>`;
+            }).join('');
+        }
+
+        officeSections.addEventListener('click', async (e) => {
+            const add = e.target.closest('[data-or-add-type]');
+            if (add) { openOfficeForm(add.dataset.orAddType); return; }
+
+            const edit = e.target.closest('[data-or-edit-id]');
+            if (edit) {
+                const r = activeOfficeReports.find(x => x.id === edit.dataset.orEditId);
+                if (r) openOfficeForm(r.type, r);
                 return;
             }
-            const live = currentLiveMeeting();
-            officeDocList.innerHTML = activeOfficeReports.map(r => {
-                const date = r.submittedAt?.toDate ? r.submittedAt.toDate().toLocaleDateString() : '';
-                const presented = live && myMeetingDocs.find(d => d.sourceReportId === r.id && d.meetingId === live.id);
-                const presentBtn = live
-                    ? (presented
-                        ? `<button class="btn-outline" data-or-unpresent-id="${presented.id}">Remove from board</button>`
-                        : `<button class="btn-outline" data-or-present-id="${r.id}">Present at meeting</button>`)
-                    : '';
-                return `
-                    <li>
-                        <div class="doc-main">
-                            <a href="${escapeHtml(r.fileUrl || '')}" target="_blank" rel="noopener">${escapeHtml(r.title)}</a>
-                            <span>${escapeHtml(r.type || 'Report')} &middot; ${date}${r.session ? ' &middot; ' + escapeHtml(r.session) : ''}${presented ? ' &middot; <strong style="color:var(--navy);">On the board</strong>' : ''}</span>
-                        </div>
-                        <div class="list-actions">
-                            ${presentBtn}
-                            <button class="btn-outline" data-or-edit-id="${r.id}">Edit</button>
-                            <button class="btn-outline btn-danger" data-or-del-id="${r.id}">Delete</button>
-                        </div>
-                    </li>`;
-            }).join('');
 
-            officeDocList.querySelectorAll('[data-or-edit-id]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const r = activeOfficeReports.find(x => x.id === btn.dataset.orEditId);
-                    if (!r) return;
-                    officeReportId.value = r.id;
-                    officeReportType.value = r.type;
-                    officeReportTitle.value = r.title;
-                    officeReportFileUrl.value = r.fileUrl || '';
-                    saveOfficeReportBtn.textContent = 'Update Entry';
-                    cancelOfficeReportEditBtn.style.display = 'inline-block';
-                    officeReportTitle.focus();
-                });
-            });
+            const del = e.target.closest('[data-or-del-id]');
+            if (del) {
+                if (!confirm('Delete this document?')) return;
+                const r = activeOfficeReports.find(x => x.id === del.dataset.orDelId);
+                try {
+                    await db.collection('unit_reports').doc(del.dataset.orDelId).delete();
+                    logAudit('unit_report.delete', 'unit_reports', del.dataset.orDelId, r ? `${activeOffice.id}: ${r.title}` : '');
+                } catch (err) {
+                    alert('Delete failed: ' + err.message);
+                }
+                return;
+            }
 
-            officeDocList.querySelectorAll('[data-or-del-id]').forEach(btn => {
-                btn.addEventListener('click', async () => {
-                    if (!confirm('Delete this entry?')) return;
-                    const r = activeOfficeReports.find(x => x.id === btn.dataset.orDelId);
-                    try {
-                        await db.collection('unit_reports').doc(btn.dataset.orDelId).delete();
-                        logAudit('unit_report.delete', 'unit_reports', btn.dataset.orDelId, r ? `${activeOffice.id}: ${r.title}` : '');
-                    } catch (err) {
-                        alert('Delete failed: ' + err.message);
-                    }
-                });
-            });
+            const present = e.target.closest('[data-or-present-id]');
+            if (present) {
+                const r = activeOfficeReports.find(x => x.id === present.dataset.orPresentId);
+                const m = currentLiveMeeting();
+                if (!r || !m) return;
+                present.disabled = true;
+                present.textContent = 'Adding...';
+                try {
+                    const ref = await db.collection('meeting_docs').add({
+                        meetingId: m.id,
+                        office: activeOffice.id,
+                        officeName: activeOffice.name,
+                        type: r.type || 'Other',
+                        title: r.title,
+                        fileUrl: r.fileUrl,
+                        sourceReportId: r.id,
+                        visible: true,
+                        addedBy: auth.currentUser.email,
+                        addedByUid: auth.currentUser.uid,
+                        addedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    logAudit('meeting_doc.present', 'meeting_docs', ref.id, `${activeOffice.id}: ${r.title} @ ${m.title}`);
+                } catch (err) {
+                    alert('Could not add to the board: ' + err.message);
+                    present.disabled = false;
+                    present.textContent = 'Present at meeting';
+                }
+                return;
+            }
 
-            officeDocList.querySelectorAll('[data-or-present-id]').forEach(btn => {
-                btn.addEventListener('click', async () => {
-                    const r = activeOfficeReports.find(x => x.id === btn.dataset.orPresentId);
-                    const m = currentLiveMeeting();
-                    if (!r || !m) return;
-                    btn.disabled = true;
-                    btn.textContent = 'Adding...';
-                    try {
-                        const ref = await db.collection('meeting_docs').add({
-                            meetingId: m.id,
-                            office: activeOffice.id,
-                            officeName: activeOffice.name,
-                            type: r.type || 'Report',
-                            title: r.title,
-                            fileUrl: r.fileUrl,
-                            sourceReportId: r.id,
-                            visible: true,
-                            addedBy: auth.currentUser.email,
-                            addedByUid: auth.currentUser.uid,
-                            addedAt: firebase.firestore.FieldValue.serverTimestamp()
-                        });
-                        logAudit('meeting_doc.present', 'meeting_docs', ref.id, `${activeOffice.id}: ${r.title} @ ${m.title}`);
-                    } catch (err) {
-                        alert('Could not add to the board: ' + err.message);
-                        btn.disabled = false;
-                        btn.textContent = 'Present at meeting';
-                    }
-                });
-            });
+            const unpresent = e.target.closest('[data-or-unpresent-id]');
+            if (unpresent) {
+                unpresent.disabled = true;
+                try {
+                    await db.collection('meeting_docs').doc(unpresent.dataset.orUnpresentId).delete();
+                    logAudit('meeting_doc.remove', 'meeting_docs', unpresent.dataset.orUnpresentId, activeOffice.id);
+                } catch (err) {
+                    alert('Could not remove: ' + err.message);
+                    unpresent.disabled = false;
+                }
+            }
+        });
 
-            officeDocList.querySelectorAll('[data-or-unpresent-id]').forEach(btn => {
-                btn.addEventListener('click', async () => {
-                    btn.disabled = true;
-                    try {
-                        await db.collection('meeting_docs').doc(btn.dataset.orUnpresentId).delete();
-                        logAudit('meeting_doc.remove', 'meeting_docs', btn.dataset.orUnpresentId, activeOffice.id);
-                    } catch (err) {
-                        alert('Could not remove: ' + err.message);
-                        btn.disabled = false;
-                    }
-                });
-            });
-        }
-
-        function resetOfficeReportForm() {
-            officeReportId.value = '';
-            officeReportType.selectedIndex = 0;
-            officeReportTitle.value = '';
-            officeReportFileUrl.value = '';
-            saveOfficeReportBtn.textContent = 'Add Entry';
-            cancelOfficeReportEditBtn.style.display = 'none';
+        function openOfficeForm(type, existing) {
+            if (!activeOffice || !canManageOffice(activeOffice.id)) return;
+            const types = officeDocTypes(activeOffice);
+            officeReportId.value = existing ? existing.id : '';
+            officeReportType.value = types.includes(type) ? type : 'Other';
+            officeReportTitle.value = existing ? existing.title : '';
+            officeReportFileUrl.value = existing ? (existing.fileUrl || '') : '';
+            document.getElementById('officeFormTitle').textContent = existing
+                ? 'Edit document'
+                : 'Add ' + typeInfo(officeReportType.value).label;
+            document.getElementById('officeFormSub').textContent = activeOffice.name;
+            saveOfficeReportBtn.textContent = existing ? 'Update' : 'Save';
             officeFeedback.textContent = '';
+            officeModalOverlay.hidden = false;
+            setTimeout(() => officeReportTitle.focus(), 50);
         }
 
-        cancelOfficeReportEditBtn.addEventListener('click', resetOfficeReportForm);
+        function closeOfficeForm() {
+            officeModalOverlay.hidden = true;
+            officeReportId.value = '';
+        }
+
+        officeModalClose.addEventListener('click', closeOfficeForm);
+        cancelOfficeReportEditBtn.addEventListener('click', closeOfficeForm);
+        officeModalOverlay.addEventListener('click', (e) => { if (e.target === officeModalOverlay) closeOfficeForm(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !officeModalOverlay.hidden) closeOfficeForm(); });
 
         saveOfficeReportBtn.addEventListener('click', async () => {
             if (!activeOffice || !canManageOffice(activeOffice.id)) return;
@@ -4623,7 +4440,7 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 return;
             }
             if (!/^https:\/\//i.test(fileUrl)) {
-                officeFeedback.textContent = 'Please paste a Google Drive link that starts with https://';
+                officeFeedback.textContent = 'Upload a file, or paste a link that starts with https://';
                 officeFeedback.style.color = '#b3261e';
                 return;
             }
@@ -4639,7 +4456,7 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             };
 
             saveOfficeReportBtn.disabled = true;
-            saveOfficeReportBtn.textContent = id ? 'Updating...' : 'Adding...';
+            saveOfficeReportBtn.textContent = 'Saving...';
             officeFeedback.textContent = '';
 
             try {
@@ -4650,15 +4467,13 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     const ref = await db.collection('unit_reports').add(data);
                     logAudit('unit_report.create', 'unit_reports', ref.id, `${activeOffice.id}: ${title}`);
                 }
-                resetOfficeReportForm();
-                officeFeedback.textContent = 'Saved.';
-                officeFeedback.style.color = '#0B1F44';
+                closeOfficeForm();
             } catch (err) {
                 officeFeedback.textContent = 'Failed: ' + err.message;
                 officeFeedback.style.color = '#b3261e';
             } finally {
                 saveOfficeReportBtn.disabled = false;
-                saveOfficeReportBtn.textContent = officeReportId.value ? 'Update Entry' : 'Add Entry';
+                saveOfficeReportBtn.textContent = id ? 'Update' : 'Save';
             }
         });
 
@@ -4688,9 +4503,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }
         });
 
-        // ============================================================
-        //  SESSION + GENERAL MEETINGS (admin manages, everyone reads)
-        // ============================================================
         let currentSession = '';
         let allMeetings = [];
         const meetingDocCounts = {};
@@ -4700,6 +4512,7 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 currentSession = (doc.exists && doc.data().session) || '';
                 const input = document.getElementById('currentSessionInput');
                 if (input && document.activeElement !== input) input.value = currentSession;
+                updateOfficeMeta();
             }, err => console.warn('Settings did not load:', err.message));
 
             db.collection('meetings').orderBy('createdAt', 'desc').limit(30).onSnapshot(snap => {
@@ -4765,7 +4578,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             btn.textContent = 'Closing...';
             try {
                 const docs = await db.collection('meeting_docs').where('meetingId', '==', id).where('visible', '==', true).get();
-                // Firestore batches hold up to 500 writes.
                 let batch = db.batch(), n = 0;
                 for (const d of docs.docs) {
                     batch.update(d.ref, { visible: false });
@@ -4824,20 +4636,50 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             }
         });
 
+        function normalizeBoardKey(pw) {
+            return String(pw || '').trim().toLowerCase().replace(/\s+/g, ' ');
+        }
+        function loadBoardPassword() {
+            db.collection('board_private').doc('password').onSnapshot(doc => {
+                boardPassword = (doc.exists && doc.data().password) || '';
+                const cur = document.getElementById('boardPwCurrent');
+                if (cur) cur.textContent = boardPassword || 'Not set yet (the board stays locked)';
+                renderLiveMeetingNote();
+            }, err => console.warn('Board password did not load:', err.message));
+        }
+        document.getElementById('saveBoardPwBtn').addEventListener('click', async () => {
+            const fb = document.getElementById('boardPwFeedback');
+            const input = document.getElementById('boardPwInput');
+            const password = input.value.trim().replace(/\s+/g, ' ');
+            if (password.length < 4) {
+                fb.style.color = '#b3261e';
+                fb.textContent = 'Use at least 4 characters.';
+                return;
+            }
+            try {
+                await db.collection('board_private').doc('password').set({
+                    password,
+                    key: normalizeBoardKey(password),
+                    updatedBy: auth.currentUser.email,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                logAudit('meeting_board.password', 'board_private', 'password', 'changed');
+                input.value = '';
+                fb.style.color = '#0B1F44';
+                fb.textContent = 'Saved. Anyone who opened the board with the old password will be asked for this one.';
+            } catch (err) {
+                fb.style.color = '#b3261e';
+                fb.textContent = 'Failed: ' + err.message;
+            }
+        });
+
         function loadUnitReports() {
-            renderOfficeGrid();
+            loadBoardPassword();
+            setupMyOffice();
             loadOfficePhotos();
             loadSettingsAndMeetings();
         }
 
-        // ============================================================
-        //  SITE IMAGES - no Firebase Storage (needs the paid Blaze
-        //  plan). Instead: paste a Google Drive "Anyone with the
-        //  link" URL per slot, we convert it to a hotlinkable image
-        //  URL, and store just that URL in Firestore. site-images.js
-        //  on the public pages watches this collection and swaps in
-        //  the image wherever that slot is used.
-        // ============================================================
         const IMAGE_SLOT_GROUPS = [
             { group: 'Branding', items: [
                 { slot: 'logo', label: 'Site Logo' }
@@ -4891,9 +4733,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             ]}
         ];
 
-        // Turns a normal Google Drive share link into a URL that works
-        // directly inside an <img src>. Accepts the common share-link
-        // shapes; falls back to treating the input as a raw file ID.
         function driveLinkToImageUrl(input) {
             const raw = input.trim();
             let id = null;
@@ -5000,20 +4839,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  SITE CONTENT - text on the public pages (homepage headline
-        //  copy, event date/tag/title, footer service times & contact
-        //  info). Same shape as Site Images: each field is a doc in
-        //  Firestore collection "site_content", doc id = slot name,
-        //  { text }. site-content.js on the public pages watches this
-        //  collection and swaps the text in wherever that slot is used
-        //  (untouched fields just keep showing the page's default copy).
-        //
-        //  More slots can be added to a page any time by adding a
-        //  data-text-slot="..." attribute in the HTML and a matching
-        //  entry to CONTENT_SLOT_GROUPS below - no other code changes
-        //  needed.
-        // ============================================================
         const CONTENT_SLOT_GROUPS = [
             { group: 'App Splash (intro animation)', items: [
                 { slot: 'splash-tagline', label: 'Splash toggle-pill text (e.g. "A Fellowship You Can Call Home")', multiline: false }
@@ -5141,12 +4966,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             });
         }
 
-        // ============================================================
-        //  SUBSCRIBERS (newsletter mailing list). Never public - see
-        //  Firestore rules. Doc ID is the subscriber's own lowercased
-        //  email (set by newsletter-subscribe.js), which is also what
-        //  makes duplicate signups impossible at the rules level.
-        // ============================================================
         let allSubscribers = [];
         let activeSubscriberFilter = 'all';
         const subscriberSearch = document.getElementById('subscriberSearch');
@@ -5271,13 +5090,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             URL.revokeObjectURL(url);
         });
 
-        // ============================================================
-        //  COMPOSE NEWSLETTER. Writing/previewing here does nothing to
-        //  real subscribers - only clicking Send calls the free Apps
-        //  Script Web App (see /apps-script/Code.gs), which does the
-        //  actual sending server-side via Brevo. This tab never talks
-        //  to an email provider directly, and never sees a Brevo key.
-        // ============================================================
         function buildNewsletterPreviewHtml() {
             const title = document.getElementById('newsletterTitle').value.trim() || '(Untitled)';
             const content = document.getElementById('newsletterContent').value.trim();
@@ -5317,8 +5129,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             document.getElementById('newsletterPreviewWrap').style.display = 'block';
         });
 
-        // Regenerate the preview live if it's already open, so edits
-        // after clicking Preview once don't look stale.
         ['newsletterTitle', 'newsletterContent', 'newsletterImageLink', 'newsletterCtaText', 'newsletterCtaLink']
             .forEach(id => {
                 document.getElementById(id).addEventListener('input', () => {
@@ -5354,12 +5164,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                 return;
             }
 
-            // One random ID per click, kept only for the newsletter
-            // history record - not used for de-duplication here (this
-            // simpler backend doesn't check it), so the real guard
-            // against double-sending is the button being disabled
-            // immediately below and re-enabled only once the request
-            // finishes.
             const clientRequestId = 'req_' + Date.now() + '_' + Math.random().toString(36).slice(2);
 
             sendNewsletterBtn.disabled = true;
@@ -5370,9 +5174,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             try {
                 const idToken = await auth.currentUser.getIdToken();
 
-                // text/plain avoids a CORS "preflight" request that
-                // Apps Script Web Apps don't handle - it still parses
-                // the body as JSON on the other end (see Code.gs).
                 const response = await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -5400,10 +5201,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
                     : `Sent to ${recipientCount} subscriber(s).`;
                 newsletterFeedback.style.color = '#0B1F44';
 
-                // Sending itself is done server-side (Apps Script never
-                // touches Firestore) - the history record is written
-                // here instead, by the client, same as every other
-                // admin-only collection in this dashboard.
                 await db.collection('newsletters').add({
                     subject, title, content,
                     imageUrl: imageUrl || null,

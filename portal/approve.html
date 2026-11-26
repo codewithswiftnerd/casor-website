@@ -45,7 +45,6 @@
 
         <div id="msg" class="msg" role="status"></div>
 
-        <!-- Step 1: sign in as admin -->
         <section id="signinView" class="hidden">
             <h1>Review a signup</h1>
             <p class="sub">Sign in with your admin account to review this request. Opening this link alone never approves anyone.</p>
@@ -58,7 +57,6 @@
             </form>
         </section>
 
-        <!-- Step 2: review -->
         <section id="reviewView" class="hidden">
             <h1>Approve this EXCO?</h1>
             <p class="sub">Check the details below, then confirm. This can be changed later from the dashboard.</p>
@@ -92,7 +90,6 @@
         const params = new URLSearchParams(location.search);
         const uid = (params.get('uid') || '').trim();
         const token = (params.get('token') || '').trim();
-        // Strip the token from the address bar so it isn't left in history.
         if (token) history.replaceState(null, '', location.pathname + '?uid=' + encodeURIComponent(uid));
 
         const $ = (id) => document.getElementById(id);
@@ -108,7 +105,6 @@
 
         if (!uid) { show('This link is missing the applicant id. Open the Approvals tab in the dashboard instead.', 'err'); $('toDashboard').classList.remove('hidden'); return; }
 
-        // Office dropdown
         (OFFICE_DOCS || []).forEach(o => {
             const opt = document.createElement('option');
             opt.value = o.id; opt.textContent = o.name + ' (' + o.category + ')';
@@ -177,9 +173,6 @@
             try {
                 await functions.httpsCallable('reviewSignup')({ uid, token: token || null, decision, role, office });
             } catch (err) {
-                // If the Cloud Function isn't deployed (Spark plan), fall back
-                // to the same direct admin write the dashboard uses. Firestore
-                // rules still require the caller to be an admin.
                 const notDeployed = err && (err.code === 'functions/not-found' || err.code === 'functions/internal' || err.code === 'functions/unavailable');
                 if (!notDeployed) {
                     show(err.message || 'Something went wrong.', 'err');

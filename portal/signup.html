@@ -69,7 +69,6 @@
         .back-link a{ color:var(--navy); font-weight:600; text-decoration:none; }
         .hint{ font-size:11px; color:#999; margin:-12px 0 18px; }
 
-        /* ===== Interactive "waiting for verification" screen ===== */
         .loading-indicator { display:none; }
         .verify-stage{
             width:100%; max-width:460px;
@@ -237,7 +236,6 @@
 <script>
 const form = document.getElementById('signupForm');
 
-// Fill the "position" dropdown from the official office list.
 (function fillOffices() {
     const sel = document.getElementById('requestedOffice');
     if (typeof OFFICE_DOCS === 'undefined') return;
@@ -318,14 +316,8 @@ form.addEventListener('submit', async (e) => {
         currentUser = cred.user;
         await cred.user.updateProfile({ displayName: name });
 
-        // Send verification email
         await cred.user.sendEmailVerification();
 
-        // The EXCO record. Always starts pending/exco - the security rules
-        // reject anything else, and only an admin can change it later.
-        // There is NO approval token here any more: the review token is
-        // generated server-side by the notifyAdminOnSignup Cloud Function
-        // and stored where no browser can read it.
         await db.collection('excos').doc(cred.user.uid).set({
             name: name,
             email: cred.user.email,
@@ -337,17 +329,6 @@ form.addEventListener('submit', async (e) => {
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
 
-        // Two things now happen on signup, independent of each other:
-        // 1) This still opens the signee's own email app pre-addressed
-        //    to the admin, as a fallback / heads-up.
-        // 2) A Cloud Function (see functions/index.js:
-        //    notifyAdminOnSignup) is watching for this new document and
-        //    automatically emails the ADMIN_EMAIL below a real message
-        //    with one-click "Approve as EXCO" / "Approve as Admin"
-        //    links - no dashboard visit needed. That part requires the
-        //    function to actually be deployed (see SETUP-GUIDE.md);
-        //    until then this mailto: fallback is what carries the
-        //    request.
         try {
             const adminSubject = encodeURIComponent('CASOR EXCO Portal - New Signup Needs Approval');
             const adminBody = encodeURIComponent(
@@ -358,23 +339,13 @@ form.addEventListener('submit', async (e) => {
             );
             window.open(`mailto:${ADMIN_EMAIL}?subject=${adminSubject}&body=${adminBody}`, '_blank');
         } catch (_) {
-            // Non-fatal - the pending signup still shows up in the
-            // dashboard's Approvals tab either way.
         }
 
-        // Show the animated verification screen in place of the signup form
         document.getElementById('signupBox').style.display = 'none';
         loadingIndicator.style.display = 'block';
 
         const verifyBody = loadingIndicator.querySelector('.verify-body');
 
-        // Two independent things now have to happen before this person
-        // gets in: they verify their email (proves the address is
-        // theirs), and an admin approves them (proves a human vetted
-        // them). Neither one grants access on its own, and neither
-        // depends on the other - this loop just watches both and
-        // updates the moment each one flips, with no writes from this
-        // page at all except the initial "pending" doc above.
         let attempts = 0;
         let everVerified = false;
         verificationInterval = setInterval(async () => {
@@ -394,7 +365,7 @@ form.addEventListener('submit', async (e) => {
             try {
                 const profile = await db.collection('excos').doc(cred.user.uid).get();
                 approved = profile.exists && profile.data().status === 'approved';
-            } catch (_) { /* keep polling */ }
+            } catch (_) {  }
 
             if (approved) {
                 document.getElementById('stepApprove').classList.add('active');
@@ -423,12 +394,9 @@ form.addEventListener('submit', async (e) => {
                 `;
                 clearInterval(verificationInterval);
             } else if (everVerified && attempts > 3 && attempts % 10 === 0) {
-                // Verified and just waiting on the admin now - keep the
-                // spinner up but reassure them nothing further is needed.
                 verifyBody.querySelector('p').textContent =
                     'Your email is verified. Waiting on admin approval - no further action needed from you.';
             } else if (!everVerified && attempts > 60) {
-                // Timeout after 3 minutes (60 * 3 seconds) of no verification
                 clearInterval(verificationInterval);
                 verifyBody.innerHTML = `
                     <div class="verify-motto">Raising Kingdom Ambassadors for Global Impact</div>
@@ -441,7 +409,7 @@ form.addEventListener('submit', async (e) => {
                     </div>
                 `;
             }
-        }, 3000); // Check every 3 seconds
+        }, 3000);
 
     } catch (err) {
         errorMsg.textContent = friendlyError(err.code);

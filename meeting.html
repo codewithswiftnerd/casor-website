@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meeting Board | CASOR UNIPORT</title>
 
-
     <meta name="description" content="Minutes, vision statements and unit reports for CASOR UNIPORT general meetings, readable on any phone during the meeting." />
     <link rel="canonical" href="https://casoruniport.netlify.app/meeting.html" />
     <meta property="og:type" content="website" />
@@ -14,16 +13,13 @@
     <meta property="og:url" content="https://casoruniport.netlify.app/meeting.html" />
     <meta property="og:image" content="https://casoruniport.netlify.app/images/icon-512.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <!-- ===== FONTS ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-    <!-- ===== FONT AWESOME ===== -->
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
 
-    <!-- ===== STYLES ===== -->
     <link rel="icon" type="image/png" href="images/logo.png" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -35,7 +31,6 @@
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- ================= NAVBAR ================= -->
     <header>
         <div class="logo">
             <img src="images/logo.png" alt="CASOR Logo" data-img-slot="logo" />
@@ -61,11 +56,10 @@
         </div>
     </header>
 
-    <!-- ================= PAGE HERO ================= -->
     <section id="main" class="mb-hero">
         <p class="breadcrumb"><a href="index.html">Home</a> / Meeting Board</p>
         <h1>Meeting Board</h1>
-        <p class="mb-sub">Minutes, vision statements and unit reports for the house. Read along on your phone during the meeting, no printed copy needed.</p>
+        <p class="mb-sub">Minutes, vision statements, unit reports and handover notes for the house. Read along on your phone during the meeting, no printed copy needed.</p>
         <div class="mb-status" id="mbStatus" aria-live="polite">
             <span class="skeleton" style="display:inline-block;width:220px;height:22px;"></span>
         </div>
@@ -80,16 +74,28 @@
                 <button class="filter-pill" data-type="Proposed Semester Calendar" role="tab" aria-selected="false">Semester Calendar</button>
                 <button class="filter-pill" data-type="Vision Statement" role="tab" aria-selected="false">Vision Statements</button>
                 <button class="filter-pill" data-type="Report" role="tab" aria-selected="false">Unit Reports</button>
+                <button class="filter-pill" data-type="Handover Note" role="tab" aria-selected="false">Handover Notes</button>
+                <button class="filter-pill" data-type="Other" role="tab" aria-selected="false">Other</button>
             </div>
             <label class="mb-search">
                 <i class="fas fa-search" aria-hidden="true"></i>
                 <input type="search" id="mbSearch" placeholder="Search by office or title" aria-label="Search documents" />
             </label>
         </div>
+        <form class="mb-lock" id="mbLock" hidden autocomplete="off">
+            <span class="mb-lock-icon"><i class="fas fa-lock" aria-hidden="true"></i></span>
+            <h2>Enter the board password</h2>
+            <p id="mbLockMsg">The Meeting Board is for members of the house. The password is announced at the meeting.</p>
+            <div class="mb-lock-row">
+                <input type="password" id="mbLockInput" placeholder="Password" aria-label="Meeting Board password" maxlength="60" autocapitalize="none" autocorrect="off" spellcheck="false" />
+                <button type="button" class="mb-lock-eye" id="mbLockEye" aria-label="Show password"><i class="fas fa-eye" aria-hidden="true"></i></button>
+            </div>
+            <button type="submit" class="btn-primary" id="mbLockBtn">Open the board</button>
+            <span class="mb-lock-err" id="mbLockErr" aria-live="polite"></span>
+        </form>
         <div id="mbList"></div>
     </section>
 
-    <!-- Reader: opens a document in-page (Google Drive preview) -->
     <div class="mb-reader" id="mbReader" hidden role="dialog" aria-modal="true" aria-labelledby="mbReaderTitle">
         <div class="mb-reader-bar">
             <button type="button" class="mb-reader-close" id="mbReaderClose" aria-label="Close"><i class="fas fa-arrow-left"></i></button>
@@ -97,12 +103,12 @@
                 <strong id="mbReaderTitle"></strong>
                 <span id="mbReaderSub"></span>
             </div>
+            <button type="button" class="mb-reader-open" id="mbReaderShare" aria-label="Share this document"><i class="fas fa-share-nodes" aria-hidden="true"></i></button>
             <a class="mb-reader-open" id="mbReaderOpen" href="#" target="_blank" rel="noopener" aria-label="Open in new tab"><i class="fas fa-up-right-from-square"></i></a>
         </div>
         <iframe id="mbReaderFrame" title="Document preview" loading="lazy" referrerpolicy="no-referrer"></iframe>
     </div>
 
-    <!-- ================= FOOTER ================= -->
     <footer id="contact">
 
         <div class="newsletter-row">
@@ -174,6 +180,7 @@
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
     <script src="portal/firebase-config.js"></script>
@@ -184,23 +191,21 @@
     <script src="site-content.js"></script>
     <script src="site-images.js"></script>
     <script src="install-prompt.js"></script>
+    <script src="share.js"></script>
     <script src="portal/office-docs.js"></script>
     <script src="meeting.js"></script>
 
     <script>
-        // ===== MOBILE MENU TOGGLE =====
         const menuToggle = document.getElementById('menuToggle');
         const mainNav = document.getElementById('mainNav');
 
         menuToggle.addEventListener('click', function() {
             const isOpen = mainNav.classList.toggle('active');
             menuToggle.classList.toggle('open', isOpen);
-            // Toggle icon
             const icon = this.querySelector('i');
             icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
         });
 
-        // Close menu when a nav link is clicked (on mobile)
         document.querySelectorAll('#mainNav a').forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth <= 1024) {
@@ -212,11 +217,6 @@
             });
         });
 
-        // Newsletter form handling now lives in newsletter-subscribe.js
-        // (loaded below, right after portal/firebase-config.js) so the
-        // real Firestore signup logic isn't duplicated across every page.
-
-        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');

@@ -181,7 +181,6 @@
         const errorMsg = document.getElementById('errorMsg');
         const loginBtn = document.getElementById('loginBtn');
 
-        // ===== If already logged in AND approved, skip to dashboard =====
         auth.onAuthStateChanged(async user => {
             if (!user) return;
             try {
@@ -196,9 +195,7 @@
             }
         });
 
-        // ===== Resend verification link =====
         function attachResendHandler(email, password) {
-            // Wait a tick for the DOM to update
             requestAnimationFrame(() => {
                 const link = document.getElementById('resendLink');
                 if (!link) return;
@@ -216,7 +213,6 @@
             });
         }
 
-        // ===== Friendly error messages =====
         function friendlyError(code) {
             const map = {
                 'auth/invalid-email': 'That email address looks invalid.',
@@ -231,7 +227,6 @@
             return map[code] || 'Something went wrong. Please try again.';
         }
 
-        // ===== Login form submit =====
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             errorMsg.style.display = 'none';
@@ -256,10 +251,6 @@
                     return;
                 }
 
-                // No write happens here anymore - approval is something
-                // ONLY an admin can grant (via the dashboard or the
-                // one-click email link), never the person logging in.
-                // This just reads that decision.
                 const profile = await db.collection('excos').doc(cred.user.uid).get();
                 if (!profile.exists || profile.data().status !== 'approved') {
                     await auth.signOut();
@@ -280,7 +271,6 @@
             }
         });
 
-        // ===== Forgot password =====
         document.getElementById('forgotLink').addEventListener('click', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value.trim();
