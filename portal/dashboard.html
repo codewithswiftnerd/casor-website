@@ -962,6 +962,29 @@
         .board-pw h3 { margin: 0 0 4px; font-size: 15px; color: var(--navy); }
         .board-pw p { margin: 0 0 10px; font-size: 13px; color: #5b6476; }
         .board-pw .current { font-weight: 700; color: var(--navy); letter-spacing: .04em; }
+        .sh-filter { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 14px; }
+        .sh-filter button { font: inherit; font-size: 13px; font-weight: 700; border: 1px solid #DDE3E0; background: #fff; color: #14181F; border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+        .sh-filter button.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+        .sh-filter span { display: inline-block; min-width: 18px; margin-left: 4px; border-radius: 999px; background: rgba(0,0,0,.08); padding: 0 6px; font-size: 12px; }
+        .sh-filter button.active span { background: rgba(255,255,255,.2); }
+        .sh-badge { font-size: 12px; font-weight: 700; background: #FFC72C; color: #0B1F44; border-radius: 999px; padding: 2px 9px; vertical-align: middle; }
+        .card-sub { margin: -6px 0 14px; color: #6b7385; font-size: 13.5px; }
+        .sh-item { border: 1px solid #E6E9F0; border-radius: 14px; padding: 14px; margin-bottom: 10px; background: #fff; }
+        .sh-item-head { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+        .sh-item-head strong { color: var(--navy); font-size: 15px; }
+        .sh-item-head time { font-size: 12px; color: #8a93a6; }
+        .sh-item p { margin: 6px 0 0; font-size: 13.5px; color: #4b5466; }
+        .sh-course-chip { display: inline-block; font-size: 12px; font-weight: 700; background: #FFF4CC; color: #6B4E00; border-radius: 999px; padding: 2px 9px; margin-right: 4px; }
+        .sh-item-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; align-items: center; }
+        .sh-item-actions select { margin: 0; flex: 1 1 200px; max-width: 320px; }
+        .sh-item-actions .btn, .sh-item-actions .btn-outline { padding: 7px 12px; font-size: 12.5px; margin: 0; }
+        .sh-wa { background: #25D366 !important; border-color: #25D366 !important; color: #fff !important; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; padding: 7px 12px; font-size: 12.5px; font-weight: 700; }
+        .sh-matched { margin-top: 8px; font-size: 13px; color: #1e7d43; font-weight: 700; }
+        .sh-hidden-tag { font-size: 11px; font-weight: 700; color: #b3261e; margin-left: 6px; }
+        .sh-group-form { display: grid; gap: 8px; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid #E6E9F0; }
+        .sh-group-form input, .sh-group-form textarea { margin: 0 !important; }
+        .sh-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        @media (max-width: 560px) { .sh-2col { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -990,6 +1013,7 @@
             <button class="tab-btn" data-panel="newsPanel">News</button>
             <button class="tab-btn" data-panel="programsPanel">Statutory Programs</button>
             <button class="tab-btn" data-panel="unitsPanel">My Office</button>
+            <button class="tab-btn" data-panel="studyHelpPanel">Study Help</button>
             <button class="tab-btn" data-panel="imagesPanel">Site Images</button>
             <button class="tab-btn" data-panel="contentPanel">Site Content</button>
             <button class="tab-btn" data-panel="subscribersPanel">Subscribers</button>
@@ -1550,6 +1574,57 @@
             </div>
         </div>
 
+        <div class="panel" id="studyHelpPanel">
+            <div class="card">
+                <h2>Tutor requests</h2>
+                <div class="guide-box">
+                    <strong>How this works:</strong> students ask for help on the Library page. Pick a tutor and tap
+                    <strong>Assign</strong>, then use the WhatsApp buttons to send each of them the other's details.
+                    Only the Press &amp; Academic office and admins can see this tab.
+                </div>
+                <div class="sh-filter" id="shReqFilter">
+                    <button class="active" data-status="pending">Waiting <span id="shCountPending">0</span></button>
+                    <button data-status="matched">Matched <span id="shCountMatched">0</span></button>
+                    <button data-status="closed">Done <span id="shCountClosed">0</span></button>
+                </div>
+                <div id="shRequestList"><p class="admin-empty">Loading...</p></div>
+            </div>
+
+            <div class="card">
+                <h2>Tutor offers <span class="sh-badge" id="shAppCount">0</span></h2>
+                <p class="card-sub">Members who offered to tutor. Approve to list them on the Library page; their number stays private.</p>
+                <div id="shAppList"><p class="admin-empty">Loading...</p></div>
+            </div>
+
+            <div class="card">
+                <h2>Tutors</h2>
+                <div id="shTutorList"><p class="admin-empty">Loading...</p></div>
+            </div>
+
+            <div class="card">
+                <h2>Study groups</h2>
+                <div class="sh-group-form">
+                    <input type="hidden" id="shGroupId" />
+                    <div class="sh-2col">
+                        <input type="text" id="shGroupCourse" maxlength="40" placeholder="Course, e.g. MTH 110" />
+                        <input type="text" id="shGroupTitle" maxlength="100" placeholder="Group name, e.g. MTH 110 Revision Squad" />
+                    </div>
+                    <div class="sh-2col">
+                        <input type="text" id="shGroupSchedule" maxlength="100" placeholder="When, e.g. Thursdays, 4 PM" />
+                        <input type="text" id="shGroupVenue" maxlength="100" placeholder="Where, e.g. Faculty of Science, LT2" />
+                    </div>
+                    <input type="url" id="shGroupLink" maxlength="300" placeholder="WhatsApp group invite link (https://chat.whatsapp.com/...)" />
+                    <textarea id="shGroupDesc" maxlength="400" rows="2" placeholder="Short description (optional)"></textarea>
+                    <div class="inline-form">
+                        <button class="btn" id="shGroupSave">Add group</button>
+                        <button class="btn-outline" id="shGroupCancel" hidden>Cancel</button>
+                        <span id="shGroupFeedback" class="small-feedback"></span>
+                    </div>
+                </div>
+                <div id="shGroupList"><p class="admin-empty">Loading...</p></div>
+            </div>
+        </div>
+
         <div class="panel" id="imagesPanel">
             <div class="card">
                 <h2>Site Images</h2>
@@ -1709,6 +1784,7 @@
     <script src="office-docs.js">
     </script>
     <script src="uploader.js"></script>
+    <script src="study-help-admin.js"></script>
     <script>
         function escapeHtml(str) {
             if (!str) return '';
@@ -1774,6 +1850,11 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             'galleryPanel', 'presidentsPanel', 'abcOfficialsPanel', 'hallPastorsPanel', 'programsPanel', 'imagesPanel', 'contentPanel', 'approvalsPanel',
             'subscribersPanel', 'composePanel'];
 
+        function isAcademicUser() {
+            return currentUserRole === 'admin'
+                || !!(currentUserProfile && ['press-academic-secretary', 'asst-press-academic-secretary'].includes(currentUserProfile.office));
+        }
+
         function applyRoleToUI() {
             if (currentUserRole === 'admin') {
                 const mCard = document.getElementById('meetingsAdminCard');
@@ -1783,6 +1864,7 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
 
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 if (ADMIN_ONLY_PANELS.includes(btn.dataset.panel)) btn.remove();
+                if (btn.dataset.panel === 'studyHelpPanel' && !isAcademicUser()) btn.remove();
             });
 
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1840,6 +1922,7 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZARpGPd8BZ9FL
             applyRoleToUI();
 
             loadUnitReports();
+            if (isAcademicUser() && typeof loadStudyHelpAdmin === 'function') loadStudyHelpAdmin();
             loadNewsAdmin();
             loadOverview();
             if (currentUserRole === 'admin') {

@@ -156,6 +156,15 @@ async function preview(page, params, html) {
         image: docThumb(d.url)
       };
     }
+    if (params.get('group')) {
+      const g = await getDoc('study_groups', params.get('group'));
+      if (!g || g.active === false) return null;
+      return {
+        title: `${g.title} (${g.course}) - ${SITE_NAME} study group`,
+        description: [g.schedule, g.venue].filter(Boolean).join(' · ') || g.description || 'Join this study group on WhatsApp.',
+        image: null
+      };
+    }
     if (params.get('folder')) {
       const f = await getDoc('folders', params.get('folder'));
       if (!f) return null;

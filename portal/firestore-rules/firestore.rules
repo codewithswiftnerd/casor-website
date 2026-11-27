@@ -43,6 +43,12 @@ service cloud.firestore {
         ? type in ['Vision Statement', 'Minutes', 'Agenda', 'Proposed Semester Calendar', 'Handover Note', 'Other']
         : type in ['Vision Statement', 'Report', 'Minutes', 'Handover Note', 'Other'];
     }
+    function isAcademic() {
+      return isAdmin() || hasOffice('press-academic-secretary') || hasOffice('asst-press-academic-secretary');
+    }
+    function phoneText(v) {
+      return v is string && v.size() >= 10 && v.size() <= 16 && v.matches('^\\+?[0-9]+$');
+    }
     function boardPasswordPath() {
       return /databases/$(database)/documents/board_private/password;
     }
@@ -137,6 +143,52 @@ service cloud.firestore {
                      && shortText(request.resource.data.title, 160)
                      && request.resource.data.status in ['live', 'closed'];
       allow delete: if isAdmin();
+    }
+
+    match /tutor_requests/{docId} {
+      allow create: if request.resource.data.keys().hasOnly(['name', 'level', 'department', 'course', 'details', 'whatsapp', 'preferredTutorId', 'preferredTutorName', 'status', 'createdAt'])
+                     && shortText(request.resource.data.name, 80)
+                     && shortText(request.resource.data.level, 20)
+                     && shortText(request.resource.data.department, 80)
+                     && shortText(request.resource.data.course, 40)
+                     && optionalText(request.resource.data, 'details', 500)
+                     && optionalText(request.resource.data, 'preferredTutorId', 60)
+                     && optionalText(request.resource.data, 'preferredTutorName', 80)
+                     && phoneText(request.resource.data.whatsapp)
+                     && request.resource.data.status == 'pending'
+                     && request.resource.data.createdAt == request.time;
+      allow read, update, delete: if isAcademic();
+    }
+
+    match /tutor_applications/{docId} {
+      allow create: if request.resource.data.keys().hasOnly(['name', 'level', 'department', 'courses', 'about', 'whatsapp', 'status', 'createdAt'])
+                     && shortText(request.resource.data.name, 80)
+                     && shortText(request.resource.data.level, 20)
+                     && shortText(request.resource.data.department, 80)
+                     && shortText(request.resource.data.courses, 200)
+                     && optionalText(request.resource.data, 'about', 300)
+                     && phoneText(request.resource.data.whatsapp)
+                     && request.resource.data.status == 'pending'
+                     && request.resource.data.createdAt == request.time;
+      allow read, update, delete: if isAcademic();
+    }
+
+    match /tutors/{docId} {
+      allow read: if true;
+      allow write: if isAcademic();
+    }
+
+    match /tutor_private/{docId} {
+      allow read, write: if isAcademic();
+    }
+
+    match /study_groups/{docId} {
+      allow read: if true;
+      allow write: if isAcademic()
+                     && (request.resource == null
+                         || !('whatsappLink' in request.resource.data)
+                         || request.resource.data.whatsappLink == ''
+                         || request.resource.data.whatsappLink.matches('^https://(chat\\.whatsapp\\.com|wa\\.me|whatsapp\\.com)/.*'));
     }
 
     match /board_private/{docId} {

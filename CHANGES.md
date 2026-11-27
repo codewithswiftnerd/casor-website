@@ -135,3 +135,16 @@ Recommended order: deploy the site files and rules together, then assign offices
 | `netlify/edge-functions/share-preview.js` | WhatsApp previews show the shared item's own title and picture. |
 
 **One-time setup:** publish the new Firestore rules, and turn on Firebase Authentication > Sign-in method > **Anonymous**.
+
+---
+
+## Update: 27 Nov 2026 (Study Help in the e-library)
+
+| Area | Change |
+|---|---|
+| `library.html` + `study-help.js` | New **Study Help** section with three tabs. **Get a tutor**: browse tutors by course and send a request. **Study groups**: groups with a "Join on WhatsApp" button. **Become a tutor**: members offer to tutor. Phone numbers are never shown publicly. |
+| Dashboard, **Study Help** tab | Visible only to the Press & Academic Secretary, the Assistant, and admins. Assign a tutor to each request (preferred and matching tutors listed first), with WhatsApp buttons that send each side the other's details. Approve or decline tutor offers, hide or remove tutors, and add or edit study groups. |
+| `firestore.rules` | New collections: `tutor_requests`, `tutor_applications`, `tutors`, `tutor_private`, `study_groups`. Anyone can send requests and offers; only the academic office and admins can read them. |
+| Edge function | Shared study group links (`library.html?group=...`) preview on WhatsApp. |
+
+**Setup:** publish the updated Firestore rules.

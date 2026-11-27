@@ -97,6 +97,82 @@
 
     </section>
 
+    <section class="content-section study-help" id="study-help">
+        <div class="section-head">
+            <span class="eyebrow">STUDY HELP</span>
+            <h2>Struggling with a course? <span>Get help.</span></h2>
+            <p>Ask for a tutor, join a study group, or offer to tutor others. Run by the Press &amp; Academic office.</p>
+        </div>
+
+        <div class="sh-tabs" role="tablist" aria-label="Study help">
+            <button type="button" class="sh-tab active" role="tab" aria-selected="true" data-sh="shTutor"><i class="fas fa-user-graduate" aria-hidden="true"></i> Get a tutor</button>
+            <button type="button" class="sh-tab" role="tab" aria-selected="false" data-sh="shGroups"><i class="fas fa-people-group" aria-hidden="true"></i> Study groups</button>
+            <button type="button" class="sh-tab" role="tab" aria-selected="false" data-sh="shBecome"><i class="fas fa-hand-holding-heart" aria-hidden="true"></i> Become a tutor</button>
+        </div>
+
+        <div class="sh-panel active" id="shTutor" role="tabpanel">
+            <div class="sh-steps">
+                <div><b>1</b><span>Tell us the course you need help with.</span></div>
+                <div><b>2</b><span>The academic office picks a tutor for you.</span></div>
+                <div><b>3</b><span>You're connected on WhatsApp.</span></div>
+            </div>
+
+            <div class="sh-search">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input type="text" id="tutorSearch" placeholder="Find tutors by course, e.g. MTH 110" aria-label="Search tutors by course" />
+            </div>
+            <div class="sh-grid" id="tutorGrid"><p class="sh-empty">Loading tutors...</p></div>
+
+            <form class="sh-form" id="tutorRequestForm" novalidate>
+                <h3>Request a tutor</h3>
+                <p class="sh-pref" id="tutorPrefNote" hidden></p>
+                <div class="sh-row">
+                    <label>Your name<input type="text" name="name" maxlength="80" required autocomplete="name" /></label>
+                    <label>Level<select name="level" required>
+                        <option value="">Choose...</option><option>100L</option><option>200L</option><option>300L</option><option>400L</option><option>500L</option><option>600L</option><option>Postgraduate</option>
+                    </select></label>
+                </div>
+                <div class="sh-row">
+                    <label>Department<input type="text" name="department" maxlength="80" required /></label>
+                    <label>Course you need help with<input type="text" name="course" maxlength="40" required placeholder="e.g. MTH 110" /></label>
+                </div>
+                <label>What exactly do you need help with?<textarea name="details" maxlength="500" rows="3" placeholder="e.g. Integration and differential equations, exam is in 3 weeks"></textarea></label>
+                <label>WhatsApp number<input type="tel" name="whatsapp" maxlength="20" required placeholder="e.g. 0803 123 4567" autocomplete="tel" /></label>
+                <p class="sh-privacy"><i class="fas fa-lock" aria-hidden="true"></i> Only the academic office sees your number.</p>
+                <button type="submit" class="btn-primary">Send request</button>
+                <p class="sh-msg" aria-live="polite"></p>
+            </form>
+        </div>
+
+        <div class="sh-panel" id="shGroups" role="tabpanel" hidden>
+            <div class="sh-search">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input type="text" id="groupSearch" placeholder="Find a group by course" aria-label="Search study groups" />
+            </div>
+            <div class="sh-grid" id="groupGrid"><p class="sh-empty">Loading study groups...</p></div>
+        </div>
+
+        <div class="sh-panel" id="shBecome" role="tabpanel" hidden>
+            <form class="sh-form" id="tutorApplyForm" novalidate>
+                <h3>Offer to tutor</h3>
+                <p class="sh-lead">Good at a course? Help a fellow CASORite. The academic office reviews every offer before it shows on the site.</p>
+                <div class="sh-row">
+                    <label>Your name<input type="text" name="name" maxlength="80" required autocomplete="name" /></label>
+                    <label>Level<select name="level" required>
+                        <option value="">Choose...</option><option>200L</option><option>300L</option><option>400L</option><option>500L</option><option>600L</option><option>Postgraduate</option><option>Graduate</option>
+                    </select></label>
+                </div>
+                <label>Department<input type="text" name="department" maxlength="80" required /></label>
+                <label>Courses you can teach<input type="text" name="courses" maxlength="200" required placeholder="e.g. MTH 110, MTH 120, PHY 101" /></label>
+                <label>A line about you<textarea name="about" maxlength="300" rows="2" placeholder="e.g. A in MTH 110; I explain step by step"></textarea></label>
+                <label>WhatsApp number<input type="tel" name="whatsapp" maxlength="20" required placeholder="e.g. 0803 123 4567" autocomplete="tel" /></label>
+                <p class="sh-privacy"><i class="fas fa-lock" aria-hidden="true"></i> Your number is never shown on the website.</p>
+                <button type="submit" class="btn-primary">Send my offer</button>
+                <p class="sh-msg" aria-live="polite"></p>
+            </form>
+        </div>
+    </section>
+
     <footer id="contact">
 
         <div class="newsletter-row">
@@ -179,6 +255,7 @@
     <script src="site-images.js"></script>
     <script src="install-prompt.js"></script>
     <script src="share.js"></script>
+    <script src="study-help.js"></script>
 
     <script>
         const menuToggle = document.getElementById('menuToggle');
